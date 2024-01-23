@@ -4,11 +4,14 @@ import com.mindhub.wireit.models.*;
 import com.mindhub.wireit.models.enums.OrderStatus;
 import com.mindhub.wireit.models.enums.ProductCategory;
 import com.mindhub.wireit.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 
@@ -20,6 +23,9 @@ public class WireItApplication {
 		SpringApplication.run(WireItApplication.class, args);
 	}
 
+	@Autowired
+	PasswordEncoder passwordEncoder;
+
 	@Bean // notacion para ejecutarlo apenas inicia la app
 	public CommandLineRunner initData(ClientRepository clientRepository,
 									  AddressRepository addresRepository,
@@ -28,7 +34,7 @@ public class WireItApplication {
 									  ProductRepository productRepository,
 									  SupplierRepository supplierRepository) {
 		return args -> {
-			Client client = new Client("Melba","Morel","melba@mindhub.com",25524320);
+			Client client = new Client("Melba","Morel","melba@mindhub.com",25524320,passwordEncoder.encode("1234"));
 			clientRepository.save(client);
 			System.out.println(client);
 

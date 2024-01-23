@@ -12,35 +12,36 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String firstName, lastName, email;
+    private String firstName, lastName, email, password;
 
     private int dni;
 
     @Enumerated(EnumType.STRING)
     private Role role = Role.CLIENT;
 
-    @OneToMany(mappedBy = "client",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<Address> addresses = new HashSet<>();
 
-    @OneToMany(mappedBy = "client",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<PurchaseOrder> PurchaseOrders = new HashSet<>();
 
     public Client() {
     }
 
-    public Client(String firstName, String lastName, String email, int dni) {
+    public Client(String firstName, String lastName, String email, int dni, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.dni = dni;
+        this.password = password;
     }
 
-    public void addAddress (Address address){
+    public void addAddress(Address address) {
         address.setClient(this);
         this.addresses.add(address);
     }
 
-    public void addOrders(PurchaseOrder purchaseOrder){
+    public void addOrders(PurchaseOrder purchaseOrder) {
         purchaseOrder.setClient(this);
         this.PurchaseOrders.add(purchaseOrder);
     }
@@ -97,11 +98,19 @@ public class Client {
         this.addresses = addresses;
     }
 
-    public Set<PurchaseOrder> getOrders() {
+    public Set<PurchaseOrder> getPurchaseOrders() {
         return PurchaseOrders;
     }
 
-    public void setOrders(Set<PurchaseOrder> PurchaseOrders) {
-        this.PurchaseOrders = PurchaseOrders;
+    public void setPurchaseOrders(Set<PurchaseOrder> purchaseOrders) {
+        PurchaseOrders = purchaseOrders;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

@@ -32,7 +32,7 @@ public class ClientDTO {
         this.dni = client.getDni();
         this.role = client.getRole();
         this.addresses = client.getAddresses().stream().map(AddressDTO :: new).collect(Collectors.toSet());
-        this.purchaseOrders = client.getOrders().stream().map(PurchaseOrderDTO ::new).collect(Collectors.toSet());
+        this.purchaseOrders = client.getPurchaseOrders().stream().map(PurchaseOrderDTO ::new).collect(Collectors.toSet());
 
     }
 

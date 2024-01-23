@@ -26,15 +26,15 @@ public class SecurityConfig {
         http.headers(httpSecurityHeadersConfigurer -> httpSecurityHeadersConfigurer.frameOptions(
                 frameOptionsConfig -> frameOptionsConfig.disable()));
 
-       // http.formLogin(formLogin -> formLogin
-       //         .loginPage("/index.html")
-       //         .loginProcessingUrl("/api/login")
-       //         .usernameParameter("email")
-       //         .passwordParameter("password")
-       //         .successHandler((request, response, authentication) -> {clearAuthenticationAttributes(request);})
-       //         .failureHandler((request, response, exception) -> response.sendError(401))
-       //         .permitAll()
-       // );
+        http.formLogin(formLogin -> formLogin
+                .loginPage("/login")
+                .loginProcessingUrl("/api/login")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .successHandler((request, response, authentication) -> {clearAuthenticationAttributes(request);})
+                .failureHandler((request, response, exception) -> response.sendError(401))
+                .permitAll()
+        );
 
         http.exceptionHandling( exceptionHandlingConfigurer ->
                 exceptionHandlingConfigurer.authenticationEntryPoint((request, response, authException) -> response.sendError(403)));
