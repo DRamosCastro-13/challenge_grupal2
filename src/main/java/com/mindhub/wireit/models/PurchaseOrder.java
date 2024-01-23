@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Order {
+public class PurchaseOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,13 +27,13 @@ public class Order {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
-    private Set<productOrder> productOrders = new HashSet<>();
+    @OneToMany(mappedBy = "purchaseOrder", fetch = FetchType.EAGER)
+    private Set<ProductOrder> ProductOrders = new HashSet<>();
 
-    public Order() {
+    public PurchaseOrder() {
     }
 
-    public Order(String orderNumber, LocalDate shipment_date, String additionalComment, orderStatus orderStatus, double discount, double totalAmount) {
+    public PurchaseOrder(String orderNumber, LocalDate shipment_date, String additionalComment, orderStatus orderStatus, double discount, double totalAmount) {
         this.orderNumber = orderNumber;
         this.shipment_date = shipment_date;
         this.additionalComment = additionalComment;
@@ -42,9 +42,9 @@ public class Order {
         this.totalAmount = totalAmount;
     }
 
-    public void addProductOrder(productOrder productOrder){
-        productOrder.setOrder(this);
-        this.productOrders.add(productOrder);
+    public void addProductOrder(ProductOrder productOrder){
+        productOrder.setPurchaseOrder(this);
+        this.ProductOrders.add(productOrder);
     }
 
     public Long getId() {
@@ -107,11 +107,11 @@ public class Order {
         this.orderNumber = orderNumber;
     }
 
-    public Set<productOrder> getProductOrders() {
-        return productOrders;
+    public Set<ProductOrder> getProductOrders() {
+        return ProductOrders;
     }
 
-    public void setProductOrders(Set<productOrder> productOrders) {
-        this.productOrders = productOrders;
+    public void setProductOrders(Set<ProductOrder> ProductOrders) {
+        this.ProductOrders = ProductOrders;
     }
 }

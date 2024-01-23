@@ -19,7 +19,7 @@ public class Address {
     public Address() {
     }
 
-    public Address(String addres, String phone, String country, String province, String city, int zipCode, Client client) {
+    public Address(String addres, String phone, String country, String province, String city, int zipCode) {
         this.addres = addres;
         this.phone = phone;
         this.country = country;

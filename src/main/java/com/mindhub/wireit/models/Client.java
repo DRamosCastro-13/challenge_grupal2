@@ -23,7 +23,7 @@ public class Client {
     private Set<Address> addresses = new HashSet<>();
 
     @OneToMany(mappedBy = "client",fetch = FetchType.EAGER)
-    private Set<Order> orders = new HashSet<>();
+    private Set<PurchaseOrder> PurchaseOrders = new HashSet<>();
 
     public Client() {
     }
@@ -40,9 +40,9 @@ public class Client {
         this.addresses.add(address);
     }
 
-    public void addOrders(Order order){
-        order.setClient(this);
-        this.orders.add(order);
+    public void addOrders(PurchaseOrder purchaseOrder){
+        purchaseOrder.setClient(this);
+        this.PurchaseOrders.add(purchaseOrder);
     }
 
     public Long getId() {
@@ -97,11 +97,11 @@ public class Client {
         this.addresses = addresses;
     }
 
-    public Set<Order> getOrders() {
-        return orders;
+    public Set<PurchaseOrder> getOrders() {
+        return PurchaseOrders;
     }
 
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
+    public void setOrders(Set<PurchaseOrder> PurchaseOrders) {
+        this.PurchaseOrders = PurchaseOrders;
     }
 }

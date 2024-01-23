@@ -3,7 +3,7 @@ package com.mindhub.wireit.models;
 import jakarta.persistence.*;
 
 @Entity
-public class productOrder {
+public class ProductOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,14 +15,14 @@ public class productOrder {
 
     @ManyToOne
     @JoinColumn(name="order_id")
-    private Order order;
+    private PurchaseOrder purchaseOrder;
 
     private byte quantity;
 
-    public productOrder() {
+    public ProductOrder() {
     }
 
-    public productOrder(byte quantity) {
+    public ProductOrder(byte quantity) {
         this.quantity = quantity;
     }
 
@@ -38,12 +38,12 @@ public class productOrder {
         this.product = product;
     }
 
-    public Order getOrder() {
-        return order;
+    public PurchaseOrder getPurchaseOrder() {
+        return purchaseOrder;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
+        this.purchaseOrder = purchaseOrder;
     }
 
     public byte getQuantity() {
