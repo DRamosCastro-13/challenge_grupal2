@@ -3,34 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="shortcut icon" href="./assets/images/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Montserrat:wght@300;600&family=Poppins:wght@400;700&family=Signika:wght@500&family=Staatliches&display=swap" rel="stylesheet">
+    <title>WIRE IT HOME</title>
 </head>
-<body>
+<body class="bg-gradient-to-r from-[#1B1D29] to-[#7C85BD]">
     <div id="app">
-        <header>
-            <div>
-                <h1>Were it</h1>
-                <img src="" alt="">
+        <header class="flex place-content-between px-3">
+            <div class="p-3 text-center flex content-center min-h-[10vh]">
+                <img class="w-6" src="./assets/images/icon.png" alt="icon">
+                <h2 class="text-3xl font-extrabold flex self-center text-white font-['Montserrat']">WIRE IT</h2> 
             </div>
-            <nav>
-                <a href="index.html">Inicio</a>
-                <a href="./assets/pages/product.html">Productos</a>
-                <a href="./assets/pages/contact.html">Contacto</a>
-                <a href="./assets/pages/register.html">Iniciar sesion o registrarse</a>
-
+            <nav class="flex self-center gap-5">
+                <a class="font-['Poppins'] text-white text-lg" href="index.html">Home</a>
+                <a class="font-['Poppins'] text-white text-lg" href="./assets/pages/product.html">Products</a>
+                <a class="font-['Poppins'] text-white text-lg" href="./assets/pages/aboutus.html">About Us</a>
+                <a class="font-['Poppins'] text-white text-lg" href="./assets/pages/contact.html">Contact</a>
             </nav>
+                <a href="#" class="flex self-center justify-end gap-1 p-2">
+                    <h2 class="font-['Poppins'] text-white text-lg">Login</h2>
+                    <img class="w-5 lg:w-7" src="./assets/images/icon-login.png" alt="login">
+                </a>
         </header>
         <main>
+            <section class="w-full flex justify-center py-8">
+                <input class="bg-transparent border-b border-white" type="search" name="search" id="search" placeholder="Search...">
+                <img class="opacity-50 w-5 object-cover" src="./assets/images/icons8-lupa-48.png" alt="search">
+                <img src="" alt="">
+            </section>
+            <section class="flex w-full mb-24 px-10 items-center">
+                <div class="flex flex-col w-[50%] gap-4">
+                    <p class="text-4xl flex self-start text-white montserrat">With us</p>
+                    <h2 class="text-7xl flex self-start text-white font-bold font-['Montserrat'] pb-10"> Explore our curated collection of gadgets and tech solutions.</h2>
+                    <button  class="w-44 bg-[#22215D] p-2 rounded-2xl items-center font-['Poppins'] text-white text-2xl animate-pulse shadow-lg shadow-[#22215D]" v-on:click="mostrarModal">Start Now</button>
+                </div>
+                <article class="flex justify-center w-[50%]">
+                        <img class="lg:max-h-[100vh] object-contain min-h-[35vh]" src="./assets/images/chico gamer.png" alt="gamerguy">
+                </article>
+            </section>
 
 
 
         </main>
+        <footer class="flex flex-col w-full p-4 bg-slate-400/20">
+            <p class="font-['Poppins'] text-white text-lg text-center">Follow us</p>
+            <div class="flex w-full justify-center">
+                <a href="#">
+                    <img class="w-10" src="./assets/images/icons8-facebook-48.png" alt="">
+                </a>
+                <a href="#">
+                    <img class="w-10" src="./assets/images/icons8-instagram-64.png" alt="">
+                </a>
+                <a href="#">
+                    <img class="w-10" src="./assets/images/icons8-tik-tok-30.png" alt="">
+                </a>
+            </div>
+        </footer>
         <footer>
-            <p>Grupo 1</p>
-
+            <img class="w-10" src="./assets/images/american express logo.jpg" alt="">
+            <img class="w-10" src="./assets/images/icons8-tarjeta-visa-48.png" alt="">
+            <img class="w-10" src="./assets/images/logo mastercard.png" alt="">
+            <img class="w-10" src="./assets/images/mercado pago logo.png" alt="">
         </footer>
     </div>
-
+    <script src="./tailwindconfig.js"></script>
     <script src="index.js"></script>
 </body>
 </html>
