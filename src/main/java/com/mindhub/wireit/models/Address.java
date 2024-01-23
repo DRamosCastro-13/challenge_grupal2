@@ -8,7 +8,7 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String addres, phone, country, province, city;
+    private String address, phone, country, province, city;
 
     private int zipCode;
 
@@ -19,8 +19,8 @@ public class Address {
     public Address() {
     }
 
-    public Address(String addres, String phone, String country, String province, String city, int zipCode) {
-        this.addres = addres;
+    public Address(String address, String phone, String country, String province, String city, int zipCode) {
+        this.address = address;
         this.phone = phone;
         this.country = country;
         this.province = province;
@@ -32,12 +32,11 @@ public class Address {
         return id;
     }
 
-    public String getAddres() {
-        return addres;
+    public String getAddress() {
+        return address;
     }
-
-    public void setAddres(String addres) {
-        this.addres = addres;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getPhone() {
@@ -87,4 +86,6 @@ public class Address {
     public void setClient(Client client) {
         this.client = client;
     }
+
+
 }

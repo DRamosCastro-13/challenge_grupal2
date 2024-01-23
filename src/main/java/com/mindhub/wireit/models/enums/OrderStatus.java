@@ -1,6 +1,6 @@
 package com.mindhub.wireit.models.enums;
 
-public enum orderStatus {
+public enum OrderStatus {
     CREATED,
     SHIPPED,
     DELIVERED

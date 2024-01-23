@@ -1,6 +1,6 @@
 package com.mindhub.wireit.models;
 
-import com.mindhub.wireit.models.enums.orderStatus;
+import com.mindhub.wireit.models.enums.OrderStatus;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -19,7 +19,7 @@ public class PurchaseOrder {
     private String additionalComment;
 
     @Enumerated(EnumType.STRING)
-    private orderStatus orderStatus;
+    private OrderStatus orderStatus;
 
     private double discount, totalAmount;
 
@@ -33,7 +33,7 @@ public class PurchaseOrder {
     public PurchaseOrder() {
     }
 
-    public PurchaseOrder(String orderNumber, LocalDate shipment_date, String additionalComment, orderStatus orderStatus, double discount, double totalAmount) {
+    public PurchaseOrder(String orderNumber, LocalDate shipment_date, String additionalComment, OrderStatus orderStatus, double discount, double totalAmount) {
         this.orderNumber = orderNumber;
         this.shipment_date = shipment_date;
         this.additionalComment = additionalComment;
@@ -67,11 +67,11 @@ public class PurchaseOrder {
         this.additionalComment = additionalComment;
     }
 
-    public orderStatus getOrderStatus() {
+    public OrderStatus getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(orderStatus orderStatus) {
+    public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
 

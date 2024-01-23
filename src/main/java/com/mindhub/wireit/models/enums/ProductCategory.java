@@ -1,6 +1,6 @@
 package com.mindhub.wireit.models.enums;
 
-public enum productCategory {
+public enum ProductCategory {
     MONITOR,
     MOUSE,
     KEYBOARD,

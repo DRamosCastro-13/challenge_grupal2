@@ -1,7 +1,7 @@
 package com.mindhub.wireit.models;
 
 import jakarta.persistence.*;
-import com.mindhub.wireit.models.enums.productCategory;
+import com.mindhub.wireit.models.enums.ProductCategory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ public class Product {
     private String name, brand, image_url, description;
 
     @Enumerated(EnumType.STRING)
-    private productCategory productCategory;
+    private ProductCategory productCategory;
 
     private double price, discount;
 
@@ -29,7 +29,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, String brand, String image_url, String description, com.mindhub.wireit.models.enums.productCategory productCategory, double price, double discount) {
+    public Product(String name, String brand, String image_url, String description, ProductCategory productCategory, double price, double discount) {
         this.name = name;
         this.brand = brand;
         this.image_url = image_url;
@@ -49,8 +49,8 @@ public class Product {
         this.suppliers.add(supplier);
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
@@ -85,11 +85,11 @@ public class Product {
         this.description = description;
     }
 
-    public com.mindhub.wireit.models.enums.productCategory getProductCategory() {
+    public ProductCategory getProductCategory() {
         return productCategory;
     }
 
-    public void setProductCategory(com.mindhub.wireit.models.enums.productCategory productCategory) {
+    public void setProductCategory(ProductCategory productCategory) {
         this.productCategory = productCategory;
     }
 
