@@ -28,7 +28,7 @@ public class PurchaseOrder {
     private Client client;
 
     @OneToMany(mappedBy = "purchaseOrder", fetch = FetchType.EAGER)
-    private Set<ProductOrder> ProductOrders = new HashSet<>();
+    private Set<ProductOrder> productOrders = new HashSet<>();
 
     public PurchaseOrder() {
     }
@@ -44,7 +44,7 @@ public class PurchaseOrder {
 
     public void addProductOrder(ProductOrder productOrder){
         productOrder.setPurchaseOrder(this);
-        this.ProductOrders.add(productOrder);
+        this.productOrders.add(productOrder);
     }
 
     public Long getId() {
@@ -108,10 +108,10 @@ public class PurchaseOrder {
     }
 
     public Set<ProductOrder> getProductOrders() {
-        return ProductOrders;
+        return productOrders;
     }
 
     public void setProductOrders(Set<ProductOrder> ProductOrders) {
-        this.ProductOrders = ProductOrders;
+        this.productOrders = ProductOrders;
     }
 }

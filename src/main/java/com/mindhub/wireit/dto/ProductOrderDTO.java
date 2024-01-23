@@ -15,17 +15,20 @@ public class ProductOrderDTO {
 
     private Long id;
 
-    private Product product;
+    private Long product_id;
 
+    private String productName, productBrand;
 
-    private PurchaseOrder purchaseOrder;
+    private double product_price;
 
     private byte quantity;
 
     public ProductOrderDTO(ProductOrder productOrder) {
         this.id = productOrder.getId();
-        this.product = productOrder.getProduct();
-        this.purchaseOrder = productOrder.getPurchaseOrder();
+        this.product_id = productOrder.getProduct().getId();
+        this.productName = productOrder.getProduct().getName();
+        this.productBrand = productOrder.getProduct().getBrand();
+        this.product_price = productOrder.getProduct().getPrice();
         this.quantity = productOrder.getQuantity();
     }
 
@@ -33,12 +36,20 @@ public class ProductOrderDTO {
         return id;
     }
 
-    public Product getProduct() {
-        return product;
+    public Long getProduct_id() {
+        return product_id;
     }
 
-    public PurchaseOrder getPurchaseOrder() {
-        return purchaseOrder;
+    public String getProductName() {
+        return productName;
+    }
+
+    public String getProductBrand() {
+        return productBrand;
+    }
+
+    public double getProduct_price() {
+        return product_price;
     }
 
     public byte getQuantity() {

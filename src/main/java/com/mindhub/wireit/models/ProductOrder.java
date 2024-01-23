@@ -14,7 +14,7 @@ public class ProductOrder {
 
 
     @ManyToOne
-    @JoinColumn(name="order_id")
+    @JoinColumn(name="purchaseOrder_id")
     private PurchaseOrder purchaseOrder;
 
     private byte quantity;
