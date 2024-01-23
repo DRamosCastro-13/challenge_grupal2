@@ -1,4 +1,4 @@
-package com.mindhub.wireit.configurations;
+package configurations;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
