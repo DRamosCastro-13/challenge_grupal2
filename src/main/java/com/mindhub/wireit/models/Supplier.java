@@ -2,6 +2,9 @@ package com.mindhub.wireit.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Supplier {
     @Id
@@ -12,9 +15,8 @@ public class Supplier {
 
     private Short stock;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @OneToMany(mappedBy = "supplier", fetch = FetchType.EAGER)
+    private List<Product> products = new ArrayList<>();
 
     public Supplier() {
     }
@@ -22,6 +24,11 @@ public class Supplier {
     public Supplier(String customer_name, Short stock) {
         this.customer_name = customer_name;
         this.stock = stock;
+    }
+
+    public void addProduct(Product product) {
+        product.setSupplier(this);
+        this.products.add(product);
     }
 
     public Long getId() {
@@ -44,11 +51,11 @@ public class Supplier {
         this.stock = stock;
     }
 
-    public Product getProduct() {
-        return product;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }

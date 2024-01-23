@@ -41,7 +41,7 @@ public class WireItApplication {
 			productRepository.save(product);
 
 			Supplier supplier = new Supplier("MadMax",(short)20);
-			supplier.setProduct(product);
+			supplier.addProduct(product);
 			supplierRepository.save(supplier);
 
 			ProductOrder productOrder = new ProductOrder((byte) 10);

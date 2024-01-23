@@ -5,8 +5,6 @@ import com.mindhub.wireit.models.Supplier;
 import jakarta.persistence.*;
 
 public class SupplierDTO {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String customer_name;
