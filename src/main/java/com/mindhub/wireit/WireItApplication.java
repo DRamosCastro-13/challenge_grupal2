@@ -3,6 +3,7 @@ package com.mindhub.wireit;
 import com.mindhub.wireit.models.*;
 import com.mindhub.wireit.models.enums.OrderStatus;
 import com.mindhub.wireit.models.enums.ProductCategory;
+import com.mindhub.wireit.models.enums.Role;
 import com.mindhub.wireit.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -34,6 +35,7 @@ public class WireItApplication {
 									  ProductRepository productRepository) {
 		return args -> {
 			Client client = new Client("Melba","Morel","melba@mindhub.com",25524320,passwordEncoder.encode("1234"));
+			client.setRole(Role.ADMIN);
 			clientRepository.save(client);
 			System.out.println(client);
 
