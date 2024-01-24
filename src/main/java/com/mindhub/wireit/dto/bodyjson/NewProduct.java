@@ -2,7 +2,7 @@ package com.mindhub.wireit.dto.bodyjson;
 
 import com.mindhub.wireit.models.enums.ProductCategory;
 
-public class newProduct {
+public class NewProduct {
     private double price, discount;
     private String name, brand, image_url, description;
     private ProductCategory productCategory;

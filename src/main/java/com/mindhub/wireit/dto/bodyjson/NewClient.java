@@ -1,6 +1,6 @@
 package com.mindhub.wireit.dto.bodyjson;
 
-public class newClient {
+public class NewClient {
     private String firstName, lastName, email, password;
     private int dni;
 

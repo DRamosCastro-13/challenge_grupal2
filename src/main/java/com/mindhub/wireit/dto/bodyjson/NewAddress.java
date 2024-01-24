@@ -1,6 +1,6 @@
 package com.mindhub.wireit.dto.bodyjson;
 
-public class newAddress {
+public class NewAddress {
     private String address, phone, country, province, city;
     private int zipCode;
 

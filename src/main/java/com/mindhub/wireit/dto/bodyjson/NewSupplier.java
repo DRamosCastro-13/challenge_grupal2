@@ -1,6 +1,6 @@
 package com.mindhub.wireit.dto.bodyjson;
 
-public class newSupplier {
+public class NewSupplier {
     private String customer_name;
     private Short stock;
 
