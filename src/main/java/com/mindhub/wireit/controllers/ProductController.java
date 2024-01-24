@@ -1,7 +1,7 @@
 package com.mindhub.wireit.controllers;
 
-import com.mindhub.wireit.dto.ProductDTO;
-import com.mindhub.wireit.dto.bodyjson.NewProduct;
+import com.mindhub.wireit.repositories.dto.ProductDTO;
+import com.mindhub.wireit.repositories.dto.bodyjson.NewProduct;
 import com.mindhub.wireit.models.enums.ProductCategory;
 import com.mindhub.wireit.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;

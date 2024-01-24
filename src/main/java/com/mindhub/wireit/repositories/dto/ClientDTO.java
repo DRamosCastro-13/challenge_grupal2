@@ -1,12 +1,8 @@
-package com.mindhub.wireit.dto;
+package com.mindhub.wireit.repositories.dto;
 
-import com.mindhub.wireit.models.Address;
 import com.mindhub.wireit.models.Client;
-import com.mindhub.wireit.models.PurchaseOrder;
 import com.mindhub.wireit.models.enums.Role;
-import jakarta.persistence.*;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
