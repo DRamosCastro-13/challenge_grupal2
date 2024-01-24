@@ -33,7 +33,7 @@ public class ClientController {
         return response;
     }
 
-    @PostMapping("/clients")
+    @PostMapping("/clients/register")
     public ResponseEntity<String> createClient(@RequestBody newClient newClient){
         ResponseEntity<String> response = clientService.createClient(newClient);
         return response;
