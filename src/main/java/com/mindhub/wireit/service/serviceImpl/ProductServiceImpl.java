@@ -1,13 +1,17 @@
 package com.mindhub.wireit.service.serviceImpl;
 
 import com.mindhub.wireit.dto.ProductDTO;
+import com.mindhub.wireit.dto.bodyjson.NewProduct;
 import com.mindhub.wireit.models.Product;
 import com.mindhub.wireit.models.enums.ProductCategory;
 import com.mindhub.wireit.repositories.ProductRepository;
 import com.mindhub.wireit.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.EnumSet;
 import java.util.List;
 import java.util.stream.Collectors;
 @Service
@@ -31,5 +35,36 @@ public class ProductServiceImpl implements ProductService {
         return getAllProducts().stream().filter(product -> product.getProductCategory() == productCategory).map(ProductDTO::new).collect(Collectors.toList());
     }
 
+    @Override
+    public ResponseEntity<String> createProduct(NewProduct newProduct) {
+
+        if(newProduct.getName().isBlank()){
+            return new ResponseEntity<>("Name can not be blank.", HttpStatus.FORBIDDEN);
+        }
+        if(newProduct.getBrand().isBlank()){
+            return new ResponseEntity<>("Brand can not be blank.", HttpStatus.FORBIDDEN);
+        }
+
+        if(newProduct.getImage_url().isBlank()){
+            return new ResponseEntity<>("Image URL can not be blank.", HttpStatus.FORBIDDEN);
+        }
+        if(newProduct.getDescription().isBlank()){
+            return new ResponseEntity<>("Description can not be blank.", HttpStatus.FORBIDDEN);
+        }
+        if(newProduct.getDiscount() < 0){
+            return new ResponseEntity<>("Discount can not be less than 0.", HttpStatus.FORBIDDEN);
+        }
+        if(newProduct.getPrice() <= 0){
+            return new ResponseEntity<>("Price can not be 0 or less.", HttpStatus.FORBIDDEN);
+        }
+        if(newProduct.getProductCategory() == null || !EnumSet.allOf(ProductCategory.class).contains(newProduct.getProductCategory())){
+            return new ResponseEntity<>("Invalid or missing product category", HttpStatus.FORBIDDEN);
+        }
+
+        Product product = new Product(newProduct.getName(), newProduct.getBrand(), newProduct.getImage_url(), newProduct.getDescription(), newProduct.getProductCategory(), newProduct.getPrice(), newProduct.getDiscount());
+        productRepository.save(product);
+
+        return new ResponseEntity<>("Product create successful",HttpStatus.CREATED);
+    }
 
 }

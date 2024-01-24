@@ -1,13 +1,12 @@
 package com.mindhub.wireit.controllers;
 
 import com.mindhub.wireit.dto.ProductDTO;
+import com.mindhub.wireit.dto.bodyjson.NewProduct;
 import com.mindhub.wireit.models.enums.ProductCategory;
 import com.mindhub.wireit.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,5 +28,10 @@ public class ProductController {
         return productService.getAllProductsFiltered(productCategory);
     }
 
+    @PostMapping("/products/new")
+    public ResponseEntity<String> createProduct(@RequestBody NewProduct newProduct){
+        ResponseEntity<String> response = productService.createProduct(newProduct);
+        return response;
+    }
 
 }

@@ -19,7 +19,7 @@ public class ClientController {
     @Autowired
     private ClientService clientService;
 
-    @RequestMapping("/clients")
+    @GetMapping("/clients")
     public List<ClientDTO> getAllClientDTO() {
         return clientService.getAllClientDTO();
     }
