@@ -6,6 +6,7 @@ import com.mindhub.wireit.models.enums.ProductCategory;
 import com.mindhub.wireit.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,8 +30,8 @@ public class ProductController {
     }
 
     @PostMapping("/products/new")
-    public ResponseEntity<String> createProduct(@RequestBody NewProduct newProduct){
-        ResponseEntity<String> response = productService.createProduct(newProduct);
+    public ResponseEntity<String> createProduct(@RequestBody NewProduct newProduct, Authentication authentication){
+        ResponseEntity<String> response = productService.createProduct(newProduct,authentication);
         return response;
     }
 

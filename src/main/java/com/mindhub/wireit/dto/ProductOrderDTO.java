@@ -21,7 +21,7 @@ public class ProductOrderDTO {
 
     private double product_price;
 
-    private byte quantity;
+    private int quantity;
 
     public ProductOrderDTO(ProductOrder productOrder) {
         this.id = productOrder.getId();
@@ -29,7 +29,7 @@ public class ProductOrderDTO {
         this.productName = productOrder.getProduct().getName();
         this.productBrand = productOrder.getProduct().getBrand();
         this.product_price = productOrder.getProduct().getPrice();
-        this.quantity = productOrder.getQuantity();
+        this.quantity = productOrder.getProduct().getStock();
     }
 
     public Long getId() {
@@ -52,7 +52,7 @@ public class ProductOrderDTO {
         return product_price;
     }
 
-    public byte getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 }

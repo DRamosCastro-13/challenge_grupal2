@@ -31,8 +31,7 @@ public class WireItApplication {
 									  AddressRepository addresRepository,
 									  PurchaseOrderRepository purchaseOrderRepository,
 									  ProductOrderRepository productOrderRepository,
-									  ProductRepository productRepository,
-									  SupplierRepository supplierRepository) {
+									  ProductRepository productRepository) {
 		return args -> {
 			Client client = new Client("Melba","Morel","melba@mindhub.com",25524320,passwordEncoder.encode("1234"));
 			clientRepository.save(client);
@@ -43,11 +42,8 @@ public class WireItApplication {
 
 			addresRepository.save(address);
 
-			Product product = new Product("Lavadora","MadMax","https://d1pjg4o0tbonat.cloudfront.net/content/dam/midea-aem/cl/lavanderia/lavadoras/lavadora-carga-frontal-8kg-mf100w80-w/W_2674x4011_2.jpg/jcr:content/renditions/cq5dam.web.5000.5000.jpeg","Lavadora blanca de hasta 50kg MadMax, la mejor calidad", ProductCategory.MONITOR,20000,0);
+			Product product = new Product("Lavadora","MadMax","https://d1pjg4o0tbonat.cloudfront.net/content/dam/midea-aem/cl/lavanderia/lavadoras/lavadora-carga-frontal-8kg-mf100w80-w/W_2674x4011_2.jpg/jcr:content/renditions/cq5dam.web.5000.5000.jpeg","Lavadora blanca de hasta 50kg MadMax, la mejor calidad", ProductCategory.MONITOR,20000,0,10);
 
-			Supplier supplier = new Supplier("MadMax",(short)20);
-			supplier.addProduct(product);
-			supplierRepository.save(supplier);
 			productRepository.save(product);
 
 			ProductOrder productOrder = new ProductOrder((byte) 10);

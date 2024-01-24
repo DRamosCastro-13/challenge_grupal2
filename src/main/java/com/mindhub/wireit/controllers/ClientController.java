@@ -1,6 +1,7 @@
 package com.mindhub.wireit.controllers;
 
 import com.mindhub.wireit.dto.ClientDTO;
+import com.mindhub.wireit.dto.bodyjson.NewAddress;
 import com.mindhub.wireit.dto.bodyjson.NewClient;
 import com.mindhub.wireit.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,12 @@ public class ClientController {
     @PostMapping("/clients")
     public ResponseEntity<String> createClient(@RequestBody NewClient newClient){
         ResponseEntity<String> response = clientService.createClient(newClient);
+        return response;
+    }
+
+    @PostMapping("/clients/newaddress")
+    public ResponseEntity<String> newAddress(@RequestBody NewAddress newAddress, Authentication authentication) {
+        ResponseEntity<String> response = clientService.newAddress(newAddress, authentication);
         return response;
     }
 }

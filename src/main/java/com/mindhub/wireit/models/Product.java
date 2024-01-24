@@ -20,9 +20,7 @@ public class Product {
 
     private double price, discount;
 
-    @ManyToOne
-    @JoinColumn(name="supplier_id")
-    private Supplier supplier;
+    private int stock;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
     private List<ProductOrder> ProductOrders = new ArrayList<>();
@@ -30,7 +28,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, String brand, String image_url, String description, ProductCategory productCategory, double price, double discount) {
+    public Product(String name, String brand, String image_url, String description, ProductCategory productCategory, double price, double discount, int stock) {
         this.name = name;
         this.brand = brand;
         this.image_url = image_url;
@@ -38,6 +36,7 @@ public class Product {
         this.productCategory = productCategory;
         this.price = price;
         this.discount = discount;
+        this.stock = stock;
     }
 
     public void addProductOrder(ProductOrder productOrder){
@@ -106,14 +105,6 @@ public class Product {
         this.discount = discount;
     }
 
-    public Supplier getSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(Supplier supplier) {
-        this.supplier = supplier;
-    }
-
     public List<ProductOrder> getProductOrders() {
         return ProductOrders;
     }
@@ -122,5 +113,11 @@ public class Product {
         this.ProductOrders = ProductOrders;
     }
 
+    public int getStock() {
+        return stock;
+    }
 
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
 }

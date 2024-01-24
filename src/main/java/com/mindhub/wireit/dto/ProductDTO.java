@@ -1,14 +1,7 @@
 package com.mindhub.wireit.dto;
 
 import com.mindhub.wireit.models.Product;
-import com.mindhub.wireit.models.ProductOrder;
-import com.mindhub.wireit.models.Supplier;
 import com.mindhub.wireit.models.enums.ProductCategory;
-import jakarta.persistence.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class ProductDTO {
 
@@ -19,6 +12,7 @@ public class ProductDTO {
     private ProductCategory productCategory;
 
     private double price, discount;
+    private int stock;
 
     public ProductDTO(Product product) {
         this.id = product.getId();
@@ -29,6 +23,7 @@ public class ProductDTO {
         this.productCategory = product.getProductCategory();
         this.price = product.getPrice();
         this.discount = product.getDiscount();
+        this.stock = product.getStock();
     }
 
     public Long getId() {
@@ -63,4 +58,7 @@ public class ProductDTO {
         return discount;
     }
 
+    public int getStock() {
+        return stock;
+    }
 }

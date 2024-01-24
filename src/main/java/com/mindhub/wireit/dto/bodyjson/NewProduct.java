@@ -6,6 +6,7 @@ public class NewProduct {
     private double price, discount;
     private String name, brand, image_url, description;
     private ProductCategory productCategory;
+    private int stock;
 
     public double getPrice() {
         return price;
@@ -33,5 +34,9 @@ public class NewProduct {
 
     public ProductCategory getProductCategory() {
         return productCategory;
+    }
+
+    public int getStock() {
+        return stock;
     }
 }
