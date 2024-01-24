@@ -1,4 +1,8 @@
 package com.mindhub.wireit.service.serviceImpl;
 
-public class ProductOrderServiceImpl {
+import com.mindhub.wireit.service.ProductOrderService;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ProductOrderServiceImpl implements ProductOrderService {
 }
