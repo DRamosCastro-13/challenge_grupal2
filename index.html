@@ -41,10 +41,33 @@
                 <h2 class="text-2xl md:text-3xl font-extrabold flex self-center text-white font-['Montserrat']">WIRE IT</h2> 
             </div>
 
-            <img src="./assets/images/icons8-menú-48.png" class="lg:hidden w-10 object-contain items-center cursor-pointer">
-            
+            <ul class="nav-menu">
+                <li class="nav-item border-t-2">
+                    <a href="./assets/pages/login.html" class="nav-link">Login | Register</a>
+                </li>
+                <li class="nav-item" >
+                    <a href="./assets/pages/carrito.html" class="nav-link">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./assets/pages/aboutus.html" class="nav-link">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./assets/pages/contact.html" class="nav-link">Contact Us</a>
+                </li>
+                <li class="nav-item h-[100dvh]">
+                    <a href="#" class="nav-link"></a>
+                </li>
+            </ul>
+            <div class="py-3 [10vh] lg:hidden">
+                <div class="hamburger" @click="showMenu = !showMenu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+                <p class="text-white text-[10px] pt-0.5">Menu</p>
+            </div>            
             <nav class="hidden lg:flex self-center gap-5">
-                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="index.html">Home</a>
+                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="#">Home</a>
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="./assets/pages/product.html">Products</a>
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="./assets/pages/aboutus.html">About Us</a>
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="./assets/pages/contact.html">Contact</a>
@@ -69,6 +92,11 @@
                     <img class="md:opacity-50 md:w-8 w-12 md:object-contain md:bg-transparent bg-slate-400 rounded-l-xl  md:p-0 p-2 cursor-pointer md:static fixed top-20 left-50" src="./assets/images/icons8-lupa-48.png" alt="search">
                 </div>
            </section>
+
+           <div class="lg:hidden w-full flex justify-end py-2 lg:py-0 lg:pr-5 ">
+                <img class="w-12 object-contain bg-slate-400 rounded-l-xl p-2 cursor-pointer fixed top-20 left-50" src="./assets/images/icons8-lupa-48.png" alt="search">
+                <img class="lg:w-14 w-12 bg-slate-400 p-2 rounded-l-xl lg:rounded-full cursor-pointer fixed top-36 left-50" src="./assets/images/carrito tuneado.png" alt="cart">
+            </div>
             
             <section class="flex flex-col md:flex-row lg:w-full mt-8  md:px-10 items-center md:mb-20">
                 <div class="flex flex-col gap-2  p-3">
@@ -76,7 +104,7 @@
                     <h2 class="text-4xl md:text-7xl flex flex-col self-start text-white font-bold font-['Montserrat'] pb-10"> Explore our curated collection of gadgets and tech solutions.</h2> 
                     <button class="hidden lg:flex w-44 self-center bg-[#22215D] justify-center p-2 rounded-2xl font-['Poppins'] text-white text-2xl animate-pulse shadow-lg shadow-[#22215D]">Start Now</button>
                 </div>
-                <article class="flex justify-center z-40 md:w-[50%]">
+                <article class="flex justify-center z-30 md:w-[50%]">
                         <img class="hidden md:block md:max-h-[100vh] object-contain md:min-h-[35vh]" src="./assets/images/chico gamer.png" alt="gamerguy">
                 </article>         
             </section>
@@ -171,6 +199,7 @@
             </section>
         </footer>
     </div>
+    <script src="./assets/js/vanilla-ham.js"></script>
     <script src="./tailwindconfig.js"></script>
     <script src="index.js"></script>
 </body>
