@@ -1,20 +1,11 @@
-const { createApp } = Vue
+const signUpButton = document.getElementById('signUp');
+const signInButton = document.getElementById('signIn');
+const container = document.getElementById('container');
 
-const options = {
-  data() {
-    return {
+signUpButton.addEventListener('click', () => {
+	container.classList.add("right-panel-active");
+});
 
-    
-    } // finaliza return
-  }, // finaliza data
-  created() {
-   
-  }, //finaliza created
-
-  methods: {
-  
-  }
-}
-
-const app = createApp(options)
-app.mount('#app')
+signInButton.addEventListener('click', () => {
+	container.classList.remove("right-panel-active");
+});
