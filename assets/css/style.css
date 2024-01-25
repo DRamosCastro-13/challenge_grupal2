@@ -148,7 +148,7 @@ main {
 }
 
 .title {
-  font-size: 32px;
+  font-size: 28px;
 	font-weight: bolder;
 	margin: 0;
 }
@@ -170,6 +170,11 @@ span {
 	font-size: 18px;
 	text-decoration: none;
 	margin: 15px 0;
+  
+}
+
+.social:hover {
+  text-decoration: underline;
 }
 
 .boton {
@@ -207,12 +212,13 @@ span {
 	padding: 0 50px;
 	height: 100%;
 	text-align: center;
+  gap: 4px;
 }
 
 .inputs {
 	background-color: #eee;
 	border: none;
-	padding: 12px 15px;
+	padding: 8px 12px;
 	margin: 8px 0;
 	width: 100%;
 }
@@ -226,7 +232,7 @@ span {
 	overflow: hidden;
 	width: 768px;
 	max-width: 80%;
-	min-height: 480px;
+	height: 480px;
 }
 
 .form-container {
@@ -339,23 +345,18 @@ span {
 	transform: translateX(20%);
 }
 
-.social-container {
-	margin: 20px 0;
-}
+@media screen and (min-width:320),(max-width: 768px){
 
-.social-container a {
-	border: 1px solid #DDDDDD;
-	border-radius: 50%;
-	display: inline-flex;
-	justify-content: center;
-	align-items: center;
-	margin: 0 5px;
-	height: 40px;
-	width: 40px;
-}
+  .container {
+    display: flex;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 80%;
+    height: 480px;
+  }
 
-@media screen and (max-width: 768px){
-  
 }
 
 
