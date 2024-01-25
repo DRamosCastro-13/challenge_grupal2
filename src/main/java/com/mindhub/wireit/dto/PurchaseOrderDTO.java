@@ -1,4 +1,4 @@
-package com.mindhub.wireit.repositories.dto;
+package com.mindhub.wireit.dto;
 
 import com.mindhub.wireit.models.PurchaseOrder;
 import com.mindhub.wireit.models.enums.OrderStatus;

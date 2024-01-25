@@ -1,4 +1,4 @@
-package com.mindhub.wireit.repositories.dto.bodyjson;
+package com.mindhub.wireit.dto.bodyjson;
 
 public class NewAddress {
     private String address, phone, country, province, city;

@@ -1,4 +1,4 @@
-package com.mindhub.wireit.repositories.dto.bodyjson;
+package com.mindhub.wireit.dto.bodyjson;
 
 import com.mindhub.wireit.models.enums.ProductCategory;
 
