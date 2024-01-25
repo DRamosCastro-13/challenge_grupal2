@@ -44,7 +44,7 @@
 }
 
 
-@media screen and (max-width: 1025px) {
+@media screen {
   .hamburger{
       display: block;
   }
@@ -62,7 +62,7 @@
   .nav-menu{
       position: fixed;
       left: -100%;
-      top: 75px;
+      top: 70px;
       gap: 0;
       flex-direction: column;
       background: linear-gradient(to right, #1B1D29, #7C85BD);
