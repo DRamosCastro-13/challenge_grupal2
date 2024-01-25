@@ -14,12 +14,12 @@
 </head>
 <body class="bg-gradient-to-r from-[#1B1D29] to-[#7C85BD]">
     <div id="app">
-        <header class="flex place-content-between px-3">
+        <header class="flex flex-col w-full place-content-between px-3">
             <div class="p-3 text-center flex content-center min-h-[10vh]">
                 <img class="w-6" src="./assets/images/icon.png" alt="icon">
                 <h2 class="text-3xl font-extrabold flex self-center text-white font-['Montserrat']">WIRE IT</h2> 
             </div>
-            <nav class="flex self-center gap-5">
+            <nav class="hidden md:flex self-center gap-5">
                 <a class="font-['Poppins'] text-white text-lg" href="index.html">Home</a>
                 <a class="font-['Poppins'] text-white text-lg" href="./assets/pages/product.html">Products</a>
                 <a class="font-['Poppins'] text-white text-lg" href="./assets/pages/aboutus.html">About Us</a>
@@ -30,45 +30,112 @@
                     <img class="w-5 lg:w-7" src="./assets/images/icon-login.png" alt="login">
                 </a>
         </header>
-        <main>
+        <main class="w-full">
             <section class="w-full flex justify-center py-8">
                 <input class="bg-transparent border-b border-white" type="search" name="search" id="search" placeholder="Search...">
                 <img class="opacity-50 w-5 object-cover" src="./assets/images/icons8-lupa-48.png" alt="search">
                 <img src="" alt="">
             </section>
-            <section class="flex w-full mb-24 px-10 items-center">
-                <div class="flex flex-col w-[50%] gap-4">
-                    <p class="text-4xl flex self-start text-white montserrat">With us</p>
-                    <h2 class="text-7xl flex self-start text-white font-bold font-['Montserrat'] pb-10"> Explore our curated collection of gadgets and tech solutions.</h2>
-                    <button  class="w-44 bg-[#22215D] p-2 rounded-2xl items-center font-['Poppins'] text-white text-2xl animate-pulse shadow-lg shadow-[#22215D]" v-on:click="mostrarModal">Start Now</button>
+            <section class="flex w-full pl-8 md:px-10 items-center lg:mb-20">
+                <div class="flex flex-col z-10 w-[50%] gap-4">
+                    <p class="text-4xl flex self-start text-white montserrat">Join us!</p>
+                    <h2 class="text-3xl flex flex-col self-start text-white font-bold font-['Montserrat'] pb-10"> Explore our curated collection of gadgets and tech solutions.</h2> 
+                    <button class="hidden lg:flex w-44 self-center bg-[#22215D] justify-center  p-2 rounded-2xl font-['Poppins'] text-white text-2xl animate-pulse shadow-lg shadow-[#22215D]">Start Now</button>
                 </div>
-                <article class="flex justify-center w-[50%]">
-                        <img class="lg:max-h-[100vh] object-contain min-h-[35vh]" src="./assets/images/chico gamer.png" alt="gamerguy">
-                </article>
+                <article class="flex justify-center z-40 w-[50%]">
+                        <img class=" lg:max-h-[100vh] object-contain md:min-h-[35vh]" src="./assets/images/chico gamer.png" alt="gamerguy">
+                </article>         
             </section>
-
-
+            <div class="flex justify-center mt-8 mb-20 lg:hidden">
+                <button  class="w-44 self-center bg-[#22215D] justify-center  p-2 rounded-2xl font-['Poppins'] text-white text-2xl animate-pulse shadow-lg shadow-[#22215D]">Start Now</button>
+            </div>
 
         </main>
-        <footer class="flex flex-col w-full p-4 bg-slate-400/20">
-            <p class="font-['Poppins'] text-white text-lg text-center">Follow us</p>
-            <div class="flex w-full justify-center">
-                <a href="#">
-                    <img class="w-10" src="./assets/images/icons8-facebook-48.png" alt="">
-                </a>
-                <a href="#">
-                    <img class="w-10" src="./assets/images/icons8-instagram-64.png" alt="">
-                </a>
-                <a href="#">
-                    <img class="w-10" src="./assets/images/icons8-tik-tok-30.png" alt="">
-                </a>
-            </div>
-        </footer>
+        
         <footer>
-            <img class="w-10" src="./assets/images/american express logo.jpg" alt="">
-            <img class="w-10" src="./assets/images/icons8-tarjeta-visa-48.png" alt="">
-            <img class="w-10" src="./assets/images/logo mastercard.png" alt="">
-            <img class="w-10" src="./assets/images/mercado pago logo.png" alt="">
+            <div class="flex flex-col w-full p-4 bg-slate-400/20">
+                <p class="font-['Poppins'] text-white text-lg text-center">Find us</p>
+                <div class="flex w-full justify-center gap-4">
+                    <a href="#">
+                        <img class="w-10" src="./assets/images/icons8-facebook-48.png" alt="facebool">
+                    </a>
+                    <a href="#">
+                        <img class="w-10" src="./assets/images/icons8-instagram-64.png" alt="instagram">
+                    </a>
+                    <a href="#">
+                        <img class="w-10" src="./assets/images/icons8-tik-tok-30.png" alt="tiktok">
+                    </a>
+                    <a href="#">
+                        <img class="w-9" src="./assets/images/icons8-twitch-50.png" alt="twitch">
+                    </a>
+                </div>
+            </div>
+            <section class="flex flex-col items-center gap-5 px-10 w-full pt-8 pb-16 md:ps-16 md:pe-16 place-content-between bg-[#1B1D29]">
+                <div>
+                    <ul class="list-none flex flex-col gap-2">
+                        <li class="text-slate-200 font-bold montserrat text-lg">Shop</li>
+                        <li class="text-slate-400 montserrat text-sm">Gadgets</li>
+                        <li class="text-slate-400 montserrat text-sm">Set up</li>
+                        <li class="text-slate-400 montserrat text-sm">Gaming</li>
+                        <li class="text-slate-400 montserrat text-sm">Merch</li>
+                        <li class="text-slate-400 montserrat text-sm">something</li>
+                        <li class="text-slate-400 montserrat text-sm">something</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="list-none flex flex-col gap-2">
+                        <li class="text-slate-200 font-bold montserrat text-lg">Company</li>
+                        <li class="text-slate-400 montserrat text-sm">About us</li>
+                        <li class="text-slate-400 montserrat text-sm">Contact us</li>
+                        <li class="text-slate-400 montserrat text-sm">Support</li>
+                        <li class="text-slate-400 montserrat text-sm">Q&A</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="list-none flex flex-col gap-2 w-[20%]">
+                        <li class="text-slate-200 font-bold montserrat text-lg">Community</li>
+                        <li class="text-slate-400 montserrat text-sm">Channels</li>
+                        <li class="text-slate-400 montserrat text-sm">News</li>
+                        <li class="text-slate-400 montserrat text-sm">Collaborations</li>
+                    </ul>
+                </div>
+                <div class="flex flex-col items-center pt-4 w-full md:w-[20%]">
+                    <p class="text-slate-200 font-['Montserrat'] font-semibold text-xl text-center">Secure payments</p>
+                    <div class="flex flex-row flex-wrap gap-4">
+                        <img class="w-12 object-contain" src="./assets/images/american-express.png" alt="american-express">
+                        <img class="w-12 object-contain" src="./assets/images/icons8-tarjeta-visa-48.png" alt="visa">
+                        <img class="w-12 object-contain" src="./assets/images/logo.png" alt="mastercard">
+                        <img class="w-12 object-contain" src="./assets/images/paypal.png" alt="paypal">
+                    </div>
+                </div>
+                <div class="bg-slate-400/20 mt-8 flex flex-col w-full md:w-[35%] place-items-center rounded-2 rounded-md gap-6 shadow-lg shadow-slate-800 h-80 place-content-center">
+                    <h2 class="text-white font-extrabold font-['Montserrat'] text-3xl md:text-4xl">NEWSLETTER</h2>
+                    <p class="text-white font-['Poppins'] text-sm w-10/12 text-center">Subscribe our newsletter to stay updated every moment and get the best deals.</p>
+                    <input class="rounded-lg p-1 ring-2 ring-slate-600 w-10/12" type="text" id="email" name="email" placeholder="Enter your email address">
+                    <button class="text-white font-['Poppins'] w-8/12 text-sm md:max-w-28 bg-[#22215D] rounded-lg p-1 ring-2 ring-slate-500">Submit</button>
+                    <div class="flex gap-1">
+                        <input type="checkbox" id="terms" name="terms">
+                        <p class="text-white font-['Poppins'] text-xs">I accept</p>
+                        <a class="text-white font-['Poppins'] text-xs underline" href="#">Terms and Conditions</a>
+                    </div>
+                </div>
+            </section>
+            <div class="ps-16 pe-16 bg-[#1B1D29]">
+                <div class="border-b border-slate-600"></div>
+            </div>
+            <section class="flex flex-col gap-4 w-full px-5  items-center md:flex-row md:ps-16 md:pe-16 py-8 place-content-between bg-[#1B1D29]">
+                <p class="text-slate-400 text-center montserrat text-xs w-full md:w-[34%]">Copyright © 2024 WireIt Inc. MINDHUB Cohort52. All rights reserved.</p>
+                <nav class="grid grid-cols-4 text-center divide-x">
+                    <a class="text-slate-400 montserrat text-xs hover:underline" href="#">Site Map</a>
+                    <a class="text-slate-400 montserrat text-xs hover:underline" href="#">Legal Terms</a>
+                    <a class="text-slate-400 montserrat text-xs hover:underline" href="#">Privacy Policy</a>
+                    <a class="text-slate-400 montserrat text-xs hover:underline" href="#">Cookie Policy</a>
+                </nav>
+                <!-- <div class="grid grid-cols-2 divide-x">
+                    <p class="text-slate-200 text-center montserrat text-xs hover:underline">United States</p>
+                    <a class="text-slate-400 text-center montserrat text-xs hover:underline" href="#">Change Location ></a>
+                </div> -->
+            </section>
         </footer>
     </div>
     <script src="./tailwindconfig.js"></script>
