@@ -109,10 +109,10 @@ public class PdfServiceImpl implements PdfService {
                 Product product = productOrder.getProduct();
                 String itemName = product.getName();
                 double itemPrice = product.getPrice();
-
+                byte quantity = productOrder.getQuantity();
                 // Crear celda para el nombre del producto con borde
                 PdfPCell itemCell = new PdfPCell();
-                itemCell.addElement(new Paragraph(itemName, fontTable));
+                itemCell.addElement(new Paragraph(itemName + " Quantity: " + quantity, fontTable));
                 itemCell.setBorder(Rectangle.NO_BORDER);
                 itemCell.setPaddingBottom(5f);
                 tableItems.addCell(itemCell);
