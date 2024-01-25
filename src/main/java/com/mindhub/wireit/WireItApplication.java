@@ -17,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.time.LocalDate;
 
 @SpringBootApplication
-@PropertySource("classpath:.env")
+//@PropertySource("classpath:.env")
 public class WireItApplication {
 
 	public static void main(String[] args) {
