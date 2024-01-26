@@ -5,7 +5,6 @@ import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import com.mindhub.wireit.models.*;
-import com.mindhub.wireit.repositories.ClientRepository;
 import com.mindhub.wireit.repositories.PurchaseOrderRepository;
 import com.mindhub.wireit.service.PdfService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,10 +15,10 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.*;
 
 @Service
 public class PdfServiceImpl implements PdfService {
@@ -81,13 +80,17 @@ public class PdfServiceImpl implements PdfService {
             fontTotalAmount.setSize(16);
             double totalAmountValue = purchaseOrder.getTotalAmount();
 
-            Paragraph totalAmount = new Paragraph("Total Amount: $" + totalAmountValue, fontTotalAmount);
+            Paragraph totalToPay = new Paragraph("Amount to pay: $"+purchaseOrder.getTotalToPay(),fontTotalAmount);
+            Paragraph totalAmount = new Paragraph("Total Amount: $" + totalAmountValue);
             totalAmount.setAlignment(Paragraph.ALIGN_LEFT);
             totalAmount.setSpacingAfter(15f);
+            totalToPay.setAlignment(Paragraph.ALIGN_LEFT);
+            totalToPay.setSpacingAfter(15f);
             document.add(totalAmount);
+            document.add(totalToPay);
 
             //tabla de facturación con sus precios y productos
-            PdfPTable tableItems = new PdfPTable(2);
+            PdfPTable tableItems = new PdfPTable(3);
             tableItems.setWidthPercentage(100);
 
             // Crear celda para "Items Ordered" con borde
@@ -97,6 +100,12 @@ public class PdfServiceImpl implements PdfService {
             cellItemsHeader.setPaddingBottom(10f);
             tableItems.addCell(cellItemsHeader);
 
+            PdfPCell cellQuantityHeader = new PdfPCell();
+            cellQuantityHeader.addElement(new Paragraph("Quantity", fontTable));
+            cellQuantityHeader.setBorder(Rectangle.BOTTOM);
+            cellQuantityHeader.setPaddingBottom(10f);
+            tableItems.addCell(cellQuantityHeader);
+
             // Crear celda para "Price" con borde
             PdfPCell cellPriceHeader = new PdfPCell();
             cellPriceHeader.addElement(new Paragraph("Price", fontTable));
@@ -104,18 +113,24 @@ public class PdfServiceImpl implements PdfService {
             cellPriceHeader.setPaddingBottom(10f);
             tableItems.addCell(cellPriceHeader);
 
-            Set<ProductOrder> productOrders = purchaseOrder.getProductOrders();
+            List<ProductOrder> productOrders = purchaseOrder.getProductOrders();
             for (ProductOrder productOrder : productOrders) {
                 Product product = productOrder.getProduct();
                 String itemName = product.getName();
                 double itemPrice = product.getPrice();
-                byte quantity = productOrder.getQuantity();
+                int quantity = productOrder.getQuantity();
                 // Crear celda para el nombre del producto con borde
                 PdfPCell itemCell = new PdfPCell();
-                itemCell.addElement(new Paragraph(itemName + " Quantity: " + quantity, fontTable));
+                itemCell.addElement(new Paragraph(itemName, fontTable));
                 itemCell.setBorder(Rectangle.NO_BORDER);
                 itemCell.setPaddingBottom(5f);
                 tableItems.addCell(itemCell);
+
+                PdfPCell quantityCell = new PdfPCell();
+                quantityCell.addElement(new Paragraph(String.valueOf(quantity), fontTable));
+                quantityCell.setBorder(Rectangle.NO_BORDER);
+                quantityCell.setPaddingBottom(5f);
+                tableItems.addCell(quantityCell);
 
                 // Crear celda para el precio del producto con borde
                 PdfPCell priceCell = new PdfPCell();

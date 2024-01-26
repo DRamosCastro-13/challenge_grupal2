@@ -32,6 +32,8 @@ public class PurchaseOrder {
     @OneToMany(mappedBy = "purchaseOrder", fetch = FetchType.EAGER)
     private List<ProductOrder> productOrders = new ArrayList<>();
 
+    private double totalToPay;
+
     public PurchaseOrder() {
     }
 
@@ -115,5 +117,13 @@ public class PurchaseOrder {
 
     public void setProductOrders(List<ProductOrder> ProductOrders) {
         this.productOrders = ProductOrders;
+    }
+
+    public double getTotalToPay() {
+        return totalToPay;
+    }
+
+    public void setTotalToPay(double totalToPay) {
+        this.totalToPay = totalToPay;
     }
 }

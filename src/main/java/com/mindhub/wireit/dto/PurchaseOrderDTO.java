@@ -26,7 +26,7 @@ public class PurchaseOrderDTO {
         this.orderStatus = purchaseOrder.getOrderStatus();
         this.discount = purchaseOrder.getDiscount();
         this.totalAmount = purchaseOrder.getTotalAmount();
-        this.totalToPay = this.totalAmount *(1-(this.discount/100));
+        this.totalToPay = purchaseOrder.getTotalToPay();
         this.productOrders = purchaseOrder.getProductOrders().stream().map(ProductOrderDTO :: new).collect(Collectors.toSet());
     }
 
