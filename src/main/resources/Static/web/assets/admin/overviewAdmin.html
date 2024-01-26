@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../images/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Montserrat:wght@300;600&family=Poppins:wght@400;700&family=Signika:wght@500&family=Staatliches&display=swap" rel="stylesheet">
+    <title>WIRE IT | ADMIN</title>
+</head>
+<body class="bg-gradient-to-r from-[#1B1D29] to-[#7C85BD]">
+    <div id="app">
+        <header>
+    
+        </header>
+        <main>
+            <p></p>    
+        </main>
+        <footer>
+            <div class="flex flex-col w-full p-4 bg-slate-400/20">
+                <p class="font-['Poppins'] text-white text-lg text-center">Find us</p>
+                <div class="flex w-full justify-center gap-4">
+                    <a href="#">
+                        <img class="w-10" src="./assets/images/icons8-facebook-48.png" alt="facebool">
+                    </a>
+                    <a href="#">
+                        <img class="w-10" src="./assets/images/icons8-instagram-64.png" alt="instagram">
+                    </a>
+                    <a href="#">
+                        <img class="w-10" src="./assets/images/icons8-tik-tok-30.png" alt="tiktok">
+                    </a>
+                    <a href="#">
+                        <img class="w-9" src="./assets/images/icons8-twitch-50.png" alt="twitch">
+                    </a>
+                </div>
+            </div>
+            <section class="flex flex-col items-center lg:flex-row lg:content-start lg:items-start gap-5 px-10 w-full pt-8 pb-16 place-content-between bg-[#1B1D29]">
+                <div>
+                    <ul class="list-none flex flex-col gap-2 lg:mt-8">
+                        <li class="text-slate-200 font-bold montserrat text-lg">Shop</li>
+                        <li class="text-slate-400 montserrat text-sm">Gadgets</li>
+                        <li class="text-slate-400 montserrat text-sm">Set up</li>
+                        <li class="text-slate-400 montserrat text-sm">Gaming</li>
+                        <li class="text-slate-400 montserrat text-sm">Merch</li>
+                        <li class="text-slate-400 montserrat text-sm">something</li>
+                        <li class="text-slate-400 montserrat text-sm">something</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="list-none flex flex-col gap-2 lg:mt-8">
+                        <li class="text-slate-200 font-bold montserrat text-lg">Company</li>
+                        <li class="text-slate-400 montserrat text-sm">About us</li>
+                        <li class="text-slate-400 montserrat text-sm">Contact us</li>
+                        <li class="text-slate-400 montserrat text-sm">Support</li>
+                        <li class="text-slate-400 montserrat text-sm">Q&A</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="list-none flex flex-col gap-2 w-[20%] lg:mt-8">
+                        <li class="text-slate-200 font-bold montserrat text-lg">Community</li>
+                        <li class="text-slate-400 montserrat text-sm">Channels</li>
+                        <li class="text-slate-400 montserrat text-sm">News</li>
+                        <li class="text-slate-400 montserrat text-sm">Collaborations</li>
+                    </ul>
+                </div>
+                <div class="flex flex-col items-center pt-4 lg:mt-8 lg:pt-0 w-full lg:w-[20%]">
+                    <p class="text-slate-200 font-['Montserrat'] font-semibold text-xl text-center">Secure payments</p>
+                    <div class="flex flex-row flex-wrap gap-4">
+                        <img class="w-12 object-contain" src="./assets/images/american-express.png" alt="american-express">
+                        <img class="w-12 object-contain" src="./assets/images/icons8-tarjeta-visa-48.png" alt="visa">
+                        <img class="w-12 object-contain" src="./assets/images/logo.png" alt="mastercard">
+                        <img class="w-12 object-contain" src="./assets/images/paypal.png" alt="paypal">
+                    </div>
+                </div>
+                <div class="bg-slate-400/20 mt-8 flex flex-col w-full lg:w-[35%] place-items-center rounded-2 rounded-md gap-6 shadow-lg shadow-slate-800 h-80 place-content-center">
+                    <h2 class="text-white font-extrabold font-['Montserrat'] text-3xl md:text-4xl">NEWSLETTER</h2>
+                    <p class="text-white font-['Poppins'] text-sm w-10/12 text-center">Subscribe our newsletter to stay updated every moment and get the best deals.</p>
+                    <input class="rounded-lg p-1 ring-2 ring-slate-600 w-10/12" type="text" id="email" name="email" placeholder="Enter your email address">
+                    <button class="text-white font-['Poppins'] w-8/12 text-sm md:max-w-28 bg-[#22215D] rounded-lg p-1 ring-2 ring-slate-500">Submit</button>
+                    <div class="flex gap-1">
+                        <input type="checkbox" id="terms" name="terms">
+                        <p class="text-white font-['Poppins'] text-xs">I accept</p>
+                        <a class="text-white font-['Poppins'] text-xs underline" href="#">Terms and Conditions</a>
+                    </div>
+                </div>
+            </section>
+            <div class="ps-16 pe-16 bg-[#1B1D29]">
+                <div class="border-b border-slate-600"></div>
+            </div>
+            <section class="flex flex-col gap-4 w-full px-5  items-center md:flex-row md:ps-16 md:pe-16 py-8 place-content-between bg-[#1B1D29]">
+                <p class="text-slate-400 text-center montserrat text-xs w-full md:w-[34%]">Copyright © 2024 WireIt Inc. MINDHUB Cohort52. All rights reserved.</p>
+                <nav class="grid grid-cols-4 flex flex-col lg:gap-4 md:flex-row text-center divide-x">
+                    <a class="text-slate-400 text-center montserrat text-xs hover:underline self-center" href="#">Site Map</a>
+                    <a class="text-slate-400 text-center montserrat text-xs hover:underline" href="#">Legal Terms</a>
+                    <a class="text-slate-400 text-center montserrat text-xs hover:underline" href="#">Privacy Policy</a>
+                    <a class="text-slate-400 text-center montserrat text-xs hover:underline" href="#">Cookie Policy</a>
+                </nav>
+                <!-- <div class="grid grid-cols-2 divide-x">
+                    <p class="text-slate-200 text-center montserrat text-xs hover:underline">United States</p>
+                    <a class="text-slate-400 text-center montserrat text-xs hover:underline" href="#">Change Location ></a>
+                </div> -->
+            </section>
+        </footer>
+    </div>
+    <script src="./assets/js/vanilla-ham.js"></script>
+    <script src="./tailwindconfig.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
