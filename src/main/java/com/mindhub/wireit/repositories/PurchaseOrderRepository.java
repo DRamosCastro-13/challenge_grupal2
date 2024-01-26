@@ -6,4 +6,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
 public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrder, Long> {
+    PurchaseOrder findByOrderNumber(String orderNumber);
 }

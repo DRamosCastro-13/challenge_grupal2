@@ -6,5 +6,5 @@ import java.io.IOException;
 
 public interface PdfService {
 
-    void export(HttpServletResponse response) throws IOException;
+  void export(HttpServletResponse response, String orderNumber) throws IOException;
 }
