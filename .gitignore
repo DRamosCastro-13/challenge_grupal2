@@ -25,7 +25,7 @@ bin/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
-etc/secrets/.env
+src/main/resources/etc/secrets/.env
 
 ### NetBeans ###
 /nbproject/private/
