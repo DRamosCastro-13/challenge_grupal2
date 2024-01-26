@@ -35,7 +35,7 @@ public class WireItApplication {
 		return args -> {
 			Client client = new Client("Melba","Morel","melba@mindhub.com",25524320,passwordEncoder.encode("1234"));
 			clientRepository.save(client);
-			System.out.println(client);
+
 
 			Address address = new Address("Av.Hola","+5491120302020","Argentina","Buenos Aires","CABA",1439);
 			client.addAddress(address);

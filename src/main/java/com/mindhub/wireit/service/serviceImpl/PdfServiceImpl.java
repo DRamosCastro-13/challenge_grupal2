@@ -86,8 +86,35 @@ public class PdfServiceImpl implements PdfService {
             totalAmount.setSpacingAfter(15f);
             document.add(totalAmount);
 
+            document.add(new Paragraph(" "));
+            document.add(new Paragraph(" "));
+            document.add(new Paragraph(" "));
+
+
+            Set<Client> clients1 = Collections.singleton(purchaseOrder.getClient());
+
+            for (Client client : clients1) {
+                Font boldFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
+                boldFont.setSize(16);
+                Paragraph clientParagraph = new Paragraph(String.format("Client: %s %s", client.getFirstName(), client.getLastName()), boldFont);
+                clientParagraph.setSpacingAfter(10f); // Ajusta el valor según tus necesidades
+                Paragraph emailParagraph = new Paragraph(String.format("Email: %s", client.getEmail()), boldFont);
+                emailParagraph.setSpacingAfter(10f);
+                Paragraph phoneParagraph = new Paragraph(String.format("Phone: %s", client.getAddresses().stream().map(Address::getPhone).collect(Collectors.joining(", "))), boldFont);
+                phoneParagraph.setSpacingAfter(10f);
+                document.add(clientParagraph);
+                document.add(emailParagraph);
+                document.add(phoneParagraph);
+
+                document.add(new Paragraph(" "));
+                document.add(new Paragraph(" "));
+                document.add(new Paragraph(" "));
+
+            }
+
+
             //tabla de facturación con sus precios y productos
-            PdfPTable tableItems = new PdfPTable(2);
+            PdfPTable tableItems = new PdfPTable(3);
             tableItems.setWidthPercentage(100);
 
             // Crear celda para "Items Ordered" con borde
@@ -96,6 +123,13 @@ public class PdfServiceImpl implements PdfService {
             cellItemsHeader.setBorder(Rectangle.BOTTOM);
             cellItemsHeader.setPaddingBottom(10f);
             tableItems.addCell(cellItemsHeader);
+
+            // Crear celda para "quantity" con borde
+            PdfPCell cellQuantityHeader = new PdfPCell();
+            cellQuantityHeader.addElement(new Paragraph("Quantity", fontTable));
+            cellQuantityHeader.setBorder(Rectangle.BOTTOM);
+            cellQuantityHeader.setPaddingBottom(10f);
+            tableItems.addCell(cellQuantityHeader);
 
             // Crear celda para "Price" con borde
             PdfPCell cellPriceHeader = new PdfPCell();
@@ -110,12 +144,20 @@ public class PdfServiceImpl implements PdfService {
                 String itemName = product.getName();
                 double itemPrice = product.getPrice();
                 byte quantity = productOrder.getQuantity();
+
                 // Crear celda para el nombre del producto con borde
                 PdfPCell itemCell = new PdfPCell();
-                itemCell.addElement(new Paragraph(itemName + " Quantity: " + quantity, fontTable));
+                itemCell.addElement(new Paragraph(itemName, fontTable));
                 itemCell.setBorder(Rectangle.NO_BORDER);
                 itemCell.setPaddingBottom(5f);
                 tableItems.addCell(itemCell);
+
+                // Crear celda para la cantidad del producto con borde
+                PdfPCell quantityCell = new PdfPCell();
+                quantityCell.addElement(new Paragraph(String.valueOf(quantity), fontTable));
+                quantityCell.setBorder(Rectangle.NO_BORDER);
+                quantityCell.setPaddingBottom(5f);
+                tableItems.addCell(quantityCell);
 
                 // Crear celda para el precio del producto con borde
                 PdfPCell priceCell = new PdfPCell();
@@ -144,28 +186,20 @@ public class PdfServiceImpl implements PdfService {
                 boldFont.setSize(16);
 
                 // Crear párrafos con información del cliente
-                Paragraph clientParagraph = new Paragraph(String.format("Client: %s %s", client.getFirstName(), client.getLastName()), boldFont);
-                clientParagraph.setSpacingAfter(10f); // Ajusta el valor según tus necesidades
-                Paragraph emailParagraph = new Paragraph(String.format("Email: %s", client.getEmail()), boldFont);
-                emailParagraph.setSpacingAfter(10f);
-                Paragraph phoneParagraph = new Paragraph(String.format("Phone: %s", client.getAddresses().stream().map(Address::getPhone).collect(Collectors.joining(", "))), boldFont);
-                phoneParagraph.setSpacingAfter(10f);
                 Paragraph addressParagraph = new Paragraph(String.format("Address: %s", client.getAddresses().stream().map(Address::getAddress).collect(Collectors.joining(", "))), boldFont);
-                addressParagraph.setSpacingAfter(10f);
+                addressParagraph.setSpacingAfter(5f);
                 Paragraph countryParagraph = new Paragraph(String.format("Country: %s", client.getAddresses().stream().map(Address::getCountry).collect(Collectors.joining(", "))), boldFont);
-                countryParagraph.setSpacingAfter(10f);
+                countryParagraph.setSpacingAfter(5f);
                 Paragraph provinceParagraph = new Paragraph(String.format("Province: %s", client.getAddresses().stream().map(Address::getProvince).collect(Collectors.joining(", "))), boldFont);
-                provinceParagraph.setSpacingAfter(10f);
+                provinceParagraph.setSpacingAfter(5f);
                 Paragraph cityParagraph = new Paragraph(String.format("City: %s", client.getAddresses().stream().map(Address::getCity).collect(Collectors.joining(", "))), boldFont);
-                cityParagraph.setSpacingAfter(10f);
+                cityParagraph.setSpacingAfter(5f);
                 int zipCode = client.getAddresses().stream().mapToInt(Address::getZipCode).sum();
                 Paragraph zipCodeParagraph = new Paragraph(String.format("Zip Code: %d", zipCode), boldFont);
-                zipCodeParagraph.setSpacingAfter(10f);
+                zipCodeParagraph.setSpacingAfter(5f);
 
                 // Añadir los párrafos al documento
-                document.add(clientParagraph);
-                document.add(emailParagraph);
-                document.add(phoneParagraph);
+
                 document.add(addressParagraph);
                 document.add(countryParagraph);
                 document.add(provinceParagraph);
