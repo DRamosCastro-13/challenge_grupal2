@@ -61,29 +61,7 @@ public class ClientController {
     public ResponseEntity<String> generatePDF(@RequestParam String orderNumber,
                                               HttpServletResponse response,
                                               Authentication authentication) throws IOException {
-        // Obtener el cliente autenticado
-        Client client = clientService.getAuthenticatedClient(authentication.getName());
-        // Obtener las órdenes de compra del cliente
-        Set<PurchaseOrder> purchaseOrders = client.getPurchaseOrders();
-
-        for (PurchaseOrder po : purchaseOrders) {
-            if (po.getOrderNumber().equals(orderNumber)) {
-                // Verificar si el correo electrónico del cliente autenticado coincide con el correo asociado a la orden
-                if (authentication.getName().equals(po.getClient().getEmail())) {
-                    response.setContentType("application/pdf");
-                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd:hh:mm:ss");
-                    String currentDateTime = dateFormat.format(new Date());
-                    String headerKey = "Content-Disposition";
-                    String headerValue = "attachment; filename=order_" + currentDateTime + ".pdf";
-                    response.setHeader(headerKey, headerValue);
-                    pdfService.export(response, orderNumber);
-                    return new ResponseEntity<>("PDF generated successfully.", HttpStatus.OK);
-                } else {
-                    return new ResponseEntity<>("Unauthorized: Email mismatch for the specified order.", HttpStatus.UNAUTHORIZED);
-                }
-            }
-        }
-        // Si llega aquí, significa que no se encontró la orden con el número especificado
-        return new ResponseEntity<>("Order not found.", HttpStatus.NOT_FOUND);
+        ResponseEntity<String> responseEnt = pdfService.generatePDF(orderNumber, response, authentication);
+        return responseEnt;
     }
 }

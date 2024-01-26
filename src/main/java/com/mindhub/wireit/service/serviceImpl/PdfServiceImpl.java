@@ -6,17 +6,21 @@ import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import com.mindhub.wireit.models.*;
 import com.mindhub.wireit.repositories.PurchaseOrderRepository;
+import com.mindhub.wireit.service.ClientService;
 import com.mindhub.wireit.service.PdfService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
+import java.util.*;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -24,6 +28,52 @@ import java.util.stream.Collectors;
 public class PdfServiceImpl implements PdfService {
     @Autowired
     private PurchaseOrderRepository purchaseOrderRepository;
+    @Autowired
+    private ClientService clientService;
+
+    @Override
+    public ResponseEntity<String> generatePDF(String orderNumber, HttpServletResponse response, Authentication authentication) throws IOException {
+
+        if (authentication == null || authentication.getName() == null) {
+            return new ResponseEntity<>("You need to be logged in to create PDF of your order.", HttpStatus.FORBIDDEN);
+        }
+        // Obtener el cliente autenticado
+        Client client = clientService.getAuthenticatedClient(authentication.getName());
+
+        if (client == null) {
+            return new ResponseEntity<>("You need to Sing up in the plataform to create PDF of your order.", HttpStatus.FORBIDDEN);
+        }
+
+        // Obtener las órdenes de compra del cliente
+        Set<PurchaseOrder> purchaseOrders = client.getPurchaseOrders();
+
+        for (PurchaseOrder po : purchaseOrders) {
+            if (po.getOrderNumber().equals(orderNumber)) {
+                // Verificar si el correo electrónico del cliente autenticado coincide con el correo asociado a la orden
+                if (authentication.getName().equals(po.getClient().getEmail())) {
+                    response.setContentType("application/pdf");
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd:hh:mm:ss");
+                    String currentDateTime = dateFormat.format(new Date());
+                    String headerKey = "Content-Disposition";
+                    String headerValue = "attachment; filename=order_" + currentDateTime + ".pdf";
+                    response.setHeader(headerKey, headerValue);
+                    export(response, orderNumber);
+                    return new ResponseEntity<>("PDF generated successfully.", HttpStatus.OK);
+                } else {
+                    return new ResponseEntity<>("Unauthorized: Email mismatch for the specified order.", HttpStatus.UNAUTHORIZED);
+                }
+            }
+        }
+        // Si llega aquí, significa que no se encontró la orden con el número especificado
+        return new ResponseEntity<>("Order not found.", HttpStatus.NOT_FOUND);
+    }
+
+
+    //metodo para el precio
+    private String formatPrice(double price) {
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(Locale.US);
+        return currencyFormatter.format(price);
+    }
 
     @Override
     public void export(HttpServletResponse response, String orderNumber) throws IOException {
@@ -113,24 +163,23 @@ public class PdfServiceImpl implements PdfService {
             tableItems.setWidthPercentage(100);
 
             // Crear celda para "Items Ordered" con borde
-            PdfPCell cellItemsHeader = new PdfPCell();
-            cellItemsHeader.addElement(new Paragraph("Items Ordered", fontTable));
+            PdfPCell cellItemsHeader = new PdfPCell(new Paragraph("Items Ordered", fontTable));
             cellItemsHeader.setBorder(Rectangle.BOTTOM);
             cellItemsHeader.setPaddingBottom(10f);
             tableItems.addCell(cellItemsHeader);
 
             // Crear celda para "quantity" con borde
-            PdfPCell cellQuantityHeader = new PdfPCell();
-            cellQuantityHeader.addElement(new Paragraph("Quantity", fontTable));
+            PdfPCell cellQuantityHeader = new PdfPCell(new Paragraph("Quantity", fontTable));
             cellQuantityHeader.setBorder(Rectangle.BOTTOM);
             cellQuantityHeader.setPaddingBottom(10f);
+            cellQuantityHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
             tableItems.addCell(cellQuantityHeader);
 
             // Crear celda para "Price" con borde
-            PdfPCell cellPriceHeader = new PdfPCell();
-            cellPriceHeader.addElement(new Paragraph("Price", fontTable));
+            PdfPCell cellPriceHeader = new PdfPCell(new Paragraph("Price", fontTable));
             cellPriceHeader.setBorder(Rectangle.BOTTOM);
             cellPriceHeader.setPaddingBottom(10f);
+            cellPriceHeader.setHorizontalAlignment(Element.ALIGN_RIGHT);
             tableItems.addCell(cellPriceHeader);
 
             List<ProductOrder> productOrders = purchaseOrder.getProductOrders();
@@ -141,24 +190,23 @@ public class PdfServiceImpl implements PdfService {
                 int quantity = productOrder.getQuantity();
 
                 // Crear celda para el nombre del producto con borde
-                PdfPCell itemCell = new PdfPCell();
-                itemCell.addElement(new Paragraph(itemName, fontTable));
-                itemCell.setBorder(Rectangle.NO_BORDER);
+                PdfPCell itemCell = new PdfPCell(new Phrase(itemName, fontTable));
+                itemCell.setBorder(Rectangle.BOTTOM);
                 itemCell.setPaddingBottom(5f);
                 tableItems.addCell(itemCell);
 
                 // Crear celda para la cantidad del producto con borde
-                PdfPCell quantityCell = new PdfPCell();
-                quantityCell.addElement(new Paragraph(String.valueOf(quantity), fontTable));
-                quantityCell.setBorder(Rectangle.NO_BORDER);
+                PdfPCell quantityCell = new PdfPCell(new Phrase(String.valueOf(quantity), fontTable));
+                quantityCell.setBorder(Rectangle.BOTTOM);
                 quantityCell.setPaddingBottom(5f);
+                quantityCell.setHorizontalAlignment(Element.ALIGN_CENTER);  // Alinea al centro
                 tableItems.addCell(quantityCell);
 
                 // Crear celda para el precio del producto con borde
-                PdfPCell priceCell = new PdfPCell();
-                priceCell.addElement(new Paragraph("$" + itemPrice, fontTable));
-                priceCell.setBorder(Rectangle.NO_BORDER);
+                PdfPCell priceCell = new PdfPCell(new Phrase(formatPrice(itemPrice), fontTable));
+                priceCell.setBorder(Rectangle.BOTTOM);
                 priceCell.setPaddingBottom(5f);
+                priceCell.setHorizontalAlignment(Element.ALIGN_RIGHT);  // Alinea a la derecha
                 tableItems.addCell(priceCell);
             }
 
@@ -166,29 +214,26 @@ public class PdfServiceImpl implements PdfService {
 
             document.add(new Paragraph(" "));
 
+            Paragraph totalParagraph = new Paragraph();
+
             Font fontTotalAmount = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
             fontTotalAmount.setSize(13);
             double totalAmountValue = purchaseOrder.getTotalAmount();
 
-            PdfPTable totaltable = new PdfPTable(3);
-            totaltable.setWidthPercentage(100);
+            totalParagraph.add(new Phrase("SubTotal Amount: " + formatPrice(totalAmountValue)));
+            totalParagraph.add(Chunk.NEWLINE);
 
-            PdfPCell totalAmountCell = new PdfPCell(new Paragraph("Total Amount: $" + totalAmountValue));
-            totalAmountCell.setBorder(Rectangle.TOP);
-            totaltable.addCell(totalAmountCell);
+            totalParagraph.add(new Phrase("Discount: " + purchaseOrder.getDiscount() + "%"));
+            totalParagraph.add(Chunk.NEWLINE);
 
-            PdfPCell discountCell = new PdfPCell(new Paragraph("Discount: " + purchaseOrder.getDiscount() + "%"));
-            discountCell.setBorder(Rectangle.TOP);
-            totaltable.addCell(discountCell);
+            totalParagraph.add(new Phrase("Total Amount: " + formatPrice(purchaseOrder.getTotalToPay()), fontTotalAmount));
 
-            PdfPCell totalToPayCell = new PdfPCell(new Paragraph("Amount to pay: $" + purchaseOrder.getTotalToPay(), fontTotalAmount));
-            totalToPayCell.setBorder(Rectangle.TOP);
-            totaltable.addCell(totalToPayCell);
-
-            document.add(totaltable);
+            totalParagraph.setAlignment(Paragraph.ALIGN_RIGHT);
+            document.add(totalParagraph);
 
             document.close();
         }
     }
+
 }
 
