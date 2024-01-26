@@ -98,6 +98,8 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         List<ProductOrder> productOrders = purchaseOrder.getProductOrders();
         CalculateTotalAmount.calculateTotalPrice(purchaseOrder, productOrders);
 
+        purchaseOrder.setTotalToPay(purchaseOrder.getTotalAmount()*(1-(purchaseOrder.getDiscount()/100)));
+
         client.addOrders(purchaseOrder);
 
         savePurchaseOrder(purchaseOrder);

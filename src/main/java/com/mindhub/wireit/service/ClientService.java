@@ -13,8 +13,13 @@ public interface ClientService {
 
     List<Client> getAllClient();
 
+    Client getAuthenticatedClient(String email);
+
     List<ClientDTO> getAllClientDTO();
+
     ResponseEntity<ClientDTO> getClient(Authentication authentication);
+
     ResponseEntity<String> createClient(NewClient newClient);
+
     ResponseEntity<String> newAddress(NewAddress newAddress, Authentication authentication);
 }

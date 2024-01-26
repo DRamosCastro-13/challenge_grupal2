@@ -121,5 +121,9 @@ public class ClientServiceImpl implements ClientService {
         return new ResponseEntity<>("Address Created successfully",HttpStatus.CREATED);
     }
 
+    @Override
+    public Client getAuthenticatedClient(String email) {
+        return clientRepository.findByEmail(email);
+    }
 
 }
