@@ -5,5 +5,6 @@ public enum ProductCategory {
     MOUSE,
     KEYBOARD,
     CPU,
-    HEADPHONES
+    HEADPHONES,
+    MOTHERBOARD
 }

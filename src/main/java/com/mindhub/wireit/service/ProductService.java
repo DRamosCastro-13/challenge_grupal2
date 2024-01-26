@@ -17,4 +17,6 @@ public interface ProductService {
     List<ProductDTO> getAllProductsFiltered(ProductCategory productCategory);
 
     ResponseEntity<String> createProduct(NewProduct newProduct, Authentication authentication);
+
+    Product getProductById(Long id);
 }

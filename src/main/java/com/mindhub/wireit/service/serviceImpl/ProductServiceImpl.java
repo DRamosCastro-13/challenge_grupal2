@@ -87,4 +87,9 @@ public class ProductServiceImpl implements ProductService {
         return new ResponseEntity<>("Product create successful",HttpStatus.CREATED);
     }
 
+    @Override
+    public Product getProductById(Long id) {
+        return productRepository.findById(id).orElse(null);
+    }
+
 }

@@ -14,8 +14,9 @@ public class PurchaseOrderDTO {
     private LocalDate shipment_date;
     private String additionalComment;
     private OrderStatus orderStatus;
-    private double discount, totalAmount;
+    private double discount, totalAmount, totalToPay;
     private Set<ProductOrderDTO> productOrders;
+
 
     public PurchaseOrderDTO(PurchaseOrder purchaseOrder) {
         this.id = purchaseOrder.getId();
@@ -25,6 +26,7 @@ public class PurchaseOrderDTO {
         this.orderStatus = purchaseOrder.getOrderStatus();
         this.discount = purchaseOrder.getDiscount();
         this.totalAmount = purchaseOrder.getTotalAmount();
+        this.totalToPay = purchaseOrder.getTotalToPay();
         this.productOrders = purchaseOrder.getProductOrders().stream().map(ProductOrderDTO :: new).collect(Collectors.toSet());
     }
 
@@ -58,5 +60,9 @@ public class PurchaseOrderDTO {
 
     public Set<ProductOrderDTO> getProductOrders() {
         return productOrders;
+    }
+
+    public double getTotalToPay() {
+        return totalToPay;
     }
 }

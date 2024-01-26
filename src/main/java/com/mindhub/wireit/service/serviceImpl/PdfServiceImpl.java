@@ -5,7 +5,6 @@ import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import com.mindhub.wireit.models.*;
-import com.mindhub.wireit.repositories.ClientRepository;
 import com.mindhub.wireit.repositories.PurchaseOrderRepository;
 import com.mindhub.wireit.service.PdfService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,10 +15,10 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.*;
 
 @Service
 public class PdfServiceImpl implements PdfService {
@@ -48,7 +47,7 @@ public class PdfServiceImpl implements PdfService {
 
             PdfPCell cellFecha = new PdfPCell();
             Font fontTable = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
-            fontTable.setSize(16);
+            fontTable.setSize(12);
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             String fechaFacturacion = "Invoice date: " + dateFormat.format(new Date());
             Paragraph fechaParagraph = new Paragraph(fechaFacturacion, fontTable);
@@ -65,53 +64,49 @@ public class PdfServiceImpl implements PdfService {
 
             // Añadir espacio entre secciones
             document.add(new Paragraph(" "));
-            document.add(new Paragraph(" "));
+
+            // Sección 2: Detalles del cliente
+            Set<Client> clients = Collections.singleton(purchaseOrder.getClient());
+
+            for (Client client : clients) {
+                Font boldFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
+                boldFont.setSize(13);
+
+                // Crear párrafos con información del cliente
+                Paragraph addressParagraph = new Paragraph(String.format("Address: %s", client.getAddresses().stream().map(Address::getAddress).collect(Collectors.joining(", "))), boldFont);
+                addressParagraph.setSpacingAfter(5f);
+                Paragraph countryParagraph = new Paragraph(String.format("Country: %s", client.getAddresses().stream().map(Address::getCountry).collect(Collectors.joining(", "))), boldFont);
+                countryParagraph.setSpacingAfter(5f);
+                Paragraph provinceParagraph = new Paragraph(String.format("Province: %s", client.getAddresses().stream().map(Address::getProvince).collect(Collectors.joining(", "))), boldFont);
+                provinceParagraph.setSpacingAfter(5f);
+                Paragraph cityParagraph = new Paragraph(String.format("City: %s", client.getAddresses().stream().map(Address::getCity).collect(Collectors.joining(", "))), boldFont);
+                cityParagraph.setSpacingAfter(5f);
+                int zipCode = client.getAddresses().stream().mapToInt(Address::getZipCode).sum();
+                Paragraph zipCodeParagraph = new Paragraph(String.format("Zip Code: %d", zipCode), boldFont);
+                zipCodeParagraph.setSpacingAfter(5f);
+
+                // Añadir los párrafos al documento
+
+                document.add(addressParagraph);
+                document.add(countryParagraph);
+                document.add(provinceParagraph);
+                document.add(cityParagraph);
+                document.add(zipCodeParagraph);
+            }
+
             document.add(new Paragraph(" "));
 
-            // Sección 2: Detalles de la orden
+            // Sección 3: Detalles de la orden
             Font fontTitle = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
-            fontTitle.setSize(18);
+            fontTitle.setSize(16);
 
             Paragraph order = new Paragraph("Purchase Order: " + purchaseOrder.getOrderNumber(), fontTitle);
             order.setAlignment(Paragraph.ALIGN_MIDDLE);
+            order.setAlignment(Element.ALIGN_MIDDLE | Element.ALIGN_CENTER);
             order.setSpacingAfter(15f);
             document.add(order);
 
-            Font fontTotalAmount = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
-            fontTotalAmount.setSize(16);
-            double totalAmountValue = purchaseOrder.getTotalAmount();
-
-            Paragraph totalAmount = new Paragraph("Total Amount: $" + totalAmountValue, fontTotalAmount);
-            totalAmount.setAlignment(Paragraph.ALIGN_LEFT);
-            totalAmount.setSpacingAfter(15f);
-            document.add(totalAmount);
-
             document.add(new Paragraph(" "));
-            document.add(new Paragraph(" "));
-            document.add(new Paragraph(" "));
-
-
-            Set<Client> clients1 = Collections.singleton(purchaseOrder.getClient());
-
-            for (Client client : clients1) {
-                Font boldFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
-                boldFont.setSize(16);
-                Paragraph clientParagraph = new Paragraph(String.format("Client: %s %s", client.getFirstName(), client.getLastName()), boldFont);
-                clientParagraph.setSpacingAfter(10f); // Ajusta el valor según tus necesidades
-                Paragraph emailParagraph = new Paragraph(String.format("Email: %s", client.getEmail()), boldFont);
-                emailParagraph.setSpacingAfter(10f);
-                Paragraph phoneParagraph = new Paragraph(String.format("Phone: %s", client.getAddresses().stream().map(Address::getPhone).collect(Collectors.joining(", "))), boldFont);
-                phoneParagraph.setSpacingAfter(10f);
-                document.add(clientParagraph);
-                document.add(emailParagraph);
-                document.add(phoneParagraph);
-
-                document.add(new Paragraph(" "));
-                document.add(new Paragraph(" "));
-                document.add(new Paragraph(" "));
-
-            }
-
 
             //tabla de facturación con sus precios y productos
             PdfPTable tableItems = new PdfPTable(3);
@@ -138,12 +133,12 @@ public class PdfServiceImpl implements PdfService {
             cellPriceHeader.setPaddingBottom(10f);
             tableItems.addCell(cellPriceHeader);
 
-            Set<ProductOrder> productOrders = purchaseOrder.getProductOrders();
+            List<ProductOrder> productOrders = purchaseOrder.getProductOrders();
             for (ProductOrder productOrder : productOrders) {
                 Product product = productOrder.getProduct();
                 String itemName = product.getName();
                 double itemPrice = product.getPrice();
-                byte quantity = productOrder.getQuantity();
+                int quantity = productOrder.getQuantity();
 
                 // Crear celda para el nombre del producto con borde
                 PdfPCell itemCell = new PdfPCell();
@@ -169,43 +164,28 @@ public class PdfServiceImpl implements PdfService {
 
             document.add(tableItems);
 
-            // Añadir espacio entre secciones
-            document.add(new Paragraph(" "));
-            document.add(new Paragraph(" "));
-            document.add(new Paragraph(" "));
-            document.add(new Paragraph(" "));
-            document.add(new Paragraph(" "));
-            document.add(new Paragraph(" "));
             document.add(new Paragraph(" "));
 
-            // Sección 3: Detalles del cliente
-            Set<Client> clients = Collections.singleton(purchaseOrder.getClient());
+            Font fontTotalAmount = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
+            fontTotalAmount.setSize(13);
+            double totalAmountValue = purchaseOrder.getTotalAmount();
 
-            for (Client client : clients) {
-                Font boldFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
-                boldFont.setSize(16);
+            PdfPTable totaltable = new PdfPTable(3);
+            totaltable.setWidthPercentage(100);
 
-                // Crear párrafos con información del cliente
-                Paragraph addressParagraph = new Paragraph(String.format("Address: %s", client.getAddresses().stream().map(Address::getAddress).collect(Collectors.joining(", "))), boldFont);
-                addressParagraph.setSpacingAfter(5f);
-                Paragraph countryParagraph = new Paragraph(String.format("Country: %s", client.getAddresses().stream().map(Address::getCountry).collect(Collectors.joining(", "))), boldFont);
-                countryParagraph.setSpacingAfter(5f);
-                Paragraph provinceParagraph = new Paragraph(String.format("Province: %s", client.getAddresses().stream().map(Address::getProvince).collect(Collectors.joining(", "))), boldFont);
-                provinceParagraph.setSpacingAfter(5f);
-                Paragraph cityParagraph = new Paragraph(String.format("City: %s", client.getAddresses().stream().map(Address::getCity).collect(Collectors.joining(", "))), boldFont);
-                cityParagraph.setSpacingAfter(5f);
-                int zipCode = client.getAddresses().stream().mapToInt(Address::getZipCode).sum();
-                Paragraph zipCodeParagraph = new Paragraph(String.format("Zip Code: %d", zipCode), boldFont);
-                zipCodeParagraph.setSpacingAfter(5f);
+            PdfPCell totalAmountCell = new PdfPCell(new Paragraph("Total Amount: $" + totalAmountValue));
+            totalAmountCell.setBorder(Rectangle.TOP);
+            totaltable.addCell(totalAmountCell);
 
-                // Añadir los párrafos al documento
+            PdfPCell discountCell = new PdfPCell(new Paragraph("Discount: " + purchaseOrder.getDiscount() + "%"));
+            discountCell.setBorder(Rectangle.TOP);
+            totaltable.addCell(discountCell);
 
-                document.add(addressParagraph);
-                document.add(countryParagraph);
-                document.add(provinceParagraph);
-                document.add(cityParagraph);
-                document.add(zipCodeParagraph);
-            }
+            PdfPCell totalToPayCell = new PdfPCell(new Paragraph("Amount to pay: $" + purchaseOrder.getTotalToPay(), fontTotalAmount));
+            totalToPayCell.setBorder(Rectangle.TOP);
+            totaltable.addCell(totalToPayCell);
+
+            document.add(totaltable);
 
             document.close();
         }

@@ -29,7 +29,7 @@ public class ProductOrderDTO {
         this.productName = productOrder.getProduct().getName();
         this.productBrand = productOrder.getProduct().getBrand();
         this.product_price = productOrder.getProduct().getPrice();
-        this.quantity = productOrder.getProduct().getStock();
+        this.quantity = productOrder.getQuantity();
     }
 
     public Long getId() {
