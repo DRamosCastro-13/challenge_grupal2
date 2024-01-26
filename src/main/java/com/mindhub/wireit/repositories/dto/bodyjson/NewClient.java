@@ -1,4 +1,4 @@
-package com.mindhub.wireit.dto.bodyjson;
+package com.mindhub.wireit.repositories.dto.bodyjson;
 
 public class NewClient {
     private String firstName, lastName, email, password;

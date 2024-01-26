@@ -1,14 +1,13 @@
 package com.mindhub.wireit.service.serviceImpl;
 
-import com.mindhub.wireit.dto.ProductDTO;
-import com.mindhub.wireit.dto.bodyjson.NewProduct;
+import com.mindhub.wireit.repositories.dto.ProductDTO;
+import com.mindhub.wireit.repositories.dto.bodyjson.NewProduct;
 import com.mindhub.wireit.models.Client;
 import com.mindhub.wireit.models.Product;
 import com.mindhub.wireit.models.enums.ProductCategory;
 import com.mindhub.wireit.models.enums.Role;
 import com.mindhub.wireit.repositories.ClientRepository;
 import com.mindhub.wireit.repositories.ProductRepository;
-import com.mindhub.wireit.service.ClientService;
 import com.mindhub.wireit.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

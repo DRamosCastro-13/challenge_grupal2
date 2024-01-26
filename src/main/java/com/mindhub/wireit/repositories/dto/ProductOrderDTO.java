@@ -1,4 +1,4 @@
-package com.mindhub.wireit.dto;
+package com.mindhub.wireit.repositories.dto;
 
 import com.mindhub.wireit.models.Client;
 import com.mindhub.wireit.models.Product;

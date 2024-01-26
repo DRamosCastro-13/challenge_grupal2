@@ -1,14 +1,9 @@
-package com.mindhub.wireit.dto;
+package com.mindhub.wireit.repositories.dto;
 
-import com.mindhub.wireit.models.Client;
-import com.mindhub.wireit.models.ProductOrder;
 import com.mindhub.wireit.models.PurchaseOrder;
 import com.mindhub.wireit.models.enums.OrderStatus;
-import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
