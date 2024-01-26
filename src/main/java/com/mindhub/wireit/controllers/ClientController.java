@@ -1,8 +1,8 @@
 package com.mindhub.wireit.controllers;
 
-import com.mindhub.wireit.repositories.dto.ClientDTO;
-import com.mindhub.wireit.repositories.dto.bodyjson.NewAddress;
-import com.mindhub.wireit.repositories.dto.bodyjson.NewClient;
+import com.mindhub.wireit.dto.ClientDTO;
+import com.mindhub.wireit.dto.bodyjson.NewAddress;
+import com.mindhub.wireit.dto.bodyjson.NewClient;
 import com.mindhub.wireit.service.ClientService;
 import com.mindhub.wireit.service.PdfService;
 import jakarta.servlet.http.HttpServletResponse;

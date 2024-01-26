@@ -1,7 +1,7 @@
 package com.mindhub.wireit.service.serviceImpl;
 
-import com.mindhub.wireit.repositories.dto.ProductDTO;
-import com.mindhub.wireit.repositories.dto.bodyjson.NewProduct;
+import com.mindhub.wireit.dto.ProductDTO;
+import com.mindhub.wireit.dto.bodyjson.NewProduct;
 import com.mindhub.wireit.models.Client;
 import com.mindhub.wireit.models.Product;
 import com.mindhub.wireit.models.enums.ProductCategory;
@@ -85,6 +85,11 @@ public class ProductServiceImpl implements ProductService {
         productRepository.save(product);
 
         return new ResponseEntity<>("Product create successful",HttpStatus.CREATED);
+    }
+
+    @Override
+    public Product getProductById(Long id) {
+        return productRepository.findById(id).orElse(null);
     }
 
 }

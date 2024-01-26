@@ -1,4 +1,4 @@
-package com.mindhub.wireit.repositories.dto;
+package com.mindhub.wireit.dto;
 
 import com.mindhub.wireit.models.Client;
 import com.mindhub.wireit.models.Product;
@@ -29,7 +29,7 @@ public class ProductOrderDTO {
         this.productName = productOrder.getProduct().getName();
         this.productBrand = productOrder.getProduct().getBrand();
         this.product_price = productOrder.getProduct().getPrice();
-        this.quantity = productOrder.getProduct().getStock();
+        this.quantity = productOrder.getQuantity();
     }
 
     public Long getId() {

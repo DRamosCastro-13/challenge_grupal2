@@ -1,8 +1,8 @@
 package com.mindhub.wireit.service.serviceImpl;
 
-import com.mindhub.wireit.repositories.dto.ClientDTO;
-import com.mindhub.wireit.repositories.dto.bodyjson.NewAddress;
-import com.mindhub.wireit.repositories.dto.bodyjson.NewClient;
+import com.mindhub.wireit.dto.ClientDTO;
+import com.mindhub.wireit.dto.bodyjson.NewAddress;
+import com.mindhub.wireit.dto.bodyjson.NewClient;
 import com.mindhub.wireit.models.Address;
 import com.mindhub.wireit.models.Client;
 import com.mindhub.wireit.repositories.AddressRepository;

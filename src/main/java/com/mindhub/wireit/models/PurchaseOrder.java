@@ -4,7 +4,9 @@ import com.mindhub.wireit.models.enums.OrderStatus;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -28,7 +30,7 @@ public class PurchaseOrder {
     private Client client;
 
     @OneToMany(mappedBy = "purchaseOrder", fetch = FetchType.EAGER)
-    private Set<ProductOrder> productOrders = new HashSet<>();
+    private List<ProductOrder> productOrders = new ArrayList<>();
 
     public PurchaseOrder() {
     }
@@ -107,11 +109,11 @@ public class PurchaseOrder {
         this.orderNumber = orderNumber;
     }
 
-    public Set<ProductOrder> getProductOrders() {
+    public List<ProductOrder> getProductOrders() {
         return productOrders;
     }
 
-    public void setProductOrders(Set<ProductOrder> ProductOrders) {
+    public void setProductOrders(List<ProductOrder> ProductOrders) {
         this.productOrders = ProductOrders;
     }
 }
