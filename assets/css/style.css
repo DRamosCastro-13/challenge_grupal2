@@ -136,7 +136,7 @@
 box-sizing: border-box;
 }
 
-main {
+.main-container {
 	background: linear-gradient(to right, #1B1D29, #7C85BD);
 	display: flex;
 	justify-content: center;
