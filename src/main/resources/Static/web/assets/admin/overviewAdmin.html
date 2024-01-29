@@ -14,7 +14,7 @@
 </head>
 <body class="bg-gradient-to-r from-[#1B1D29] to-[#7C85BD]">
     <div id="app">
-        <header class="flex flex-wrap w-full justify-between lg:justify-start lg:space-x-80 lg:px-10 p-3">
+        <header class="flex flex-wrap fixed lg:static top-0 z-40 bg-gradient-to-r from-[#1B1D29] to-[#7C85BD] w-full justify-around lg:justify-between lg:px-10">
             <a href="../../../index.html" class="flex items-center content-center min-h-[10vh]">
                 <img class="w-4 md:w-6" src="../images/icon.png" alt="icon">
                 <h2 class="text-2xl md:text-3xl font-extrabold flex self-center text-white font-['Montserrat']">WIRE IT
@@ -22,9 +22,6 @@
             </a>
             <ul class="nav-menu lg:hidden">
                 <li class="nav-item border-t-2">
-                    <a href="#" class="nav-link text-white">Login | Register</a>
-                </li>
-                <li class="nav-item">
                     <a href="../../../index.html" class="nav-link text-white">Home</a>
                 </li>
                 <li class="nav-item">
@@ -36,11 +33,14 @@
                 <li class="nav-item">
                     <a href="../pages/contact.html" class="nav-link text-white">Contact Us</a>
                 </li>
+                <li class="nav-item">
+                    <button class="nav-link text-white" @click="logout()">Logout</button>
+                </li>
                 <li class="nav-item h-[100dvh]">
                     <a href="#" class="nav-link"></a>
                 </li>
             </ul>
-            <div class="lg:hidden">
+            <div class="py-3 [10vh] lg:hidden">
                 <div class="hamburger" @click="showMenu = !showMenu">
                     <span class="bar"></span>
                     <span class="bar"></span>
@@ -48,11 +48,12 @@
                 </div>
                 <p class="text-white text-[10px] pt-0.5">Menu</p>
             </div>
-            <nav class="flex self-center gap-5">
+            <nav class="hidden lg:flex self-center gap-5">
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="../../../index.html">Home</a>
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="../pages/product.html">Products</a>
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="../pages/aboutus.html">About Us</a>
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="../pages/contact.html">Contact</a>
+                <button class="font-['Poppins'] text-white text-lg hover:text-slate-400" @click="logout()">Logout</button>
             </nav>
             <div class="hidden flex-row self-center gap-4">
                 <div class="hidden md:block md:flex">
@@ -64,28 +65,33 @@
                 </a>
             </div>
         </header>
-        <main>
-            <p></p>    
-        </main>
-        <footer>
-            <div class="flex flex-col w-full p-4 bg-slate-400/20">
-                <p class="font-['Poppins'] text-white text-lg text-center">Find us</p>
-                <div class="flex w-full justify-center gap-4">
-                    <a href="#">
-                        <img class="w-10" src="../images/icons8-facebook-48.png" alt="facebook">
-                    </a>
-                    <a href="#">
-                        <img class="w-10" src="../images/icons8-instagram-64.png" alt="instagram">
-                    </a>
-                    <a href="#">
-                        <img class="w-10" src="../images/icons8-tik-tok-30.png" alt="tiktok">
-                    </a>
-                    <a href="#">
-                        <img class="w-9" src="../images/icons8-twitch-50.png" alt="twitch">
-                    </a>
-                </div>
+        <main class="w-full flex flex-col gap-5 items-center pt-20 lg:pt-5 md:pt-28 flex-grow">
+            <h1 class="font-extrabold font-['Montserrat'] text-white text-4xl md:text-5xl text-center">Admin Panel</h1>
+           
+            <div v-if="products" class="w-11/12 md:w-9/12 flex flex-col gap-5 items-center">
+                <h2 class="font-semibold font-['Montserrat'] text-white text-3xl md:text-4xl text-center">Products</h2>
+               
+                <table class="w-11/12 mt-5 mb-10 border-solid border-b-2 border-gray-400">
+                    <tr class="bg-slate-800">
+                        <th class="px-2 py-3 text-white">Name</th>
+                        <th class="px-2 py-3 text-white">Brand</th>
+                        <th class="px-2 py-3 text-white">Price</th>
+                        <th class="px-2 py-3 text-white">Stock</th>
+                    </tr>
+                    <tr v-for="product in products" class="border-solid border-b-2 hover:bg-slate-500 border-gray-400 w-full">
+                        <td class="px-4 py-3 text-white text-start">{{product.name}}</td>
+                        <td class="px-2 py-3 text-white text-center">{{product.brand}}</td>
+                        <td class="px-2 py-3 text-white text-end">{{product.price.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</td>
+                        <td v-if="product.stock <= 5 && product.stock > 0" class="px-2 md:pr-4 py-3 text-amber-400 text-center font-semibold">{{product.stock}}<span class="text-amber-400 text-xs ml-1 font-semibold">*Last Units</span></td>
+                        <td v-else-if="product.stock == 0" class="px-2 md:pr-4 py-3 text-red-500 text-center">Out of stock</td>
+                        <td v-else-if="product.stock > 5" class="px-2 md:pr-4 py-3 text-white text-center font-semibold">{{product.stock}}</td>
+                    </tr>
+                </table>
+
+                 <a href="./stockManagement.html" class="font-['Poppins'] mb-10 py-3 px-5 text-white text-lg hover:text-white bg-transparent  hover:bg-green-700 border-2 border-green-200 rounded-lg">Add New Product | Renew Stock</a>
             </div>
-        
+        </main>
+        <footer class="bottom-0 w-full">
             <section class="flex flex-col gap-4 w-full px-5  items-center md:flex-row md:ps-16 md:pe-16 py-8 place-content-between bg-[#1B1D29]">
                 <p class="text-slate-400 text-center montserrat text-xs w-full md:w-[34%]">Copyright © 2024 WireIt Inc. MINDHUB Cohort52. All rights reserved.</p>
                 <nav class="grid grid-cols-4 flex flex-col lg:gap-4 md:flex-row text-center divide-x">
@@ -94,15 +100,12 @@
                     <a class="text-slate-400 text-center montserrat text-xs hover:underline" href="#">Privacy Policy</a>
                     <a class="text-slate-400 text-center montserrat text-xs hover:underline" href="#">Cookie Policy</a>
                 </nav>
-                <!-- <div class="grid grid-cols-2 divide-x">
-                    <p class="text-slate-200 text-center montserrat text-xs hover:underline">United States</p>
-                    <a class="text-slate-400 text-center montserrat text-xs hover:underline" href="#">Change Location ></a>
-                </div> -->
             </section>
         </footer>
     </div>
-    <script src="./assets/js/vanilla-ham.js"></script>
-    <script src="./tailwindconfig.js"></script>
-    <script src="index.js"></script>
+    <script src="../js/vanilla-ham.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="./admin.js"></script>
 </body>
 </html>
