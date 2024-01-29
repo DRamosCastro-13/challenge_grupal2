@@ -17,7 +17,7 @@
         <!--<div class="z-10 h-[100vh] w-[100vw]">
             <div class="  w-[0%] h-[0%] top-0 left-0"></div>
             <div class="absolute w-[100%] h-[100%] top-[-1%] z-20 bg-no-repeat opacity-25" style="background-image: url('./assets/images/wave.png')"></div>-->
-        <header class="flex flex-wrap fixed top-0 z-40 bg-gradient-to-r from-[#1B1D29] to-[#7C85BD] w-full justify-around lg:justify-between lg:px-10 ">
+        <header class="flex flex-wrap fixed lg:static top-0 z-40 bg-gradient-to-r from-[#1B1D29] to-[#7C85BD] w-full justify-around lg:justify-between lg:px-10">
             <a href="web/assets/pages/register.html" class="group flex flex-col pt-4 pb-3 min-h-[10vh] lg:hidden">
                 <svg width="26px" height="26px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#ffffff" stroke="#ffffff">
 
@@ -42,13 +42,13 @@
 
             <ul class="nav-menu lg:hidden">
                 <li class="nav-item border-t-2">
-                    <a href="web/assets/pages/register.html" class="nav-link text-white">Login | Register</a>
+                    <a href="./web/assets/pages/register.html" class="nav-link text-white">Login | Register</a>
                 </li>
                 <li class="nav-item" >
                     <a href="web/assets/pages/carrito.html" class="nav-link text-white">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a href="web/assets/pages/aboutus.html" class="nav-link text-white">About Us</a>
+                    <a href="./web/assets/pages/aboutus.html" class="nav-link text-white">About Us</a>
                 </li>
                 <li class="nav-item">
                     <a href="web/assets/pages/contact.html" class="nav-link text-white">Contact Us</a>
@@ -68,7 +68,7 @@
             <nav class="hidden lg:flex self-center gap-5">
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="#">Home</a>
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="web/assets/pages/product.html">Products</a>
-                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="web/assets/pages/aboutus.html">About Us</a>
+                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="./web/assets/pages/aboutus.html">About Us</a>
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="web/assets/pages/contact.html">Contact</a>
             </nav>
 
@@ -83,8 +83,7 @@
                 </a>
             </div>
         </header>
-        <main class="w-full pt-10 md:pt-28">
-
+        <main class="w-full pt-10 lg:pt-5 md:pt-28">
             <section class="w-full flex justify-end md:justify-center md:py-3">
                 <div class="md:flex md:flex-row md:justify-center md:w-[88%]">
                     <input class="hidden md:block bg-transparent border-b border-white" type="search" name="search" id="search" placeholder="Search...">
@@ -111,6 +110,73 @@
                 <a class="w-44 self-center bg-[#22215D] justify-center  p-2 rounded-2xl font-['Poppins'] text-white text-2xl animate-pulse shadow-lg shadow-[#22215D] text-center" href="./web/assets/pages/register.html">Start Now</a>
             </div>
 
+            <section class="">
+                <div class="bg-slate-400/20 grid grid-cols-5 flex flex-col md:flex-row text-center divide-x p-4">
+                    <div class="flex flex-col md:flex-row w-full justify-center gap-3">
+                        <img class="w-12 object-contain" src="./web/assets/images/icons8-en-tránsito-50.png" alt="shipping">
+                        <a class="text-white text-center montserrat text-lg self-center" href="#">
+                            <h3 class="font-extrabold">National</h3>
+                            <p>Shipping</p>
+                        </a>
+                    </div>
+                    <div class="flex flex-col md:flex-row w-full justify-center gap-3">
+                        <img class="w-12 object-contain" src="./web/assets/images/icons8-seguridad-comprobado-50.png" alt="guarantee">
+                        <a class="text-white text-center montserrat text-lg self-center" href="#">
+                            <h3 class="font-extrabold">Guarantee</h3>
+                            <p>Up to 12 months</p>
+                        </a>
+                    </div>
+                    <div class="flex flex-col md:flex-row w-full justify-center gap-3">
+                        <img class="w-12 object-contain" src="./web/assets/images/icons8-nuevo-50.png" alt="new">
+                        <a class="text-white text-center montserrat text-lg self-center" href="#">
+                            <h3 class="font-extrabold">New arrivals</h3>
+                            <p>every month</p>
+                        </a>
+                    </div>
+                    <div class="flex flex-col md:flex-row w-full justify-center gap-3">
+                        <img class="w-12 object-contain" src="./web/assets/images/icons8-atención-al-cliente-50.png" alt="support">
+                        <a class="text-white text-center montserrat text-lg self-center" href="#">
+                            <h3 class="font-extrabold">Online Support</h3>
+                            <p>24 hours</p>
+                        </a>
+                    </div>
+                    <div class="flex flex-col md:flex-row w-full justify-center gap-3">
+                        <img class="w-12 object-contain" src="./web/assets/images/icons8-regalo-50.png" alt="gift">
+                        <a class="text-white text-center montserrat text-lg self-center" href="#">
+                            <h3 class="font-extrabold">Amazing</h3>
+                            <p>Deals</p>
+                        </a>
+                    </div>
+                </div>
+            <section class="flex flex-col md:flex-row">
+                <article class="w-[50%] flex flex-row justify-center bg-[#1B1D29] m-2 rounded-lg">
+                    <div class="flex flex-col self-center items-center gap-4">
+                        <h2 class="text-3xl text-white montserrat font-bold">DELL LATITUDE E7470</h2>
+                        <p class="text-white ordinal">USD $450</p>
+                        <button class="lg:flex w-28 p-2 bg-[#22215D] justify-center rounded-2xl font-['Poppins'] text-white text-xl animate-pulse shadow-lg shadow-[#22215D]">Buy Now</button>
+                    </div>
+                        <img class="w-60" src="./web/assets/images/screen.png" alt="screen">
+                </article>
+
+                <article class="w-[25%] flex flex-row justify-center bg-[#1B1D29] m-2 rounded-lg">
+                    <div class="flex flex-col self-center items-center gap-4">
+                        <h2 class="text-3xl text-white montserrat font-bold">PRODUCT HERE </h2>
+                        <p class="text-white ordinal">USD $450</p>
+                        <button class="lg:flex w-28 p-2 bg-[#22215D] justify-center rounded-2xl font-['Poppins'] text-white text-xl animate-pulse shadow-lg shadow-[#22215D]">Buy Now</button>
+                    </div>
+                        <img class="w-20" src="./" alt="">
+                </article>
+
+                <article class="w-[25%] flex flex-row justify-center bg-[#1B1D29] m-2 rounded-lg">
+                    <div class="flex flex-col self-center items-center gap-4">
+                        <h2 class="text-3xl text-white montserrat font-bold">PRODUCT HERE</h2>
+                        <p class="text-white ordinal">USD $450</p>
+                        <button class="lg:flex w-28 p-2 bg-[#22215D] justify-center rounded-2xl font-['Poppins'] text-white text-xl animate-pulse shadow-lg shadow-[#22215D]">Buy Now</button>
+                    </div>
+                        <img class="w-20" src="./" alt="">
+                </article>
+            </section>
+        </section>
         </main>
         <footer>
             <div class="flex flex-col w-full p-4 bg-slate-400/20">
@@ -199,7 +265,6 @@
         </footer>
     </div>
     <script src="web/assets/js/vanilla-ham.js"></script>
-    <script src="./tailwindconfig.js"></script>
-    <script src="index.js"></script>
+    <script src="./web/assets/js/index.js"></script>
 </body>
 </html>
