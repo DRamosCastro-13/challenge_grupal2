@@ -63,7 +63,7 @@ let app = createApp({
                     axios.post("/api/products/new",{
                         "name" : this.name,
                         "brand" : this.brand,
-                        "img_url" : this.imgUrl,
+                        "image_url" : this.imgUrl,
                         "description" : this.description,
                         "productCategory" : this.category,
                         "price" : this.price,
