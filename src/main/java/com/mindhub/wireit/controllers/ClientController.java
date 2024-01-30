@@ -3,24 +3,17 @@ package com.mindhub.wireit.controllers;
 import com.mindhub.wireit.dto.ClientDTO;
 import com.mindhub.wireit.dto.bodyjson.NewAddress;
 import com.mindhub.wireit.dto.bodyjson.NewClient;
-
-import com.mindhub.wireit.models.Client;
-import com.mindhub.wireit.models.PurchaseOrder;
 import com.mindhub.wireit.service.ClientService;
 import com.mindhub.wireit.service.PdfService;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api")
@@ -60,7 +53,7 @@ public class ClientController {
     @GetMapping("/clients/pdf")
     public ResponseEntity<String> generatePDF(@RequestParam String orderNumber,
                                               HttpServletResponse response,
-                                              Authentication authentication) throws IOException {
+                                              Authentication authentication) throws IOException, MessagingException {
         ResponseEntity<String> responseEnt = pdfService.generatePDF(orderNumber, response, authentication);
         return responseEnt;
     }

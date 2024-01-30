@@ -9,9 +9,11 @@ import com.mindhub.wireit.repositories.PurchaseOrderRepository;
 import com.mindhub.wireit.service.ClientService;
 import com.mindhub.wireit.service.PdfService;
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +21,8 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -30,6 +32,8 @@ public class PdfServiceImpl implements PdfService {
     private PurchaseOrderRepository purchaseOrderRepository;
     @Autowired
     private ClientService clientService;
+    @Autowired
+    private JavaMailSender javaMailSender;
 
     @Override
     public ResponseEntity<String> generatePDF(String orderNumber, HttpServletResponse response, Authentication authentication) throws IOException {
@@ -75,15 +79,16 @@ public class PdfServiceImpl implements PdfService {
         return currencyFormatter.format(price);
     }
 
+
     @Override
-    public void export(HttpServletResponse response, String orderNumber) throws IOException {
-        PurchaseOrder purchaseOrder = purchaseOrderRepository.findByOrderNumber(orderNumber);
+    public ByteArrayOutputStream export(HttpServletResponse response, String orderNumber) throws IOException {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        Document document = new Document();
+        try {
+            PurchaseOrder purchaseOrder = purchaseOrderRepository.findByOrderNumber(orderNumber);
 
-        if (purchaseOrder != null) {
-            Document document = new Document(PageSize.A4);
-            PdfWriter.getInstance(document, response.getOutputStream());
+            PdfWriter.getInstance(document, byteArrayOutputStream);
             document.open();
-
             // Sección 1: Tabla con imagen y fecha de facturación
             PdfPTable table = new PdfPTable(2);
             table.setWidthPercentage(100);
@@ -230,10 +235,12 @@ public class PdfServiceImpl implements PdfService {
 
             totalParagraph.setAlignment(Paragraph.ALIGN_RIGHT);
             document.add(totalParagraph);
-
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } finally {
             document.close();
         }
+        return byteArrayOutputStream;
     }
-
 }
 
