@@ -81,7 +81,7 @@
                     <input type="text" name="image" placeholder="Paste Image URL" class="w-full mb-5 bg-blue-300/30 p-1 rounded-md" v-model="imgUrl">
 
                     <label for="description" class="text-xl font-bold flex flex-col self-start pb-1 text-center text-white montserrat">Product Description:</label>
-                    <input type="text" name="description" placeholder="Product Description" class="w-full mb-5 bg-blue-300/30 p-1 rounded-md" v-model="description">
+                    <textarea name="description" placeholder="Product Description" class="w-full mb-5 bg-blue-300/30 p-1 rounded-md h-32 resize-none" v-model="description"></textarea>
 
                     <label for="category" class="text-xl font-bold flex flex-col self-start pb-1 text-center text-white montserrat">Category:</label>
                     <select name="category" class="w-full mb-5 bg-blue-300/30 p-1 rounded-md" v-model="category">
@@ -95,10 +95,10 @@
                     </select>
 
                     <label for="price" class="text-xl font-bold flex flex-col self-start pb-1 text-center text-white montserrat">Price:</label>
-                    <input type="number" name="price" placeholder="$199.99" class="w-full mb-5 bg-blue-300/30 p-1 rounded-md" v-model="price">
+                    <input type="text" name="price" placeholder="$199.99" class="w-full mb-5 bg-blue-300/30 p-1 rounded-md" v-model="price">
 
                     <label for="discount" class="text-xl font-bold flex flex-col self-start pb-1 text-center text-white montserrat">Discount:</label>
-                    <input type="number" name="discount" placeholder="0.0" class="w-full mb-5 bg-blue-300/30 p-1 rounded-md" v-model="discount">
+                    <input type="text" name="discount" placeholder="0.0" class="w-full mb-5 bg-blue-300/30 p-1 rounded-md" v-model="discount">
 
                     <label for="stock" class="text-xl font-bold flex flex-col self-start pb-1 text-center text-white montserrat">Stock:</label>
                     <input type="number" name="stock" placeholder="Minimum Stock: 1" class="w-full mb-5 bg-blue-300/30 p-1 rounded-md" v-model="stock">
