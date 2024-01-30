@@ -104,7 +104,7 @@ public class PdfServiceImpl implements PdfService {
             Font fontTable = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
             fontTable.setSize(12);
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            String fechaFacturacion = "Invoice date: " + dateFormat.format(new Date());
+            String fechaFacturacion = "Ordered on: " + dateFormat.format(new Date());
             Paragraph fechaParagraph = new Paragraph(fechaFacturacion, fontTable);
             fechaParagraph.setAlignment(Element.ALIGN_RIGHT);
             cellFecha.addElement(fechaParagraph);

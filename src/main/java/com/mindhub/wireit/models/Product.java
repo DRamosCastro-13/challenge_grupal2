@@ -13,7 +13,9 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name, brand, image_url, description;
+    private String name, brand, image_url;
+    @Column(length = 1000)
+    private String description;
 
     @Enumerated(EnumType.STRING)
     private ProductCategory productCategory;
