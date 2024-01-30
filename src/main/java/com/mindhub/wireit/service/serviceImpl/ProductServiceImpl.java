@@ -84,7 +84,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = new Product(newProduct.getName(), newProduct.getBrand(), newProduct.getImage_url(), newProduct.getDescription(), newProduct.getProductCategory(), newProduct.getPrice(), newProduct.getDiscount(), newProduct.getStock());
         productRepository.save(product);
 
-        return new ResponseEntity<>("Product create successful",HttpStatus.CREATED);
+        return new ResponseEntity<>("Product created successfully",HttpStatus.CREATED);
     }
 
     @Override

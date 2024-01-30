@@ -3,7 +3,7 @@ const { createApp } = Vue
 const options = {
   data() {
     return {
-
+      
     
     } // finaliza return
   }, // finaliza data
