@@ -26,6 +26,7 @@ let app = createApp({
             axios.get("/api/products")
             .then(response => {
                 this.products = response.data
+                this.products.toSorted((a, b) => (a.name > b.name) ? 1 : -1)
                 console.log(this.products)
             })
             .catch(error => {
@@ -63,7 +64,7 @@ let app = createApp({
                     axios.post("/api/products/new",{
                         "name" : this.name,
                         "brand" : this.brand,
-                        "img_url" : this.imgUrl,
+                        "image_url" : this.imgUrl,
                         "description" : this.description,
                         "productCategory" : this.category,
                         "price" : this.price,
