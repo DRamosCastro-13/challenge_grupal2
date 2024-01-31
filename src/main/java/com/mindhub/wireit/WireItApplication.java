@@ -12,7 +12,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
@@ -35,7 +34,7 @@ public class WireItApplication {
 									  ProductOrderRepository productOrderRepository,
 									  ProductRepository productRepository) {
 		return args -> {
-			Client client = new Client("Melba","Morel","melba@mindhub.com",25524320,passwordEncoder.encode("1234"));
+			/*Client client = new Client("Melba","Morel","alvarosop23@gmail.com",25524320,passwordEncoder.encode("1234"));
 			client.setRole(Role.ADMIN);
 			clientRepository.save(client);
 
@@ -88,7 +87,8 @@ public class WireItApplication {
 			productOrderRepository.save(productOrder5);
 			clientRepository.save(client);
 
-			System.out.println("llegue al final");
+			System.out.println("llegue al final");*/
 		};
+
 	}
 }
