@@ -66,9 +66,8 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
     @Override
     @Transactional
-    public ResponseEntity<String> purchaseProcess(PurchaseRequest purchaseRequest, Authentication authentication) throws IOException {
+    public ResponseEntity<String> purchaseProcess(PurchaseRequest purchaseRequest, Authentication authentication) {
         Client client = clientRepository.findByEmail(authentication.getName());
-        try {
             if (client == null) {
                 return new ResponseEntity<>("You need to be logged in to checkout", HttpStatus.FORBIDDEN);
             }
@@ -123,19 +122,22 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
             savePurchaseOrder(purchaseOrder);
 
+        try {
             sendEmailAttachment(authentication, purchaseOrder.getOrderNumber());
-
             return new ResponseEntity<>("Purchase order Successfully", HttpStatus.CREATED);
         } catch (IOException ex) {
             ex.printStackTrace(); // Imprime la traza de la excepción en la consola (puedes cambiar esto según tus necesidades)
             return new ResponseEntity<>("Error sending email attachment", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
     public void sendEmailAttachment(Authentication authentication, String orderNumber) throws IOException {
         Client client = clientRepository.findByEmail(authentication.getName());
+
         Dotenv dotenv = Dotenv.configure().load();
-        Email from = new Email("rokkuman10@gmail.com");
+
+        String email = dotenv.get("EMAIL");
+        Email from = new Email(email);
+
         String subject = "Wireit - Purchase order";
         Email to = new Email(client.getEmail());
         Content content = new Content("text/plain", "Your order has been successfully created.");
@@ -145,7 +147,6 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
         SendGrid sg = new SendGrid(apiKey);
         Request request = new Request();
-        try {
             request.setMethod(Method.POST);
             request.setEndpoint("mail/send");
 
@@ -166,12 +167,14 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
             // Resto de tu código para enviar el correo electrónico
             request.setBody(mail.build());
             Response response = sg.api(request);
+        if (response.getStatusCode() == HttpStatus.OK.value()) {
+            System.out.println("Email sent successfully");
+        } else {
             System.out.println(response.getStatusCode());
             System.out.println(response.getBody());
             System.out.println(response.getHeaders());
-        } catch (IOException ex) {
-            throw ex;
         }
+        pdfStream.close();
     }
 
     @Override
