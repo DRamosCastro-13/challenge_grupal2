@@ -41,6 +41,14 @@ let app = createApp({
                 console.log(error)
             })
         },
+        filterByCategory(){
+            axios.get('/api/products/filtered?productCategory=' + this.productCategory)
+            .then(response => {
+                this.products = response.data
+                console.log(this.products)
+            })
+            .catch(error => console.log(error))
+        },
         addNewProduct(){
             this.error = '';
 
