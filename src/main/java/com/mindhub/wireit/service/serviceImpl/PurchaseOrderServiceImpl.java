@@ -135,7 +135,8 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     public void sendEmailAttachment(Authentication authentication, String orderNumber) throws IOException {
         Client client = clientRepository.findByEmail(authentication.getName());
         Dotenv dotenv = Dotenv.configure().load();
-        Email from = new Email("rokkuman10@gmail.com");
+        String email = dotenv.get("${EMAIL}");
+        Email from = new Email(email);
         String subject = "Wireit - Purchase order";
         Email to = new Email(client.getEmail());
         Content content = new Content("text/plain", "Your order has been successfully created.");
