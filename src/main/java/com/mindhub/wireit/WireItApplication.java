@@ -1,10 +1,5 @@
 package com.mindhub.wireit;
 
-import com.mindhub.wireit.Utils.OrderNumberGenerator;
-import com.mindhub.wireit.models.*;
-import com.mindhub.wireit.models.enums.OrderStatus;
-import com.mindhub.wireit.models.enums.ProductCategory;
-import com.mindhub.wireit.models.enums.Role;
 import com.mindhub.wireit.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -13,8 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.time.LocalDate;
 
 @SpringBootApplication
 @PropertySource("classpath:.env")

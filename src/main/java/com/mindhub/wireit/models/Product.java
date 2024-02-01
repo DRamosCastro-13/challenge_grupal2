@@ -1,7 +1,6 @@
 package com.mindhub.wireit.models;
 
 import jakarta.persistence.*;
-import com.mindhub.wireit.models.enums.ProductCategory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +16,9 @@ public class Product {
     @Column(length = 1000)
     private String description;
 
-    @Enumerated(EnumType.STRING)
-    private ProductCategory productCategory;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private ProductCategory category;
 
     private double price, discount;
 
@@ -30,12 +30,12 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, String brand, String image_url, String description, ProductCategory productCategory, double price, double discount, int stock) {
+    public Product(String name, String brand, String image_url, String description, ProductCategory category, double price, double discount, int stock) {
         this.name = name;
         this.brand = brand;
         this.image_url = image_url;
         this.description = description;
-        this.productCategory = productCategory;
+        this.category = category;
         this.price = price;
         this.discount = discount;
         this.stock = stock;
@@ -83,12 +83,12 @@ public class Product {
         this.description = description;
     }
 
-    public ProductCategory getProductCategory() {
-        return productCategory;
+    public ProductCategory getCategory() {
+        return category;
     }
 
-    public void setProductCategory(ProductCategory productCategory) {
-        this.productCategory = productCategory;
+    public void setCategory(ProductCategory category) {
+        this.category = category;
     }
 
     public double getPrice() {
