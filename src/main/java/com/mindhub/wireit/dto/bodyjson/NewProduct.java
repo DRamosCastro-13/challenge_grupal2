@@ -5,7 +5,7 @@ import com.mindhub.wireit.models.ProductCategory;
 public class NewProduct {
     private double price, discount;
     private String name, brand, image_url, description;
-    private ProductCategory category;
+    private String category;
     private int stock;
 
     public double getPrice() {
@@ -32,7 +32,7 @@ public class NewProduct {
         return description;
     }
 
-    public ProductCategory getProductCategory() {
+    public String getCategory() {
         return category;
     }
 

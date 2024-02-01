@@ -38,7 +38,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDTO> getAllProductsDTO() {
-        return getAllProducts().stream().map(ProductDTO::new).collect(Collectors.toList());
+        return productRepository.findAll()
+                .stream()
+                .map(ProductDTO::new)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -78,14 +81,22 @@ public class ProductServiceImpl implements ProductService {
         if(newProduct.getPrice() <= 0){
             return new ResponseEntity<>("Price can not be 0 or less.", HttpStatus.FORBIDDEN);
         }
-        if(newProduct.getProductCategory() == null){
+
+        if (newProduct.getCategory() == null || newProduct.getCategory().isBlank()) {
             return new ResponseEntity<>("Invalid or missing product category", HttpStatus.FORBIDDEN);
         }
+
+        ProductCategory category = productCategoryRepository.findByCategoryIgnoreCase(newProduct.getCategory());
+
+        if (category == null) {
+            return new ResponseEntity<>("Category does not exist", HttpStatus.BAD_REQUEST);
+        }
+
         if(newProduct.getStock()<= 0){
             return new ResponseEntity<>("Stock can not be 0 or less.", HttpStatus.FORBIDDEN);
         }
 
-        Product product = new Product(newProduct.getName(), newProduct.getBrand(), newProduct.getImage_url(), newProduct.getDescription(), newProduct.getProductCategory(), newProduct.getPrice(), newProduct.getDiscount(), newProduct.getStock());
+        Product product = new Product(newProduct.getName(), newProduct.getBrand(), newProduct.getImage_url(), newProduct.getDescription(), category, newProduct.getPrice(), newProduct.getDiscount(), newProduct.getStock());
         productRepository.save(product);
 
         return new ResponseEntity<>("Product created successfully",HttpStatus.CREATED);
@@ -115,13 +126,19 @@ public class ProductServiceImpl implements ProductService {
             return new ResponseEntity<>("Can not find selected product.",HttpStatus.FORBIDDEN);
         }
 
+        ProductCategory category = productCategoryRepository.findByCategoryIgnoreCase(newProduct.getCategory());
+
+        if (category == null) {
+            return new ResponseEntity<>("Category does not exist", HttpStatus.BAD_REQUEST);
+        }
+
         product.setPrice(newProduct.getPrice());
         product.setDiscount(newProduct.getDiscount());
         product.setName(newProduct.getName());
         product.setBrand(newProduct.getBrand());
         product.setImage_url(newProduct.getImage_url());
         product.setDescription(newProduct.getDescription());
-        product.setCategory(newProduct.getProductCategory());
+        product.setCategory(category);
         product.setStock(newProduct.getStock());
 
         productRepository.save(product);
