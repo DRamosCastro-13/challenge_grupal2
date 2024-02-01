@@ -1,7 +1,7 @@
 package com.mindhub.wireit.dto;
 
 import com.mindhub.wireit.models.Product;
-import com.mindhub.wireit.models.enums.ProductCategory;
+import com.mindhub.wireit.models.ProductCategory;
 
 public class ProductDTO {
 
@@ -9,7 +9,7 @@ public class ProductDTO {
 
     private String name, brand, image_url, description;
 
-    private ProductCategory productCategory;
+    private String category;
 
     private double price, discount;
     private int stock;
@@ -20,7 +20,7 @@ public class ProductDTO {
         this.brand = product.getBrand();
         this.image_url = product.getImage_url();
         this.description = product.getDescription();
-        this.productCategory = product.getProductCategory();
+        this.category = String.valueOf(product.getCategory());
         this.price = product.getPrice();
         this.discount = product.getDiscount();
         this.stock = product.getStock();
@@ -46,8 +46,8 @@ public class ProductDTO {
         return description;
     }
 
-    public ProductCategory getProductCategory() {
-        return productCategory;
+    public String getCategory() {
+        return category;
     }
 
     public double getPrice() {

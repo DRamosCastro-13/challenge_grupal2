@@ -4,9 +4,10 @@ import com.mindhub.wireit.dto.ProductDTO;
 import com.mindhub.wireit.dto.bodyjson.NewProduct;
 import com.mindhub.wireit.models.Client;
 import com.mindhub.wireit.models.Product;
-import com.mindhub.wireit.models.enums.ProductCategory;
+import com.mindhub.wireit.models.ProductCategory;
 import com.mindhub.wireit.models.enums.Role;
 import com.mindhub.wireit.repositories.ClientRepository;
+import com.mindhub.wireit.repositories.ProductCategoryRepository;
 import com.mindhub.wireit.repositories.ProductRepository;
 import com.mindhub.wireit.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ClientRepository clientRepository;
 
+    @Autowired
+    private ProductCategoryRepository productCategoryRepository;
+
     @Override
     public List<Product> getAllProducts() {
         return productRepository.findAll();
@@ -34,12 +38,15 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDTO> getAllProductsDTO() {
-        return getAllProducts().stream().map(ProductDTO::new).collect(Collectors.toList());
+        return productRepository.findAll()
+                .stream()
+                .map(ProductDTO::new)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<ProductDTO> getAllProductsFiltered(ProductCategory productCategory) {
-        return getAllProducts().stream().filter(product -> product.getProductCategory() == productCategory).map(ProductDTO::new).collect(Collectors.toList());
+    public List<ProductDTO> getAllProductsFiltered(String category) {
+        return getAllProducts().stream().filter(product -> product.getCategory().equals(category)).map(ProductDTO::new).collect(Collectors.toList());
     }
 
     @Override
@@ -74,14 +81,22 @@ public class ProductServiceImpl implements ProductService {
         if(newProduct.getPrice() <= 0){
             return new ResponseEntity<>("Price can not be 0 or less.", HttpStatus.FORBIDDEN);
         }
-        if(newProduct.getProductCategory() == null || !EnumSet.allOf(ProductCategory.class).contains(newProduct.getProductCategory())){
+
+        if (newProduct.getCategory() == null || newProduct.getCategory().isBlank()) {
             return new ResponseEntity<>("Invalid or missing product category", HttpStatus.FORBIDDEN);
         }
+
+        ProductCategory category = productCategoryRepository.findByCategoryIgnoreCase(newProduct.getCategory());
+
+        if (category == null) {
+            return new ResponseEntity<>("Category does not exist", HttpStatus.BAD_REQUEST);
+        }
+
         if(newProduct.getStock()<= 0){
             return new ResponseEntity<>("Stock can not be 0 or less.", HttpStatus.FORBIDDEN);
         }
 
-        Product product = new Product(newProduct.getName(), newProduct.getBrand(), newProduct.getImage_url(), newProduct.getDescription(), newProduct.getProductCategory(), newProduct.getPrice(), newProduct.getDiscount(), newProduct.getStock());
+        Product product = new Product(newProduct.getName(), newProduct.getBrand(), newProduct.getImage_url(), newProduct.getDescription(), category, newProduct.getPrice(), newProduct.getDiscount(), newProduct.getStock());
         productRepository.save(product);
 
         return new ResponseEntity<>("Product created successfully",HttpStatus.CREATED);
@@ -90,6 +105,79 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product getProductById(Long id) {
         return productRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public ResponseEntity<String> updateProduct(Long id, NewProduct newProduct, Authentication authentication) {
+
+        Client client = clientRepository.findByEmail(authentication.getName());
+
+        if(client == null){
+            return new ResponseEntity<>("Invalid User", HttpStatus.FORBIDDEN);
+        }
+
+        if(client.getRole() != Role.ADMIN){
+            return new ResponseEntity<>("You are not admin.",HttpStatus.FORBIDDEN);
+        }
+
+        Product product = productRepository.findById(id).orElse(null);
+
+        if(product == null){
+            return new ResponseEntity<>("Can not find selected product.",HttpStatus.FORBIDDEN);
+        }
+
+        ProductCategory category = productCategoryRepository.findByCategoryIgnoreCase(newProduct.getCategory());
+
+        if (category == null) {
+            return new ResponseEntity<>("Category does not exist", HttpStatus.BAD_REQUEST);
+        }
+
+        product.setPrice(newProduct.getPrice());
+        product.setDiscount(newProduct.getDiscount());
+        product.setName(newProduct.getName());
+        product.setBrand(newProduct.getBrand());
+        product.setImage_url(newProduct.getImage_url());
+        product.setDescription(newProduct.getDescription());
+        product.setCategory(category);
+        product.setStock(newProduct.getStock());
+
+        productRepository.save(product);
+
+        return new ResponseEntity<>("Product updated",HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<String> newCategory(String category, Authentication authentication) {
+
+        Client client = clientRepository.findByEmail(authentication.getName());
+
+        if(client == null){
+            return new ResponseEntity<>("Invalid User", HttpStatus.FORBIDDEN);
+        }
+
+        if(client.getRole() != Role.ADMIN){
+            return new ResponseEntity<>("You are not admin.",HttpStatus.FORBIDDEN);
+        }
+
+        if(category == null){
+            return new ResponseEntity<>("Category can not be null", HttpStatus.FORBIDDEN);
+        }
+
+        if(category.isBlank()){
+            return  new ResponseEntity<>("Category can not be blank", HttpStatus.FORBIDDEN);
+        }
+
+        ProductCategory productCategory = productCategoryRepository.findByCategoryIgnoreCase(category);
+
+        if(productCategory != null){
+            return new ResponseEntity<>("Category already exists", HttpStatus.BAD_REQUEST);
+        }
+
+        ProductCategory newCategory = new ProductCategory(category);
+
+        productCategoryRepository.save(newCategory);
+
+        return new ResponseEntity<>("Category created Successfully",HttpStatus.CREATED);
     }
 
 }
