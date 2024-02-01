@@ -46,7 +46,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDTO> getAllProductsFiltered(String category) {
-        return getAllProducts().stream().filter(product -> product.getCategory().equals(category)).map(ProductDTO::new).collect(Collectors.toList());
+        return getAllProducts().stream().filter(product -> product.getCategory().getCategory().equals(category)).map(ProductDTO::new).collect(Collectors.toList());
     }
 
     @Override
