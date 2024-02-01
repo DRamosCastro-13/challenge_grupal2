@@ -101,6 +101,11 @@
                             <input type="checkbox" id="sortByStock" class="p-4" v-model="sortByStock">
                             <label for="sortByStock" class="text-white text-base">Stock</label>
                         </div>
+                        <div>
+                            <label class="text-xl font-bold flex flex-col self-start pb-1 text-start text-white montserrat">Search:</label>
+                            <input type="text" @input="applyFilters" v-model="searchQuery" placeholder="Search by name" class="w-full mb-2 bg-blue-300/30 p-1 rounded-md text-white">
+                        </div>
+
                     </div>
                     <div class="w-full flex justify-center">
                         <button @click="applyFilters" class="bg-[#0f2134] w-7/12 text-white hover:text-slate-300 rounded-md p-2 mt-3">Apply Filters</button>

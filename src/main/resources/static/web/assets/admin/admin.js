@@ -12,6 +12,7 @@ let app = createApp({
             minPrice: '',
             maxPrice: null,
             sortByStock: false,
+            searchQuery: '',
         };
     },
     created() {
@@ -54,6 +55,11 @@ let app = createApp({
                 filteredProducts.sort((a, b) => a.price - b.price);
             }
         
+            if (this.searchQuery) {
+                const searchLowerCase = this.searchQuery.toLowerCase();
+                filteredProducts = filteredProducts.filter(product => product.name.toLowerCase().includes(searchLowerCase));
+            }
+
             this.products = filteredProducts;
         },
 
