@@ -7,7 +7,7 @@ let app = createApp({
             products: [],
             error: '',
             categories: [],
-            productCategory: '',
+            category: '',
             sortByPrice: false,
             minPrice: '',
             maxPrice: null,
@@ -34,8 +34,8 @@ let app = createApp({
         applyFilters() {
             let filteredProducts = [...this.originalProducts];
         
-            if (this.productCategory && this.productCategory !== 'ALL') {
-                filteredProducts = filteredProducts.filter(product => product.productCategory == this.productCategory);
+            if (this.category && this.category !== 'ALL') {
+                filteredProducts = filteredProducts.filter(product => product.category == this.category);
             }
         
             if (this.sortByPrice) {
