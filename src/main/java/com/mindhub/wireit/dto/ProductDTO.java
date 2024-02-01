@@ -20,7 +20,7 @@ public class ProductDTO {
         this.brand = product.getBrand();
         this.image_url = product.getImage_url();
         this.description = product.getDescription();
-        this.category = String.valueOf(product.getCategory());
+        this.category = product.getCategory().getCategory();
         this.price = product.getPrice();
         this.discount = product.getDiscount();
         this.stock = product.getStock();
