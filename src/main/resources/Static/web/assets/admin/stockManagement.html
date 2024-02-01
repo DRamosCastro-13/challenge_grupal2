@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Montserrat:wght@300;600&family=Poppins:wght@400;700&family=Signika:wght@500&family=Staatliches&display=swap" rel="stylesheet">
-    <title>ADMIN | WIRE IT</title>
+    <title>STOCK | WIRE IT</title>
 </head>
 <body class="bg-gradient-to-r from-[#1B1D29] to-[#7C85BD]">
     <div id="app">
@@ -28,7 +28,7 @@
                     <a href="../pages/carrito.html" class="nav-link text-white">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a href="../pages/aboutus.html" class="nav-link text-white">Clients</a>
+                    <a href="../pages/aboutus.html" class="nav-link text-white">About Us</a>
                 </li>
                 <li class="nav-item">
                     <a href="../pages/contact.html" class="nav-link text-white">Contact Us</a>
@@ -66,29 +66,50 @@
             </div>
         </header>
         <main class="w-full flex flex-col gap-5 items-center pt-20 lg:pt-5 md:pt-28 flex-grow">
-            <h1 class="font-extrabold font-['Montserrat'] text-white text-4xl md:text-5xl text-center">Admin Panel</h1>
+            <h1 class="font-extrabold font-['Montserrat'] text-white text-4xl md:text-5xl text-center">Stock Management</h1>
            
-            <div v-if="products" class="w-11/12 md:w-9/12 flex flex-col gap-5 items-center">
-                <h2 class="font-semibold font-['Montserrat'] text-white text-3xl md:text-4xl text-center">Products</h2>
-               
-                <table class="w-11/12 mt-5 mb-10 border-solid border-b-2 border-gray-400">
-                    <tr class="bg-slate-800">
-                        <th class="px-2 py-3 text-white">Name</th>
-                        <th class="px-2 py-3 text-white">Brand</th>
-                        <th class="px-2 py-3 text-white">Price</th>
-                        <th class="px-2 py-3 text-white">Stock</th>
-                    </tr>
-                    <tr v-for="product in products" class="border-solid border-b-2 hover:bg-slate-500 border-gray-400 w-full">
-                        <td class="px-4 py-3 text-white text-start">{{product.name}}</td>
-                        <td class="px-2 py-3 text-white text-center">{{product.brand}}</td>
-                        <td class="px-2 py-3 text-white text-end">{{product.price.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</td>
-                        <td v-if="product.stock <= 5 && product.stock > 0" class="px-2 md:pr-4 py-3 text-amber-400 text-center font-semibold">{{product.stock}}<span class="text-amber-400 text-xs ml-1 font-semibold">*Last Units</span></td>
-                        <td v-else-if="product.stock == 0" class="px-2 md:pr-4 py-3 text-red-500 text-center">Out of stock</td>
-                        <td v-else-if="product.stock > 5" class="px-2 md:pr-4 py-3 text-white text-center font-semibold">{{product.stock}}</td>
-                    </tr>
-                </table>
+            <div class="w-11/12 md:w-8/12 lg:w-6/12 flex flex-col gap-5 mt-5 mb-10 md:mb-20 items-center">
+                <h2 class="font-semibold font-['Montserrat'] text-white text-3xl md:text-4xl text-center">New Product</h2>
+                <form @submit.prevent="addNewProduct()" class="w-full flex flex-col items-center bg-slate-400/30 p-5 md:p-10 lg:p-16 rounded-2xl">
+                    <label for="name" class="text-xl font-bold flex flex-col self-start pb-1 text-center text-white montserrat">Product Name:</label>
+                    <input type="text" name="name" placeholder="Product Name" class="w-full mb-5 bg-blue-300/30 p-1 rounded-md" v-model="name">
 
-                 <a href="./stockManagement.html" class="font-['Poppins'] mb-10 py-3 px-5 text-white text-lg hover:text-white bg-transparent  hover:bg-green-700 border-2 border-green-200 rounded-lg">Add New Product | Renew Stock</a>
+                    <label for="brand" class="text-xl font-bold flex flex-col self-start pb-1 text-center text-white montserrat">Brand:</label>
+                    <input type="text" name="brand" placeholder="Brand" class="w-full mb-5 bg-blue-300/30 p-1 rounded-md" v-model="brand">
+
+                    <label for="image" class="text-xl font-bold flex flex-col self-start pb-1 text-center text-white montserrat">Image URL:</label>
+                    <input type="text" name="image" placeholder="Paste Image URL" class="w-full mb-5 bg-blue-300/30 p-1 rounded-md" v-model="imgUrl">
+
+                    <label for="description" class="text-xl font-bold flex flex-col self-start pb-1 text-center text-white montserrat">Product Description:</label>
+                    <textarea  name="description" placeholder="Product Description" class="w-full mb-5 bg-blue-300/30 p-1 rounded-md h-32 resize-none" v-model="description"></textarea>
+
+                    <label for="category" class="text-xl font-bold flex flex-col self-start pb-1 text-center text-white montserrat">Category:</label>
+                    <select name="category" class="w-full mb-5 bg-blue-300/30 p-1 rounded-md" v-model="category">
+                        <option value="" disabled selected>Select Category</option>
+                        <option value="CPU">CPU</option>
+                        <option value="HEADPHONES">Headphones</option>
+                        <option value="KEYBOARD">Keyboard</option>
+                        <option value="MONITOR">Monitor</option>
+                        <option value="MOTHERBOARD">Motherboard</option>
+                        <option value="MOUSE">Mouse</option>
+                    </select>
+
+                    <label for="price" class="text-xl font-bold flex flex-col self-start pb-1 text-center text-white montserrat">Price:</label>
+                    <input type="text" name="price" placeholder="$199.99" class="w-full mb-5 bg-blue-300/30 p-1 rounded-md" v-model="price">
+
+                    <label for="discount" class="text-xl font-bold flex flex-col self-start pb-1 text-center text-white montserrat">Discount:</label>
+                    <input type="text" name="discount" placeholder="0.0" class="w-full mb-5 bg-blue-300/30 p-1 rounded-md" v-model="discount">
+
+                    <label for="stock" class="text-xl font-bold flex flex-col self-start pb-1 text-center text-white montserrat">Stock:</label>
+                    <input type="number" name="stock" placeholder="Minimum Stock: 1" class="w-full mb-5 bg-blue-300/30 p-1 rounded-md" v-model="stock">
+
+                    <button type="submit" class="font-['Poppins'] my-5 py-3 px-5 text-white text-lg hover:text-white bg-transparent  hover:bg-green-700 border-2 border-green-200 rounded-lg">Confirm</button>
+
+                    <div v-if="error">
+                        <p class="text-red-500 text-center text-md">*{{error}}</p>
+                    </div>
+                </form>
+                 
             </div>
         </main>
         <footer class="bottom-0 w-full">
@@ -106,6 +127,6 @@
     <script src="../js/vanilla-ham.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="./admin.js"></script>
+    <script src="./stockMng.js"></script>
 </body>
 </html>

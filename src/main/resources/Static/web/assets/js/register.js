@@ -11,6 +11,7 @@ let app = createApp({
 			errorReg: '',
 			email: '',
 			password: '',
+            error: ''
            
         }
     },
@@ -28,13 +29,14 @@ let app = createApp({
             axios.post("/api/login?email=" + email + "&password=" + password)
             .then(response => {
                 console.log(response)
-
+                /*
                 if (email.includes("@adminanb.com")) {
                     window.location.href = "/web/admin/managerOverview.html";
                 } else {
                     window.location.href = "/web/pages/accounts.html";
-                }
-    
+                }*/
+                window.location.href="/web/assets/admin/overviewAdmin.html"
+
                 this.clearData();
             })
             .catch(error => {
@@ -49,7 +51,7 @@ let app = createApp({
             const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
       
             return passwordRegex.test(password);
-          },
+        },
         registerClient(){
 			if(!this.firstName || !this.lastName || !this.emailReg || !this.passwordReg || !this.dni) {
                 this.errorReg = "Please fill in all fields";
@@ -57,14 +59,14 @@ let app = createApp({
             }
 
             if (!this.validatePassword(this.passwordReg)) {
-                this.error = "Password must have at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character.";
+                this.errorReg = "Password must have at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character.";
                 return;
               }
-            axios.post('https://wire-it.onrender.com/',{
+            axios.post('/api/clients',{
 				"firstName" : this.firstName,
 				"lastName" : this.lastName,
-				"email" : this.email,
-				"password" : this.password,
+				"email" : this.emailReg,
+				"password" : this.passwordReg,
 				"dni" : this.dni
 			})
             .then(response => {
@@ -75,7 +77,9 @@ let app = createApp({
                 });
 
                 setTimeout(() => {
-                    window.location.href = "../admin/overviewAdmin.html"
+                    this.login(this.emailReg, this.passwordReg)
+
+                    this.clearData();
                 }, 2000);
 
             })
@@ -84,6 +88,17 @@ let app = createApp({
                 console.log(error)
                 this.errorReg = error.response.data
             })
+        },
+        clearData(){
+            this.firstName = '',
+            this.lastName = '',
+            this.emailReg = '',
+            this.passwordReg = '',
+            this.dni = '',
+            this.errorReg = '',
+            this.email = '',
+            this.password = '',
+            this.error = ''
         }
     }
 }).mount('#app')

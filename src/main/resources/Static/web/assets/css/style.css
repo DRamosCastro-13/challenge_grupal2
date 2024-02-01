@@ -69,7 +69,7 @@
       width: 100%;
       text-align: center;
       transition: 0.3s;
-      z-index: 40;
+      z-index: 50;
   }
 
   .nav-item{
@@ -94,10 +94,10 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
 * {
-	box-sizing: border-box;
+box-sizing: border-box;
 }
 
-main {
+.main-container {
 	background: linear-gradient(to right, #1B1D29, #7C85BD);
 	display: flex;
 	justify-content: center;
@@ -105,11 +105,11 @@ main {
 	flex-direction: column;
 	font-family: 'Montserrat', sans-serif;
 	height: 100vh;
-	margin: -20px 0 50px;
+
 }
 
 .title {
-  font-size: 28px;
+  font-size: 29px;
 	font-weight: bolder;
 	margin: 0;
 }
@@ -131,7 +131,6 @@ span {
 	font-size: 18px;
 	text-decoration: none;
 	margin: 15px 0;
-  
 }
 
 .social:hover {
@@ -170,7 +169,7 @@ span {
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
-	padding: 0 50px;
+	padding: 12px;
 	height: 100%;
 	text-align: center;
   gap: 4px;
@@ -181,7 +180,8 @@ span {
 	border: none;
 	padding: 8px 12px;
 	margin: 8px 0;
-	width: 100%;
+	width: 75%;
+  border-radius: 8px
 }
 
 .container {
@@ -191,8 +191,8 @@ span {
 			0 10px 10px rgba(0,0,0,0.22);
 	position: relative;
 	overflow: hidden;
-	width: 768px;
-	max-width: 80%;
+/*	width: 768px;*/
+	width: 60%;
 	height: 480px;
 }
 
@@ -223,7 +223,7 @@ span {
 .container.right-panel-active .sign-up-container {
 	transform: translateX(100%);
 	opacity: 1;
-	z-index: 5;
+	z-index: 3;
 	animation: show 0.6s;
 }
 
@@ -235,7 +235,7 @@ span {
 	
 	50%, 100% {
 		opacity: 1;
-		z-index: 5;
+		z-index: 3;
 	}
 }
 
@@ -247,7 +247,7 @@ span {
 	height: 100%;
 	overflow: hidden;
 	transition: transform 0.6s ease-in-out;
-	z-index: 100;
+	z-index: 6;
 }
 
 .container.right-panel-active .overlay-container{
@@ -306,18 +306,171 @@ span {
 	transform: translateX(20%);
 }
 
-@media screen and (min-width:320),(max-width: 768px){
+@media screen and (max-width: 768px){
 
   .container {
     display: flex;
+    flex-direction: column;
     border-radius: 10px;
     position: relative;
     overflow: hidden;
-    width: 768px;
-    max-width: 80%;
-    height: 480px;
+    width: 90%;
+    height: 380px;
   }
 
+  .title {
+    font-size: 22px; 
+  }
+
+  .text {
+    font-size: 9px;
+    font-weight: 100;
+    line-height: 14px;
+    width: 200%;
+  }
+
+  span {
+    font-size: 12px;
+
+  }
+
+  .social {
+    color: #333;
+    font-size: 10px;
+    margin: 0px 0;
+    width:250%;
+  }
+
+  .form-container {
+    position: absolute;
+    display:flex;
+    flex-direction: column;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+  }
+
+  .inputs {
+    background-color: #eee;
+    display: flex;
+    flex-direction: column;
+    padding: 6px;
+    margin: 0px 0;
+    width: 100%;
+    font-size: 12px;
+    border-radius: 8px;
+  
+  }
+
+  .boton {
+    border-radius: 8px;
+    border: 1px solid #FFFFFF;
+    background: linear-gradient(to right, #1B1D2A, #4F557A);
+    color: #FFFFFF;
+    font-size: 8px;
+    font-weight: bold;
+    padding: 2px 18px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    margin-top: 5px;
+  }
+
+  .formulario {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    padding: 0px 10px;
+    text-align: center;
+    gap: 7px;
+  }
 }
+/*
+@media screen and (min-width: 768px){
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    width: 90%;
+    height: 380px;
+  }
+
+  .title {
+    font-size: 28px;
+    width: 250%;
+   
+  }
+
+  .text {
+    font-size: 16px;
+    font-weight: 100;
+    line-height: 14px;
+    letter-spacing: 0px;
+    margin:  0px;
+    width: 100%;
+  }
+
+  span {
+    font-size: 16px;
+    width: 100%;
+  }
+
+  .social {
+    color: #333;
+    font-size: 14px;
+    margin: 0px 0;
+    width:100%;
+  }
+
+  .form-container {
+    position: absolute;
+    display:flex;
+    flex-direction: column;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+  }
+
+  .inputs {
+    background-color: #eee;
+    display: flex;
+    flex-direction: column;
+    padding: 6px;
+    margin: 0px 0;
+    width: 90%;
+    font-size: 12px;
+    border-radius: 8px;
+  
+  }
+
+  .boton {
+    border-radius: 8px;
+    border: 1px solid #FFFFFF;
+    background: linear-gradient(to right, #1B1D2A, #4F557A);
+    color: #FFFFFF;
+    font-size: 8px;
+    font-weight: bold;
+    padding: 8px 18px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    margin-top: 5px;
+  }
+
+  .formulario {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    text-align: center;
+    gap: 7px;
+  }
+}*/
 
 

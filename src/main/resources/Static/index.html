@@ -17,7 +17,7 @@
         <!--<div class="z-10 h-[100vh] w-[100vw]">
             <div class="  w-[0%] h-[0%] top-0 left-0"></div>
             <div class="absolute w-[100%] h-[100%] top-[-1%] z-20 bg-no-repeat opacity-25" style="background-image: url('./assets/images/wave.png')"></div>-->
-        <header class="flex flex-wrap fixed top-0 z-40 bg-gradient-to-r from-[#1B1D29] to-[#7C85BD] w-full justify-around lg:justify-between lg:px-10 ">
+        <header class="flex flex-wrap fixed lg:static top-0 z-40 bg-gradient-to-r from-[#1B1D29] to-[#7C85BD] w-full justify-around lg:justify-between lg:px-10">
             <a href="web/assets/pages/register.html" class="group flex flex-col pt-4 pb-3 min-h-[10vh] lg:hidden">
                 <svg width="26px" height="26px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#ffffff" stroke="#ffffff">
 
@@ -42,13 +42,13 @@
 
             <ul class="nav-menu lg:hidden">
                 <li class="nav-item border-t-2">
-                    <a href="web/assets/pages/register.html" class="nav-link text-white">Login | Register</a>
+                    <a href="./web/assets/pages/register.html" class="nav-link text-white">Login | Register</a>
                 </li>
                 <li class="nav-item" >
                     <a href="web/assets/pages/carrito.html" class="nav-link text-white">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a href="web/assets/pages/aboutus.html" class="nav-link text-white">About Us</a>
+                    <a href="./web/assets/pages/aboutus.html" class="nav-link text-white">About Us</a>
                 </li>
                 <li class="nav-item">
                     <a href="web/assets/pages/contact.html" class="nav-link text-white">Contact Us</a>
@@ -68,7 +68,7 @@
             <nav class="hidden lg:flex self-center gap-5">
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="#">Home</a>
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="web/assets/pages/product.html">Products</a>
-                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="web/assets/pages/aboutus.html">About Us</a>
+                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="./web/assets/pages/aboutus.html">About Us</a>
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="web/assets/pages/contact.html">Contact</a>
             </nav>
 
@@ -83,8 +83,7 @@
                 </a>
             </div>
         </header>
-        <main class="w-full pt-10 md:pt-28">
-
+        <main class="w-full pt-10 lg:pt-5 md:pt-28">
             <section class="w-full flex justify-end md:justify-center md:py-3">
                 <div class="md:flex md:flex-row md:justify-center md:w-[88%]">
                     <input class="hidden md:block bg-transparent border-b border-white" type="search" name="search" id="search" placeholder="Search...">
@@ -97,20 +96,183 @@
                 <img class="lg:w-14 w-12 bg-slate-400 p-2 rounded-l-xl lg:rounded-full cursor-pointer fixed top-36 left-50" src="./web/assets/images/carrito tuneado.png" alt="cart">
             </div>
             
-            <section class="flex flex-col md:flex-row lg:w-full mt-8  md:px-10 items-center md:mb-20">
-                <div class="flex flex-col gap-2  p-3">
-                    <p class="text-4xl lg:text-5xl flex self-start text-white montserrat">Join us!</p>
-                    <h2 class="text-4xl md:text-7xl flex flex-col self-start text-white font-bold font-['Montserrat'] pb-10"> Explore our curated collection of gadgets and tech solutions.</h2> 
-                    <a class="hidden lg:flex w-44 self-center bg-[#22215D] justify-center p-2 rounded-2xl font-['Poppins'] text-white text-2xl animate-pulse shadow-lg shadow-[#22215D]" href="./web/assets/pages/register.html">Start Now</a>
+            <section class="flex flex-col md:flex-row w-full mt-8 md:px-10 md:max-h-[120vh] md:mt-0 items-center">
+                <div class="flex flex-col md:content-center p-3 md:p-0 md:gap-10 md:w-[50%]">
+                    <p class="text-2xl lg:text-5xl flex self-start text-white montserrat">Join us!</p>
+                    <h2 class="text-4xl md:text-7xl flex self-start text-white font-bold font-['Montserrat'] md:pb-0 pb-10"> Explore our curated collection of gadgets and tech solutions.</h2> 
+                    <a class="hidden lg:flex w-56 p-3 bg-[#22215D] justify-center rounded-2xl font-['Poppins'] text-white text-3xl animate-pulse shadow-lg shadow-[#22215D]" src="./web/assets/pages/register.html">Start Now</a>
                 </div>
-                <article class="flex justify-center z-30 md:w-[50%]">
-                        <img class="hidden md:block md:max-h-[100vh] object-contain md:min-h-[35vh]" src="web/assets/images/chico gamer.png" alt="gamerguy">
+                <article class="flex justify-center  md:w-[50%] md:max-h-[105vh]">
+                        <img class="hidden md:block object-contain" src="web/assets/images/chico gamer.png" alt="gamerguy">
                 </article>         
             </section>
             <div class="flex justify-center mb-12 lg:hidden">
                 <a class="w-44 self-center bg-[#22215D] justify-center  p-2 rounded-2xl font-['Poppins'] text-white text-2xl animate-pulse shadow-lg shadow-[#22215D] text-center" href="./web/assets/pages/register.html">Start Now</a>
             </div>
 
+            <div class="bg-slate-400/20 grid md:grid-cols-5 grid-rows-5 md:grid-rows-none flex flex-col md:flex-row text-center divide-y md:divide-x md:divide-y-0 p-4">
+                    <div class="flex flex-col md:flex-row w-full justify-center gap-3 py-2 md:py-0">
+                        <img class="w-12 object-contain self-center" src="./web/assets/images/icons8-en-tránsito-50.png" alt="shipping">
+                        <a class="text-white text-center montserrat text-lg self-center" href="#">
+                            <h3 class="font-extrabold">National</h3>
+                            <p>Shipping</p>
+                        </a>
+                    </div>
+                    <div class="flex flex-col md:flex-row w-full md:justify-center gap-3 py-4 md:py-0 ">
+                        <img class="w-12 object-contain self-center" src="./web/assets/images/icons8-seguridad-comprobado-50.png" alt="guarantee">
+                        <a class="text-white text-center montserrat text-lg self-center" href="#">
+                            <h3 class="font-extrabold">Guarantee</h3>
+                            <p>Up to 12 months</p>
+                        </a>
+                    </div>
+                    <div class="flex flex-col md:flex-row w-full justify-center gap-3">
+                        <img class="w-12 object-contain self-center" src="./web/assets/images/icons8-nuevo-50.png" alt="new">
+                        <a class="text-white text-center montserrat text-lg self-center" href="#">
+                            <h3 class="font-extrabold">New arrivals</h3>
+                            <p>every month</p>
+                        </a>
+                    </div>
+                    <div class="flex flex-col md:flex-row w-full justify-center gap-3">
+                        <img class="w-12 object-contain self-center" src="web/assets/images/icons8-atención-al-cliente-50.png" alt="support">
+                        <a class="text-white text-center montserrat text-lg self-center" href="#">
+                            <h3 class="font-extrabold">Online Support</h3>
+                            <p>24 hours</p>
+                        </a>
+                    </div>
+                    <div class="flex flex-col md:flex-row w-full justify-center gap-3">
+                        <img class="w-12 object-contain self-center" src="web/assets/images/icons8-regalo-50.png" alt="gift">
+                        <a class="text-white text-center montserrat text-lg self-center" href="#">
+                            <h3 class="font-extrabold">Amazing</h3>
+                            <p>Deals</p>
+                        </a>
+                    </div>
+            </div>
+            <section class="flex flex-col md:flex-row">
+                <article class="w-[50%] flex flex-row justify-center bg-[#1B1D29] m-2 rounded-lg">
+                    <div class="flex flex-col self-center items-center gap-4">
+                        <h2 class="text-3xl text-white montserrat font-bold">DELL LATITUDE E7470</h2>
+                        <p class="text-white ordinal">USD $450</p>
+                        <button class="lg:flex w-28 p-2 bg-[#22215D] justify-center rounded-2xl font-['Poppins'] text-white text-xl animate-pulse shadow-lg shadow-[#22215D]">Buy Now</button>
+                    </div>
+                        <img class="w-60" src="./web/assets/images/screen.png" alt="screen">
+                </article>
+
+                <article class="w-[25%] flex flex-row justify-center bg-[#1B1D29] m-2 rounded-lg">
+                    <div class="flex flex-col self-center items-center gap-4">
+                        <h2 class="text-3xl text-white montserrat font-bold">PRODUCT HERE </h2>
+                        <p class="text-white ordinal">USD $450</p>
+                        <button class="lg:flex w-28 p-2 bg-[#22215D] justify-center rounded-2xl font-['Poppins'] text-white text-xl animate-pulse shadow-lg shadow-[#22215D]">Buy Now</button>
+                    </div>
+                        <img class="w-20" src="./" alt="">
+                </article>
+
+                <article class="w-[25%] flex flex-row justify-center bg-[#1B1D29] m-2 rounded-lg">
+                    <div class="flex flex-col self-center items-center gap-4">
+                        <h2 class="text-3xl text-white montserrat font-bold">PRODUCT HERE</h2>
+                        <p class="text-white ordinal">USD $450</p>
+                        <button class="lg:flex w-28 p-2 bg-[#22215D] justify-center rounded-2xl font-['Poppins'] text-white text-xl animate-pulse shadow-lg shadow-[#22215D]">Buy Now</button>
+                    </div>
+                        <img class="w-20" src="./" alt="">
+                </article>
+            </section>
+            <!-- TW Elements is free under AGPL, with commercial license required for specific uses. See more details: https://tw-elements.com/license/ and contact us for queries at tailwind@mdbootstrap.com --> 
+            <section class="text-neutral-700 dark:text-neutral-300 m-8">
+                <div class="mx-auto text-center md:max-w-xl lg:max-w-3xl">
+                <h3 class="mb-6 text-3xl font-bold text-white">What Our Customers Are Saying</h3>
+                <p class="mb-6 pb-2 md:mb-12 md:pb-0 text-white font-['Poppins'] text-lg">
+                    Feel free to leave a review and help others to take a better decision
+                </p>
+                </div>
+            
+                <!--First Testimonial-->
+                <div class="grid gap-6 text-center md:grid-cols-3">
+                <div>
+                    <div
+                    class="block rounded-lg bg-white shadow-lg dark:bg-neutral-700 dark:shadow-black/30">
+                    <div class="h-28 overflow-hidden rounded-t-lg bg-[#95A1E3]"></div>
+                    <div
+                        class="mx-auto -mt-12 w-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
+                        <img
+                        src="./web/assets/images/review 1.png" />
+                    </div>
+                    <div class="p-6">
+                        <h4 class="mb-4 text-2xl font-semibold">Maria Smantha</h4>
+                        <hr />
+                        <p class="mt-4">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor"
+                            class="inline-block h-7 w-7 pr-2"
+                            viewBox="0 0 24 24">
+                            <path
+                            d="M13 14.725c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.38 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275zm-13 0c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.38 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275z" />
+                        </svg>
+                        Wire it is a tech enthusiast's dream! From top-notch products to lightning-fast shipping, they've got it all. 
+                        </p>
+                    </div>
+                    </div>
+                </div>
+            
+                <!--Second Testimonial-->
+                <div>
+                    <div
+                    class="block rounded-lg bg-white shadow-lg dark:bg-neutral-700 dark:shadow-black/30">
+                    <div class="h-28 overflow-hidden rounded-t-lg bg-[#95A1E3]"></div>
+                    <div
+                        class="mx-auto -mt-12 w-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
+                        <img
+                        src="./web/assets/images/review 2.png" />
+                    </div>
+                    <div class="p-6">
+                        <h4 class="mb-4 text-2xl font-semibold">Miss Monroe</h4>
+                        <hr />
+                        <p class="mt-4">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor"
+                            class="inline-block h-7 w-7 pr-2"
+                            viewBox="0 0 24 24">
+                            <path
+                            d="M13 14.725c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.38 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275zm-13 0c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.38 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275z" />
+                        </svg>
+                        As a tech teacher I am always looking for new gadgets and cool stuff for my job. I can swear I find all this things here in Wire it, they're amazing.
+                        </p>
+                    </div>
+                    </div>
+                </div>
+            
+                <!--Third Testimonial-->
+                <div>
+                    <div
+                    class="block rounded-lg bg-white shadow-lg dark:bg-neutral-700 dark:shadow-black/30">
+                    <div class="h-28 overflow-hidden rounded-t-lg bg-[#95A1E3]"></div>
+                    <div
+                        class="mx-auto -mt-12 w-24 overflow-hidden rounded-full border-2 border-white bg-white dark:border-neutral-800 dark:bg-neutral-800">
+                        <img
+                        src="./web/assets/images/review 3.png" />
+                    </div>
+                    <div class="p-6">
+                        <h4 class="mb-4 text-2xl font-semibold">John Game4life</h4>
+                        <hr />
+                        <p class="mt-4">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor"
+                            class="inline-block h-7 w-7 pr-2"
+                            viewBox="0 0 24 24">
+                            <path
+                            d="M13 14.725c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.38 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275zm-13 0c0-5.141 3.892-10.519 10-11.725l.984 2.126c-2.215.835-4.163 3.742-4.38 5.746 2.491.392 4.396 2.547 4.396 5.149 0 3.182-2.584 4.979-5.199 4.979-3.015 0-5.801-2.305-5.801-6.275z" />
+                        </svg>
+                        I've tried many e-commerce platforms, but none compare to Wire it for tech purchases. Only here I could find my fav brands all together.
+                        </p>
+                    </div>
+                    </div>
+                </div>
+                </div>
+                <div class="mx-auto text-center md:max-w-xl lg:max-w-3xl my-8">
+                    <a href="./web/assets/pages/contact.html" class="mb-6 text-2xl font-['Poppins'] text-white underline animate-pulse">I wan to leave a review</a>
+                    </div>
+            </section>
         </main>
         <footer>
             <div class="flex flex-col w-full p-4 bg-slate-400/20">
@@ -199,7 +361,6 @@
         </footer>
     </div>
     <script src="web/assets/js/vanilla-ham.js"></script>
-    <script src="./tailwindconfig.js"></script>
-    <script src="index.js"></script>
+    <script src="./web/assets/js/index.js"></script>
 </body>
 </html>

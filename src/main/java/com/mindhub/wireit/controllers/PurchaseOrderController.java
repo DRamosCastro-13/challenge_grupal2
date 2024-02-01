@@ -1,6 +1,5 @@
 package com.mindhub.wireit.controllers;
 
-import com.mindhub.wireit.dto.bodyjson.NewCart;
 import com.mindhub.wireit.dto.bodyjson.PurchaseRequest;
 import com.mindhub.wireit.service.PurchaseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api")
@@ -21,7 +20,7 @@ public class PurchaseOrderController {
     private PurchaseOrderService purchaseOrderService;
 
     @PostMapping("/checkout")
-    public ResponseEntity<String> purchaseProcess(@RequestBody PurchaseRequest purchaseRequest, Authentication authentication){
+    public ResponseEntity<String> purchaseProcess(@RequestBody PurchaseRequest purchaseRequest, Authentication authentication) throws IOException {
         ResponseEntity<String> response = purchaseOrderService.purchaseProcess(purchaseRequest,authentication);
         return response;
     }

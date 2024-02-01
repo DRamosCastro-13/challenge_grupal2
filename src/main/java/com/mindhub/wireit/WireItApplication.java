@@ -12,7 +12,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
@@ -35,7 +34,7 @@ public class WireItApplication {
 									  ProductOrderRepository productOrderRepository,
 									  ProductRepository productRepository) {
 		return args -> {
-			Client client = new Client("Melba","Morel","melba@mindhub.com",25524320,passwordEncoder.encode("1234"));
+			Client client = new Client("Melba","Morel","alvarosop23@gmail.com",25524320,passwordEncoder.encode("1234"));
 			client.setRole(Role.ADMIN);
 			clientRepository.save(client);
 
@@ -47,9 +46,9 @@ public class WireItApplication {
 
 			Product product = new Product("Lavadora","MadMax","https://d1pjg4o0tbonat.cloudfront.net/content/dam/midea-aem/cl/lavanderia/lavadoras/lavadora-carga-frontal-8kg-mf100w80-w/W_2674x4011_2.jpg/jcr:content/renditions/cq5dam.web.5000.5000.jpeg","Lavadora blanca de hasta 50kg MadMax, la mejor calidad", ProductCategory.MONITOR,20000,0,10);
 			Product product2 = new Product("Lavadora1","MadMax","https://d1pjg4o0tbonat.cloudfront.net/content/dam/midea-aem/cl/lavanderia/lavadoras/lavadora-carga-frontal-8kg-mf100w80-w/W_2674x4011_2.jpg/jcr:content/renditions/cq5dam.web.5000.5000.jpeg","Lavadora blanca de hasta 50kg MadMax, la mejor calidad", ProductCategory.MONITOR,20000,0,10);
-			Product product3 = new Product("Lavadora2","MadMax","https://d1pjg4o0tbonat.cloudfront.net/content/dam/midea-aem/cl/lavanderia/lavadoras/lavadora-carga-frontal-8kg-mf100w80-w/W_2674x4011_2.jpg/jcr:content/renditions/cq5dam.web.5000.5000.jpeg","Lavadora blanca de hasta 50kg MadMax, la mejor calidad", ProductCategory.MONITOR,20000,0,10);
+			Product product3 = new Product("Lavadora2","MadMax","https://d1pjg4o0tbonat.cloudfront.net/content/dam/midea-aem/cl/lavanderia/lavadoras/lavadora-carga-frontal-8kg-mf100w80-w/W_2674x4011_2.jpg/jcr:content/renditions/cq5dam.web.5000.5000.jpeg","Lavadora blanca de hasta 50kg MadMax, la mejor calidad", ProductCategory.MONITOR,20000,0,5);
 			Product product4 = new Product("Lavadora3","MadMax","https://d1pjg4o0tbonat.cloudfront.net/content/dam/midea-aem/cl/lavanderia/lavadoras/lavadora-carga-frontal-8kg-mf100w80-w/W_2674x4011_2.jpg/jcr:content/renditions/cq5dam.web.5000.5000.jpeg","Lavadora blanca de hasta 50kg MadMax, la mejor calidad", ProductCategory.MONITOR,20000,0,10);
-			Product product5 = new Product("Lavadora4","MadMax","https://d1pjg4o0tbonat.cloudfront.net/content/dam/midea-aem/cl/lavanderia/lavadoras/lavadora-carga-frontal-8kg-mf100w80-w/W_2674x4011_2.jpg/jcr:content/renditions/cq5dam.web.5000.5000.jpeg","Lavadora blanca de hasta 50kg MadMax, la mejor calidad", ProductCategory.MONITOR,20000,0,10);
+			Product product5 = new Product("Lavadora4","MadMax","https://d1pjg4o0tbonat.cloudfront.net/content/dam/midea-aem/cl/lavanderia/lavadoras/lavadora-carga-frontal-8kg-mf100w80-w/W_2674x4011_2.jpg/jcr:content/renditions/cq5dam.web.5000.5000.jpeg","Lavadora blanca de hasta 50kg MadMax, la mejor calidad", ProductCategory.MONITOR,20000,0,0);
 			productRepository.save(product);
 			productRepository.save(product2);
 			productRepository.save(product3);
