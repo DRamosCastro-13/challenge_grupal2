@@ -3,7 +3,9 @@ package com.mindhub.wireit.models;
 import com.mindhub.wireit.models.enums.Role;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,7 +25,7 @@ public class Client {
     private Set<Address> addresses = new HashSet<>();
 
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
-    private Set<PurchaseOrder> PurchaseOrders = new HashSet<>();
+    private List<PurchaseOrder> PurchaseOrders = new ArrayList<>();
 
     public Client() {
     }
@@ -98,11 +100,11 @@ public class Client {
         this.addresses = addresses;
     }
 
-    public Set<PurchaseOrder> getPurchaseOrders() {
+    public List<PurchaseOrder> getPurchaseOrders() {
         return PurchaseOrders;
     }
 
-    public void setPurchaseOrders(Set<PurchaseOrder> purchaseOrders) {
+    public void setPurchaseOrders(List<PurchaseOrder> purchaseOrders) {
         PurchaseOrders = purchaseOrders;
     }
 

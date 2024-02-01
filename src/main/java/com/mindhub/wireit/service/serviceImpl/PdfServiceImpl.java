@@ -13,7 +13,6 @@ import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -32,8 +31,6 @@ public class PdfServiceImpl implements PdfService {
     private PurchaseOrderRepository purchaseOrderRepository;
     @Autowired
     private ClientService clientService;
-    @Autowired
-    private JavaMailSender javaMailSender;
 
     @Override
     public ResponseEntity<String> generatePDF(String orderNumber, HttpServletResponse response, Authentication authentication) throws IOException {
@@ -48,8 +45,7 @@ public class PdfServiceImpl implements PdfService {
             return new ResponseEntity<>("You need to Sing up in the plataform to create PDF of your order.", HttpStatus.FORBIDDEN);
         }
 
-        // Obtener las órdenes de compra del cliente
-        Set<PurchaseOrder> purchaseOrders = client.getPurchaseOrders();
+        List<PurchaseOrder> purchaseOrders = client.getPurchaseOrders();
 
         for (PurchaseOrder po : purchaseOrders) {
             if (po.getOrderNumber().equals(orderNumber)) {

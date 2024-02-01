@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@SuppressWarnings("unchecked")
 public class ClientServiceImpl implements ClientService {
     @Autowired
     private ClientRepository clientRepository;

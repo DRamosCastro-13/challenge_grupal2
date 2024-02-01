@@ -1,11 +1,11 @@
 package com.mindhub.wireit.dto.bodyjson;
 
-import com.mindhub.wireit.models.enums.ProductCategory;
+import com.mindhub.wireit.models.ProductCategory;
 
 public class NewProduct {
     private double price, discount;
     private String name, brand, image_url, description;
-    private ProductCategory productCategory;
+    private ProductCategory category;
     private int stock;
 
     public double getPrice() {
@@ -33,7 +33,7 @@ public class NewProduct {
     }
 
     public ProductCategory getProductCategory() {
-        return productCategory;
+        return category;
     }
 
     public int getStock() {

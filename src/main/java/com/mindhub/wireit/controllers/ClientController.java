@@ -5,7 +5,6 @@ import com.mindhub.wireit.dto.bodyjson.NewAddress;
 import com.mindhub.wireit.dto.bodyjson.NewClient;
 import com.mindhub.wireit.service.ClientService;
 import com.mindhub.wireit.service.PdfService;
-import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -53,7 +52,7 @@ public class ClientController {
     @GetMapping("/clients/pdf")
     public ResponseEntity<String> generatePDF(@RequestParam String orderNumber,
                                               HttpServletResponse response,
-                                              Authentication authentication) throws IOException, MessagingException {
+                                              Authentication authentication) throws IOException{
         ResponseEntity<String> responseEnt = pdfService.generatePDF(orderNumber, response, authentication);
         return responseEnt;
     }
