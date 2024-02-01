@@ -85,7 +85,7 @@ public class WireItApplication {
 			productOrderRepository.save(productOrder3);
 			productOrderRepository.save(productOrder4);
 			productOrderRepository.save(productOrder5);
-			clientRepository.save(client);
+			clientRepository.save(client); hola
 			*/
 			System.out.println("llegue al final");
 		};
