@@ -13,14 +13,11 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Montserrat:wght@300;600&family=Poppins:wght@400;700&family=Signika:wght@500&family=Staatliches&display=swap"
         rel="stylesheet">
-    <title>CONTACT US | WIRE IT</title>
+    <title>CART | WIRE IT</title>
 </head>
 
 <body class="bg-gradient-to-r from-[#1B1D29] to-[#7C85BD]">
     <div id="app">
-        <!--<div class="z-10 h-[100vh] w-[100vw]">
-            <div class="  w-[0%] h-[0%] top-0 left-0"></div>
-            <div class="absolute w-[100%] h-[100%] top-[-1%] z-20 bg-no-repeat opacity-25" style="background-image: url('./assets/images/wave.png')"></div>-->
         <header class="flex flex-wrap fixed lg:static top-0 z-40 bg-gradient-to-r from-[#1B1D29] to-[#7C85BD] w-full justify-around lg:justify-between lg:px-10">
             <a href="./register.html" class="group flex flex-col pt-4 pb-3 min-h-[10vh] lg:hidden">
                 <svg width="26px" height="26px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"
@@ -98,28 +95,67 @@
             </div>
         </header>
         <main class="w-full flex flex-col justify-center items-center flex-grow w-full py-20 lg:pt-8 lg:pb-16 md:py-28">
-            <div class="lg:hidden w-full flex justify-end py-2 lg:py-0 lg:pr-5">
-                <img class="w-12 z-10 object-contain bg-slate-400 rounded-l-xl p-2 cursor-pointer fixed top-20 left-50" src="../images/icons8-lupa-48.png" alt="search">
-                <img class="lg:w-14 z-10 w-12 bg-slate-400 p-2 rounded-l-xl lg:rounded-full cursor-pointer fixed top-36 left-50" src="../images/carrito tuneado.png" alt="cart">
-            </div>
-
-            <div class="flex flex-col w-full mb-16 md:mb-6 gap-4 justify-center items-center">
-                <h2 class="text-5xl flex text-white montserrat font-bold">Contact</h2>
-                <p class="text-2xl flex text-white montserrat" >Here to help</p>
-            </div>
-           
-            <form class="flex py-3 sm:w-8/12 md:py-5 w-11/12 lg:w-6/12 rounded-xl justify-center items-center gap-4 flex-col bg-slate-400/20 shadow-lg shadow-slate-800" action="">
-                <label for="name" class="text-xl font-bold flex flex-col text-center text-white montserrat">Name:</label>
-                <input name="name" class="font-normal rounded-xl text-center border border-black shadow-lg px-2 w-9/12" placeholder="Your name" type="text">
-                
-                <label for="email" class="text-xl font-bold flex flex-col text-center text-white montserrat ">Email:</label>
-                <input name="email" class= "font-normal rounded-xl text-center border-black border shadow-lg px-2 w-9/12" placeholder="Your email" type="mail:to">
-                
-                <label for="question" class="text-xl font-bold flex flex-col text-center text-white montserrat ">Leave your inquiry:</label>
-                <textarea name="question" class="font-normal rounded-xl text-center border border-black shadow-lg w-9/12" placeholder="Type in your inquiry"  cols="30" rows="5"></textarea>
-             
-                <button  class="w-44 bg-[#22215D] m-6 md:m-0 p-2 rounded-2xl items-center font-['Poppins'] text-white text-2xl animate-pulse shadow-lg shadow-[#22215D]" v-on:click="mostrarModal">Send</button>
-            </form>
+            <section class="w-full flex flex-col justify-center h-full items-center">
+                <template v-if="localStorageFiltrado.length > 0" v-for="articulo in localStorageFiltrado">
+                  <div v-if="articulo.cantidadEnCarrito > 0"
+                    class="flex flex-col gap-2  bg-white shadow-xl rounded-lg my-2 w-[80%] justify-around md:flex-row md:w-[90%]">
+                    <div v-if="articulo.categoria == 'jugueteria'" class="bg-violet-900 rounded-t-lg py-2 w-full md:w-[1%] md:rounded-full md:rounded-r-lg"></div>
+                    <div v-else class="w-full py-2 bg-green-600 rounded-t-lg md:w-[1%] md:rounded-full md:rounded-r-lg"></div>
+                    <div class="w-full ">
+                      <article class="flex flex-col text-center items-center gap-4  md:flex-row  justify-around mb-2 md:flex-row md:items-center md:justify-center md:mx-2">
+                        <picture class="flex">
+                          <img :src="articulo.imagen" :alt="articulo.titulo" class="w-[150px] h-[100px] flex object-contain md:m-0">
+                        </picture>
+                        <div class="flex justify-around flex-col gap-2 align-center  md:flex-row md:justify-center ">
+                          <h3 class="text-center font-bold md:w-full">{{articulo.producto}}</h3>
+                          <div class="flex gap-2 justify-center px-2 items-center md:w-2/4">
+                            <div></div>
+                            <div class="w-1/6">
+                              <button><img src="../Images/minus.png" alt="minus_article" class="object-cover"
+                                  @click="removerDelCarro(articulo,'restar')"></button>
+                            </div>
+                            <div  class="border border-gray-400 rounded-full px-6 w-4/6 py-2 text-center align-middle font-bold">
+                              <p v-if="articulo.cantidadEnCarrito >= articulo.disponibles">LIMITE ALCANZADO ({{articulo.cantidadEnCarrito}}) </p>
+                              <p v-else>{{articulo.cantidadEnCarrito}}</p>
+                            </div>
+                            <div class="w-1/6">
+                              <button type="button"><img src="../Images/plus.png" alt="sumar_article" class="object-cover"
+                                  @click="removerDelCarro(articulo, 'sumar')"></button>
+                            </div>
+                          </div>
+                        </div>
+                        <strong class="">Total: {{totalPorArticulo(articulo)}}</strong>
+                      </article>
+                    </div>
+                  </div>
+                </template>
+                <template v-else>
+                  <div class="flex justify-center align-center">
+                    <strong>TODAVIA NO SE AÑADIO NADA AL CARRITO DE COMPRAS</strong>
+                  </div>
+                </template>
+                <div v-if="localStorageFiltrado.length > 0" class="flex flex-col gap-2  bg-white shadow-xl rounded-lg my-2 w-[80%] md:w-[90%] justify-around">
+                  <div class="bg-orange-500 rounded-t-lg py-2"></div>
+                  <div class="flex justify-around md:text-2xl md:py-2">
+                    <strong>TOTAL A PAGAR: </strong>
+                    <strong>{{totalCarrito}}</strong>
+                  </div>
+                  <button class="bg-verdeClaro text-black font-bold p-2 rounded-b-lg w-full" @click="abrirAlert">COMPLETAR COMPRA</button>
+                </div>
+            </section>
+            <div v-if="modalVisibleAlert" class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-20">
+              <section class="bg-white text-black w-full md:w-1/3 h-1/3 rounded-2xl p-2 flex flex-col">
+                <div class="h-full">
+                  <button class="" @click="cerrarAlert">
+                    <img src="https://png.pngtree.com/png-vector/20190603/ourmid/pngtree-icon-close-button-png-image_1357822.jpg"
+                      class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20" alt="">
+                  </button>
+                  <div class="flex h-full text-center justify-center items-center absolute top-0 inset-0">
+                    <p>¡Muchas gracias por su compra!</p>
+                  </div>
+                </div>
+              </section>
+            </div>    
         </main>
         <footer>
             <div class="flex flex-col w-full p-4 bg-slate-400/20">
@@ -206,16 +242,13 @@
                     <a class="text-slate-400 text-center montserrat text-xs hover:underline" href="#">Privacy Policy</a>
                     <a class="text-slate-400 text-center montserrat text-xs hover:underline" href="#">Cookie Policy</a>
                 </nav>
-                <!-- <div class="grid grid-cols-2 divide-x">
-                    <p class="text-slate-200 text-center montserrat text-xs hover:underline">United States</p>
-                    <a class="text-slate-400 text-center montserrat text-xs hover:underline" href="#">Change Location ></a>
-                </div> -->
             </section>
         </footer>
     </div>
     <script src="../js/vanilla-ham.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="/tailwind.config.js"></script>
-    <script src="../js/aboutus.js"></script>
+    <script src="../js/cart.js"></script>
 </body>
 
 </html>
