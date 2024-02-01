@@ -31,8 +31,6 @@ public class PdfServiceImpl implements PdfService {
     private PurchaseOrderRepository purchaseOrderRepository;
     @Autowired
     private ClientService clientService;
-//    @Autowired
-//    private JavaMailSender javaMailSender;
 
     @Override
     public ResponseEntity<String> generatePDF(String orderNumber, HttpServletResponse response, Authentication authentication) throws IOException {

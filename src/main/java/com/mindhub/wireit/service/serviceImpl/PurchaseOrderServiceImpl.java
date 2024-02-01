@@ -135,7 +135,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
         Dotenv dotenv = Dotenv.configure().load();
 
-        String email = dotenv.get("EMAIL");
+        String email = dotenv.get("${EMAIL}");
         Email from = new Email(email);
 
         String subject = "Wireit - Purchase order";
@@ -153,6 +153,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
             // Obtener el PDF como byte[]
             ByteArrayOutputStream pdfStream = pdfService.export(response, orderNumber);
             byte[] pdfBytes = pdfStream.toByteArray();
+            pdfStream.close();
 
             // Adjuntar el PDF al correo electrónico
             Attachments attachments = new Attachments();
@@ -174,13 +175,10 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
             System.out.println(response.getBody());
             System.out.println(response.getHeaders());
         }
-        pdfStream.close();
     }
 
     @Override
     public void savePurchaseOrder(PurchaseOrder purchaseOrder) {
         purchaseOrderRepository.save(purchaseOrder);
     }
-
-
 }

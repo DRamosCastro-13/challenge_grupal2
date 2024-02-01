@@ -70,6 +70,7 @@
            
             <div class="w-11/12 md:w-8/12 lg:w-6/12 flex flex-col gap-5 mt-5 mb-10 md:mb-20 items-center">
                 <h2 class="font-semibold font-['Montserrat'] text-white text-3xl md:text-4xl text-center">New Product</h2>
+                
                 <form @submit.prevent="addNewProduct()" class="w-full flex flex-col items-center bg-slate-400/30 p-5 md:p-10 lg:p-16 rounded-2xl">
                     <label for="name" class="text-xl font-bold flex flex-col self-start pb-1 text-center text-white montserrat">Product Name:</label>
                     <input type="text" name="name" placeholder="Product Name" class="w-full mb-5 bg-blue-300/30 p-1 rounded-md" v-model="name">
