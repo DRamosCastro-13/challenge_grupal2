@@ -15,7 +15,8 @@ let app = createApp({
             searchQuery: '',
             currentPage: 1,
             itemsPerPage: 8,
-            totalPages: 0
+            totalPages: 0,
+            isLoggedIn: false
         };
     },
     computed: {
@@ -29,6 +30,8 @@ let app = createApp({
         this.currentPage = 1;
         this.applyFilters();
         //this.calculateTotalPages();
+        const cookies = document.cookie;
+
         
     },
     methods: {
@@ -41,7 +44,19 @@ let app = createApp({
                 })
                 .catch(error => {
                     console.log(error);
-                });
+                })
+                .then(() => {
+                    if(this.loadData){
+                        axios.get('/api/clients/current')
+                        .then(response => {
+                            if(response.data.role == "ADMIN"){
+                                this.isLoggedIn = true
+                                console.log(this.isLoggedIn);
+                            }
+                        })
+                    }
+                })
+                .catch(error => console.log(error));
         },
         /*nextPage() {
             if (this.currentPage < this.calculateTotalPages()) {
