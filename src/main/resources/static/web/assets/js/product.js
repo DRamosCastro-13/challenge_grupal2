@@ -17,12 +17,26 @@ let app = createApp({
             isOpen4: false,
             selectedBrand: [],
             filteredBrandProducts: [],
+          localStorage: [],
+          quantity:1,
+          saveQuantity:0,
+
+
         }
     },
     created() {
         this.loadData()
 
     },
+    mounted() {
+            this.filterByBrand();
+        },
+
+        computed: {
+            uniqueBrand() {
+                return [...new Set(this.products.map(product => product.brand))];
+            },
+        },
 
     mounted() {
         this.filterByBrand();
@@ -37,48 +51,53 @@ let app = createApp({
     methods: {
         loadData() {
             axios.get("/api/products")
-                .then(response => {
-                    this.products = response.data
-                    this.filteredBrandProducts = this.products
-                    this.productsSort = response.data.sort((a, b) => { return a.id - b.id })
-                    console.log(this.productsSort)
-                    this.productsSale = this.products.filter(product => product.discount > 0)
-                    this.productWithDiscount = this.productsSale.forEach(product => {
-                        const sale = product.price / 100 * product.discount
-                        const newPrice = product.price - sale
-                        product.discount = newPrice
-                        console.log(product)
-                        return product
-                    })
-                    console.log(this.productsSale)
+            .then(response => {
+                                this.products = response.data
+                                this.filteredBrandProducts = this.products
+                                this.productsSort = response.data.sort((a, b) => { return a.id - b.id })
+                                console.log(this.productsSort)
+                                this.productsSale = this.products.filter(product => product.discount > 0)
+                                this.productWithDiscount = this.productsSale.forEach(product => {
+                                    const sale = product.price / 100 * product.discount
+                                    const newPrice = product.price - sale
+                                    product.discount = newPrice
+                                    console.log(product)
+                                    return product
+                                })
+                                console.log(this.productsSale)
 
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-        },
+                            })
+                            .catch(error => {
+                                console.log(error)
+                            })
+          },
+          agregarAlCarrito(product) {
+                      let storageCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-        productByCategory(category) {
-            axios.get("/api/products/filtered?category=" + category)
-                .then(response => {
-                    this.products = response.data
-                    this.filteredBrandProducts = this.products
-                    this.productsSort = response.data.sort((a, b) => { return a.id - b.id })
-                    console.log(this.productsSort)
-                    this.productsSale = this.products.filter(product => product.discount > 0)
-                    this.productWithDiscount = this.productsSale.forEach(product => {
-                        const sale = product.price / 100 * product.discount
-                        const newPrice = product.price - sale
-                        product.discount = newPrice
-                        console.log(product)
-                        return product
-                    })
-                    console.log(this.productsSale)
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-        },
+
+                    let carrito = this.checket(product)
+                     if(!carrito){
+                      storageCarrito.push({productId: product.id, quantity: this.quantity});
+                      this.saveQuantity = this.quantity+1
+
+                          console.log(product);
+                      }
+
+
+
+                      localStorage.setItem("carrito", JSON.stringify(storageCarrito))
+                      this.localStorage = storageCarrito
+
+
+                  },
+                  checket(product){
+                      let storageCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
+                      return storageCarrito.some(item => item === product.id)
+                  },
+
+          productByCategory(){
+            axios.get("/api/products/filtered?productCategory=" + this.productCategory)
+          },
 
         dropDownMenu1() {
             this.isOpen1 = !this.isOpen1;

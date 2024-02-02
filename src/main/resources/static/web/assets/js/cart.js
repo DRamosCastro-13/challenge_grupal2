@@ -12,11 +12,12 @@ const options = {
       items:[],
       comment:'',
       discount:0,
+    
     }
   },
 
   beforeCreate() {
-      let localStorageCart = JSON.parse(localStorage.getItem('carrito')) || [];
+      
       const body={
         items:this.items,
         comment: this.comment,
@@ -26,13 +27,13 @@ const options = {
         .then(response => response.json())
         .then(data => {
           this.articulos = data
-          t
+          this.localStorageCart = JSON.parse(localStorage.getItem('carrito')) || [];
           // Filtra los artículos que estan en el carrito
           this.localStorageFiltrado = this.articulos.filter(articulo =>
-            this.localStorageCart.some(storage => storage.id === articulo._id))
+            this.localStorageCart.some(storage => storage.id === articulo.id))
           // Agrega la cantidad del carrito a cada artículo filtrado
           this.localStorageFiltrado.forEach(articuloFiltrado => {
-            const cantidadEnCarrito = this.localStorageCart.find(storage => storage.id === articuloFiltrado._id)
+            const cantidadEnCarrito = this.localStorageCart.find(storage => storage.id === articuloFiltrado.id)
             if (cantidadEnCarrito) {
               articuloFiltrado.cantidadEnCarrito = cantidadEnCarrito.cantidad
             }
