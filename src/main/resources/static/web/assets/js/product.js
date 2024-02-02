@@ -23,7 +23,7 @@ let app = createApp({
     methods : {
         agregarAlCarrito(product) {
             if (!this.carrito.includes(product)) {
-                producto.cantidad = 1
+                product.cantidad = 1
                 console.log(product);
                 this.carrito.push(product._id)
             }
