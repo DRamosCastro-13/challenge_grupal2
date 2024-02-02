@@ -9,28 +9,40 @@ const options = {
       localStorageFiltrado: [],
       modalHVisible:false,
       modalVisibleAlert:false,
+      items:[],
+      comment:'',
+      discount:0,
     }
   },
 
   beforeCreate() {
-    fetch("https://moviestack.onrender.com/api/petshop")
-      .then(response => response.json())
-      .then(data => {
-        this.articulos = data
-        this.localStorageCart = JSON.parse(localStorage.getItem('carrito')) || []
-        // Filtra los artículos que estan en el carrito
-        this.localStorageFiltrado = this.articulos.filter(articulo =>
-          this.localStorageCart.some(storage => storage.id === articulo._id))
-        // Agrega la cantidad del carrito a cada artículo filtrado
-        this.localStorageFiltrado.forEach(articuloFiltrado => {
-          const cantidadEnCarrito = this.localStorageCart.find(storage => storage.id === articuloFiltrado._id)
-          if (cantidadEnCarrito) {
-            articuloFiltrado.cantidadEnCarrito = cantidadEnCarrito.cantidad
-          }
+      let localStorageCart = JSON.parse(localStorage.getItem('carrito')) || [];
+      const body={
+        items:this.items,
+        comment: this.comment,
+        discount: this.discount
+      }
+      axios.post("/api/checkout/",body)
+        .then(response => response.json())
+        .then(data => {
+          this.articulos = data
+          t
+          // Filtra los artículos que estan en el carrito
+          this.localStorageFiltrado = this.articulos.filter(articulo =>
+            this.localStorageCart.some(storage => storage.id === articulo._id))
+          // Agrega la cantidad del carrito a cada artículo filtrado
+          this.localStorageFiltrado.forEach(articuloFiltrado => {
+            const cantidadEnCarrito = this.localStorageCart.find(storage => storage.id === articuloFiltrado._id)
+            if (cantidadEnCarrito) {
+              articuloFiltrado.cantidadEnCarrito = cantidadEnCarrito.cantidad
+            }
+          })
+          console.log(this.localStorageFiltrado)
         })
-        console.log(this.localStorageFiltrado)
-      })
-      .catch(error => console.log(error))
+        .catch(error => console.log(error))
+
+    
+   
   },//finaliza beforeCreate
   methods: {
     removerDelCarro(articulo, accion) {
