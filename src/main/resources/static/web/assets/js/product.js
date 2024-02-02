@@ -100,7 +100,7 @@ let app = createApp({
             const MOUSE = document.getElementById("MOUSE")
             const MOTHERBOARD = document.getElementById("MOTHERBOARD")
             const HEADPHONES = document.getElementById("HEADPHONES")
-            const ACCESSORIES = document.getElementById("ACCESSORIES")
+            const ACCESSORIES = document.getElementById("Accesories")
 
             if (event.target === ALL) {
                 this.loadData()
@@ -117,7 +117,7 @@ let app = createApp({
             } else if (event.target === HEADPHONES) {
                 this.productByCategory("HEADPHONES")
             } else if (event.target === ACCESSORIES) {
-                this.productByCategory("ACCESSORIES")
+                this.productByCategory("Accesories")
             }
         },
         filterByBrand() {
