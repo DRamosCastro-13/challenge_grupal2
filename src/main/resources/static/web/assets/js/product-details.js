@@ -4,20 +4,18 @@ let app = createApp({
     
     data(){
         return{
-            products: [],
-      productCategory: [],
-          productsSort:[],
-          discount:[],
-          price: 0,
-          productsSale:[],
-          productWithDiscount:[],
-          isOpen1: false,
-          isOpen2: false,
-          isOpen3: false,
-          isOpen4: false,    
+        products: [],
+        id: "",
+        product: {},
+        productsSale:[],
+        
+          
+            
+            
         }
     },
     created(){
+        this.id=new URLSearchParams(window.location.search).get("id")
         this.loadData()
        
     },
@@ -27,8 +25,8 @@ let app = createApp({
             axios.get("/api/products")
             .then(response => {
                 this.products = response.data
-                this.productsSort=response.data.sort((a, b) => {return a.id - b.id})
-                console.log(this.productsSort)
+                this.product = this.products.find(product => product.id == this.id)
+                console.log(this.product)
                 this.productsSale=this.products.filter(product => product.discount > 0)
                 this.productWithDiscount=this.productsSale.forEach(product =>  { 
                                                     const sale= product.price / 100 * product.discount
@@ -37,30 +35,11 @@ let app = createApp({
                                                     console.log(product)
                                                     return product })
                 console.log(this.productsSale)
-            
             })
             .catch(error => {
                 console.log(error)
             })
-          },
-
-          productByCategory(){
-            axios.get("/api/products/filtered?productCategory=" + this.productCategory)
-          },
-
-          dropDownMenu1() {
-            this.isOpen1 = !this.isOpen1;
-        },
-        dropDownMenu2() {
-            this.isOpen2 = !this.isOpen2;
-        },
-        dropDownMenu3() {
-            this.isOpen3 = !this.isOpen3;
-        },
-        dropDownMenu4() {
-            this.isOpen4 = !this.isOpen4;
-        }
-        
+          }
     }
 
 })
