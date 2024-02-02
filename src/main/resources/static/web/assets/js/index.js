@@ -65,8 +65,7 @@ const options ={
               .catch(error => {
                   console.log(error);
               });
-        }
-      }
+        },
         getproducts() {
             axios.get("/api/products")
                 .then(response => {
@@ -90,6 +89,6 @@ const options ={
                 })
         },
     } // fin methods
-}) // fin create app
+} // fin create app
 const app = createApp(options)
 app.mount("#app")
