@@ -7,17 +7,30 @@ let app = createApp({
             products: [],
             error: '',
             categories: [],
-            productCategory: '',
+            category: '',
             sortByPrice: false,
             minPrice: '',
             maxPrice: null,
             sortByStock: false,
+            searchQuery: '',
+            currentPage: 1,
+            itemsPerPage: 8,
+            totalPages: 0
         };
+    },
+    computed: {
+        /*totalPages() {
+            const totalItems = this.originalProducts.length;
+            return Math.ceil(totalItems / this.itemsPerPage);
+        },*/
     },
     created() {
         this.loadData();
+        this.currentPage = 1;
+        this.applyFilters();
+        //this.calculateTotalPages();
+        
     },
-
     methods: {
         loadData() {
             axios.get("/api/products")
@@ -30,12 +43,31 @@ let app = createApp({
                     console.log(error);
                 });
         },
-
+        /*nextPage() {
+            if (this.currentPage < this.calculateTotalPages()) {
+                this.currentPage++;
+                this.applyFilters();
+            }
+        },
+    
+        prevPage() {
+            if (this.currentPage > 1) {
+                this.currentPage--;
+                this.applyFilters();
+            }
+        },
+    
+        goToPage(pageNumber) {
+            if (pageNumber >= 1 && pageNumber <= this.calculateTotalPages()) {
+                this.currentPage = pageNumber;
+                this.applyFilters();
+            }
+        },*/
         applyFilters() {
             let filteredProducts = [...this.originalProducts];
         
-            if (this.productCategory && this.productCategory !== 'ALL') {
-                filteredProducts = filteredProducts.filter(product => product.productCategory == this.productCategory);
+            if (this.category && this.category !== 'ALL') {
+                filteredProducts = filteredProducts.filter(product => product.category == this.category);
             }
         
             if (this.sortByPrice) {
@@ -54,9 +86,23 @@ let app = createApp({
                 filteredProducts.sort((a, b) => a.price - b.price);
             }
         
-            this.products = filteredProducts;
-        },
+            if (this.searchQuery) {
+                const searchLowerCase = this.searchQuery.toLowerCase();
+                filteredProducts = filteredProducts.filter(product => product.name.toLowerCase().includes(searchLowerCase));
+            }
 
+            this.products = filteredProducts;
+            
+            /*const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+            const endIndex = startIndex + this.itemsPerPage;
+            this.products = filteredProducts.slice(startIndex, endIndex);
+
+            this.calculateTotalPages();*/
+        },
+        calculateTotalPages() {
+            this.totalPages = Math.ceil(this.products.length / this.itemsPerPage);
+            return this.totalPages;
+        },
         logout() {
             axios.post("/api/logout")
                 .then(response => {
