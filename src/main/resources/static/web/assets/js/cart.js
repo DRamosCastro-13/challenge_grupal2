@@ -26,7 +26,6 @@ const options = {
         .then(response => response.json())
         .then(data => {
           this.articulos = data
-          t
           // Filtra los artículos que estan en el carrito
           this.localStorageFiltrado = this.articulos.filter(articulo =>
             this.localStorageCart.some(storage => storage.id === articulo._id))
