@@ -71,11 +71,11 @@
             <div v-if="products" class="w-11/12 md:w-9/12 flex flex-col gap-5 items-center">
                 <h2 class="font-semibold font-['Montserrat'] text-white text-3xl md:text-4xl text-center">Products</h2>
                
-                <div class="w-11/12 felx flex-col items-center gap-5">
+                <div class="w-11/12 sm:w-8/12 md:w-6/12 felx flex-col items-center gap-5">
                     <h3 class="font-semibold font-['Montserrat'] text-white text-lg md:text-2xl text-center">Filter By</h3>
-                    <div>
-                        <label for="category" class="text-xl font-bold flex flex-col self-start pb-1 text-start text-white montserrat">Category:</label>
-                        <select name="category" class="w-full md:w-6/12 mb-3 bg-blue-300/30 p-1 rounded-md text-white" v-model="category">
+                    <div class="mt-3">
+                        <label for="category" class="text-lg md:text-xl font-bold flex flex-col self-start pb-1 text-start text-white montserrat">Category:</label>
+                        <select name="category" class="w-full mb-3 bg-blue-300/30 p-1 rounded-md text-white" v-model="category">
                             <option value="" disabled selected>Select Category</option>
                             <option value="ALL">All Products</option>
                             <option value="CPU">CPU</option>
@@ -86,7 +86,7 @@
                         </select>
                     </div>
                     <div>
-                        <label class="text-xl font-bold flex flex-col self-start pb-1 text-start text-white montserrat">Sort By:</label>
+                        <label class="text-lg md:text-xl font-bold flex flex-col self-start pb-1 text-start text-white montserrat">Sort By:</label>
                         <div>
                             <input type="checkbox" id="sortByPrice" v-model="sortByPrice">
                             <label for="sortByPrice" class="text-white text-base">Price</label>
@@ -101,8 +101,8 @@
                             <input type="checkbox" id="sortByStock" class="p-4" v-model="sortByStock">
                             <label for="sortByStock" class="text-white text-base">Stock</label>
                         </div>
-                        <div>
-                            <label class="text-xl font-bold flex flex-col self-start pb-1 text-start text-white montserrat">Search:</label>
+                        <div class="mt-3">
+                            <label class="text-lg md:text-xl font-bold flex flex-col self-start pb-1 text-start text-white montserrat">Search:</label>
                             <input type="text" @input="applyFilters" v-model="searchQuery" placeholder="Search by name" class="w-full mb-2 bg-blue-300/30 p-1 rounded-md text-white">
                         </div>
 
@@ -129,6 +129,11 @@
                     </tr>
                 </table>
                  <a href="./stockManagement.html" class="font-['Poppins'] mb-10 py-3 px-5 text-white text-lg hover:text-white bg-transparent  hover:bg-green-700 border-2 border-green-200 rounded-lg">Add New Product | Renew Stock</a>
+                 <!-- <div class="pagination">
+                    <button @click="prevPage" :disabled="currentPage === 1">Previous</button>
+                    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+                    <button @click="nextPage" :disabled="currentPage === totalPages">Next</button>
+                </div> -->
             </div>
         </main>
         <footer class="bottom-0 w-full">
