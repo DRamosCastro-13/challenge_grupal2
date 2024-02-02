@@ -10,7 +10,10 @@ let app = createApp({
           isOpen1: false,
           isOpen2: false,
           isOpen3: false,
-          isOpen4: false
+          isOpen4: false,
+          localStorage: [],
+          quantity:1,
+          saveQuantity:0,
             
             
         }
@@ -22,12 +25,27 @@ let app = createApp({
 
     methods : {
         agregarAlCarrito(product) {
-            if (!this.carrito.includes(product)) {
-                product.cantidad = 1
+            let storageCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+            
+          let carrito = this.checket(product)
+           if(!carrito){
+            storageCarrito.push({productId: product.id, quantity: this.quantity});
+            this.saveQuantity = this.quantity+1
+               
                 console.log(product);
-                this.carrito.push(product._id)
             }
-            localStorage.setItem("carrito", JSON.stringify(this.carrito))
+
+                
+            
+            localStorage.setItem("carrito", JSON.stringify(storageCarrito))
+            this.localStorage = storageCarrito
+    
+
+        },
+        checket(product){
+            let storageCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
+            return storageCarrito.some(item => item === product.id)
         },
         loadData(){
             axios.get("/api/products")

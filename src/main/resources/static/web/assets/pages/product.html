@@ -192,7 +192,9 @@
                                 <a class="text-[#8993D1] w-full text-start self-start  font-['Poppins'] hover:underline">View details > </a>
                                 <p class="text-start w-full font-['Poppins'] self-start text-white">{{product.price.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
                             <div class="flex w-full place-self-start">
-                                <button class="w-32 self-start bg-[#595F87] rounded-sm font-['Signika'] text-white text-lg text-center"  @click.prevent="agregarAlCarrito(product)">ADD TO CART</button>
+                                <button class="w-32 self-start bg-[#595F87] rounded-sm font-['Signika'] text-white text-lg text-center"  @click.prevent="agregarAlCarrito(product)" >ADD TO CART</button> 
+                                <input type="number" v-model="quantity">
+                                <label class="text-white">{{quantity}}</label>
                             </div>
                         </article>
                         </template>
