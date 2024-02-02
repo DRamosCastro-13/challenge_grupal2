@@ -1,7 +1,6 @@
 const { createApp } = Vue
 
-let app = createApp({
-
+const options ={
     data() {
         return {
             products: [],
@@ -16,18 +15,19 @@ let app = createApp({
             isOpen3: false,
             isOpen4: false,
             selectedBrand: [],
-            
+            isLoggedIn: false,
+            showDropdown: false,
+            error: '',
+
         }
     },
     created() {
         this.loadData()
 
     },
-
-    mounted() {
-    
-    },
-
+  created() {
+    this.getproducts();
+  },
     computed: {
       productsWithDiscounts() {
         return this.products.filter(product => product.discount > 0);
@@ -35,7 +35,39 @@ let app = createApp({
     },
 
     methods: {
-        loadData() {
+    loadData() {
+          this.checkLogin() || false;
+        },
+        checkLogin() {
+          axios.get('/api/clients/current')
+            .then(response => {
+              if (response.data.role == "CLIENT" || response.data.role == "ADMIN") {
+                this.isLoggedIn = true;
+                console.log(this.isLoggedIn);
+              }
+              else {
+                this.isLoggedIn = false;
+                console.log(this.isLoggedIn);
+              }
+            })
+            .catch(error => {
+              console.error("Error loading user data:", error);
+            });
+        },
+        toggleDropdown() {
+          this.showDropdown = !this.showDropdown;
+        },
+        logout() {
+          axios.post("/api/logout")
+              .then(response => {
+                  window.location.href = "/index.html";
+              })
+              .catch(error => {
+                  console.log(error);
+              });
+        }
+      }
+        getproducts() {
             axios.get("/api/products")
                 .then(response => {
                     this.products = response.data
@@ -57,11 +89,7 @@ let app = createApp({
                     console.log(error)
                 })
         },
-
-
-
-        
     } // fin methods
 }) // fin create app
-
+const app = createApp(options)
 app.mount("#app")
