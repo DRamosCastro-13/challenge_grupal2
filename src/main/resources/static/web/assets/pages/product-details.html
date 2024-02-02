@@ -16,26 +16,22 @@
 
 <body class="bg-gradient-to-r from-[#1B1D29] to-[#7C85BD]">
     <div id="app">
-        <section class="flex w-full place-content-between py-2 px-10 bg-gradient-to-r from-[#1B1D29] to-[#7C85BD]">
-                <p class="text-slate-200 text-center montserrat text-sm">We ship to main cities in less than 24 hours*</p>
-            <div class="flex flex-row">
-                <p class="text-white text-center montserrat text-sm">Need help?, </p>
-                <a class="text-white text-center montserrat text-sm hover:underline" href="#">Click here to contact support</a>
-            </div>
-        </section>
-        <div class=" bg-gradient-to-r from-[#1B1D29] to-[#7C85BD]">
-            <div class="border-b border-gray-500"></div>
-        </div>
         <header class="flex flex-wrap fixed lg:static top-0 z-40 bg-gradient-to-r from-[#1B1D29] to-[#7C85BD] w-full justify-around lg:justify-between lg:px-10">
             <a href="./register.html" class="group flex flex-col pt-4 pb-3 min-h-[10vh] lg:hidden">
                 <svg width="26px" height="26px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"
                     fill="#ffffff" stroke="#ffffff">
+
                     <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
                     <g id="SVGRepo_iconCarrier">
+
                         <path fill="#ffffff"
                             d="M628.736 528.896A416 416 0 0 1 928 928H96a415.872 415.872 0 0 1 299.264-399.104L512 704l116.736-175.104zM720 304a208 208 0 1 1-416 0 208 208 0 0 1 416 0z" />
+
                     </g>
+
                 </svg>
                 <p class="text-white text-[10px] pt-0.5 group-hover:text-neutral-300">Login</p>
             </a>
@@ -96,111 +92,37 @@
                 </a>
             </div>
         </header>
-        <section class="w-full flex justify-end md:justify-center md:py-3 bg-[#1B1D29]">
-            <div class="md:flex md:flex-row md:justify-center md:w-[88%]">
-                <input class="hidden md:block bg-transparent border-b-white" type="search" name="search" id="search" placeholder="Search...">
-                <img class="md:opacity-50 md:w-8 w-12 md:object-contain md:bg-transparent bg-slate-400 rounded-l-xl  md:p-0 p-2 cursor-pointer md:static fixed top-20 left-50" src="../images/icons8-lupa-48.png" alt="search">
-            </div>
-        </section>
-        <main>
-            <div class="flex flex-col w-full pt-10 bg-[#1B1D29]">
-                <div class="flex w-full justify-center gap-6">
-                    <a id="ALL" class="font-['Signika'] text-white text-sm" @click="categoryFilter">ALL</a>
-                    <a id="CPU" class="font-['Signika'] text-white text-sm" @click="categoryFilter">CPU</a>
-                    <a id="MONITOR" class="font-['Signika'] text-white text-sm" @click="categoryFilter">MONITOR</a>
-                    <a id="KEYBOARD" class="font-['Signika'] text-white text-sm" @click="categoryFilter">KEYBOARD</a>
-                    <a id="MOUSE" class="font-['Signika'] text-white text-sm" @click="categoryFilter">MOUSE</a>
-                    <a id="MOTHERBOARD" class="font-['Signika'] text-white text-sm" @click="categoryFilter">MOTHERBOARD</a>
-                    <a id="HEADPHONES" class="font-['Signika'] text-white text-sm" @click="categoryFilter">HEADPHONES</a>
-                    <a id="ACCESSORIES" class="font-['Signika'] text-white text-sm" @click="categoryFilter">ACCESSORIES</a>
+        <main class="w-full pt-10 lg:pt-5 md:pt-28">
+            <section class="w-full flex justify-end md:justify-center md:py-3">
+                <div class="md:flex md:flex-row md:justify-center md:w-[88%]">
+                    <input class="hidden md:block bg-transparent border-b border-white" type="search" name="search" id="search" placeholder="Search...">
+                    <img class="md:opacity-50 md:w-8 w-12 md:object-contain md:bg-transparent bg-slate-400 rounded-l-xl  md:p-0 p-2 cursor-pointer md:static fixed top-20 left-50" src="../images/icons8-lupa-48.png" alt="search">
                 </div>
-            </div>
-            <section class="w-full flex divide-x bg-slate-400/20">
-                <article class="w-[25%] pt-12 flex justify-center bg-slate-400/20">
-                    <div class="flex flex-col">
-                        <h2 class="text-lg text-white font-['Montserrat']">FILTER BY</h2>
-                            <div class="divide-y py-10">
-                                <div class="flex flex-col py-5">
-                                    <div @click="dropDownMenu1" class="flex cursor-pointer space-x-20">
-                                        <p class="text-lg text-white font-['Montserrat']">BRAND</p>
-                                        <img src="../images/icons8-chevron-abajo-24.png" alt="chevrondown">
-                                    </div>
-                                    <form v-if="isOpen1" class="flex flex-col gap-3 text-sm text-white montserrat" action="">
-                                        <template v-if="products.length != 0" v-for="brand in uniqueBrand">
-                                            <label class="flex gap-4">
-                                                <input class="brand rounded-sm bg-transparent" type="checkbox" v-model="selectedBrand" :value="brand" @change="filterByBrand">{{brand}}
-                                            </label>
-                                        </template>
-                                    </form>
-                                </div>
-                                <div class="flex flex-col py-5">
-                                    <div @click="dropDownMenu2" class="flex cursor-pointer space-x-14">
-                                        <p class="text-lg text-white font-['Montserrat']">WIRELESS</p>
-                                        <img src="../images/icons8-chevron-abajo-24.png" alt="chevrondown">
-                                    </div>
-                                    <form v-if="isOpen2" class="flex flex-col gap-3 text-sm text-white montserrat" action="">
-                                        <label class="flex gap-4" for="brand"><input class="rounded-sm bg-transparent" type="checkbox">Yes</label>
-                                        <label class="flex gap-4" for="brand"><input class="rounded-sm bg-transparent" type="checkbox">No</label>
-                                    </form>
-                                </div>
-                                <div class="flex flex-col py-5">
-                                    <div @click="dropDownMenu3" class="flex cursor-pointer space-x-12">
-                                        <p class="text-lg text-white font-['Montserrat']">CATEGORY</p>
-                                        <img src="../images/icons8-chevron-abajo-24.png" alt="chevrondown">
-                                    </div>
-                                    <form v-if="isOpen3" class="flex flex-col gap-3 text-sm text-white montserrat" action="">
-                                        <label class="flex gap-4" for="brand"><input class="rounded-sm bg-transparent" type="checkbox">CPU</label>
-                                        <label class="flex gap-4" for="brand"><input class="rounded-sm bg-transparent" type="checkbox">Headphones</label>
-                                        <label class="flex gap-4" for="brand"><input class="rounded-sm bg-transparent" type="checkbox">Monitors</label>
-                                        <label class="flex gap-4" for="brand"><input class="rounded-sm bg-transparent" type="checkbox">Keyboards</label>
-                                        <label class="flex gap-4" for="brand"><input class="rounded-sm bg-transparent" type="checkbox">Mouse</label>
-                                        <label class="flex gap-4" for="brand"><input class="rounded-sm bg-transparent" type="checkbox">Motherboard</label>
-                                        <label class="flex gap-4" for="brand"><input class="rounded-sm bg-transparent" type="checkbox">Accesories</label>
-                                    </form>
-                                </div>
-                            </div>
+           </section>
+        <section class="w-full flex justify-center">
+           <template v-if="product">
+                <article class="flex flex-col md:flex-row md:w-[70%] justify-center md:p-12 bg-[#1B1D29] p-4 rounded-lg md:gap-24 mx-3 md:mx-0 md:my-10 my-16">
+                        <img v-if="product.discount > 0" class="absolute flex self-start w-14" src="../images/icons8-venta-60.png" alt="discount">
+                        <img class="md:w-[50%] p-2 self-center" v-bind:src="product.image_url+'.png'">
+                    <div class="flex flex-col self-center md:gap-6">
+                            <h3 class="font-['Montserrat'] self-start font-bold text-4xl md:text-5xl text-white text-start">{{product.name}}</h3>
+                            <p class="text-start font-['Poppins'] self-start text-2xl text-slate-400">Brand: {{product.brand}}</p>
+                            <p v-if="product.discount <= 0" class="text-start font-['Poppins'] self-start text-white text-3xl">{{product.price.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
+                            <p v-if="product.discount > 0" class="text-start font-['Poppins'] self-start text-white text-3xl line-through">{{product.price.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
+                            <p v-if="product.discount > 0" class="text-start font-['Poppins'] self-start text-[#FF1200] text-3xl">{{product.discount.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
+
+                            <p class="text-slate-200 text-start self-start font-['Poppins'] text-lg">{{product.description}}</p>
+                        <div class="flex w-full place-self-start ">
+                            <button class="w-full p-4 bg-[#595F87] rounded-lg font-['Signika'] text-white text-xl text-center">ADD TO CART</button>
+                        </div>
+                        <div class="flex place-self-start gap-2">
+                            <img class="w-8 object-contain self-center" src="../images/icons8-en-tránsito-50.png" alt="shipping">
+                            <h3 class="text-slate-200 font-['Poppins'] font-sm self-center">Order now!, Shipping in less than 24 hours</h3>
+                        </div>
                     </div>
                 </article>
-                <div class="w-[75%] pt-12 bg-slate-400/20">
-                        <div class="flex place-content-between px-12 pb-10">
-                                <p class="flex self-start text-sm text-white font-['Montserrat']">{{productsSort.length}} Products</p>
-                            <form action="">
-                            <fieldset>
-                                <legend class="text-lg text-white font-['Montserrat'] font-bold">Sort By</legend>
-                                <div @click="dropDownMenu4" class="flex cursor-pointer space-x-10">
-                                    <p class="text-sm text-white font-['Montserrat']">NEWEST</p>
-                                    <img src="../images/icons8-chevron-abajo-24.png" alt="chevrondown">
-                                </div>
-                                <div v-if="isOpen4" class="flex flex-col gap-3 text-sm text-white montserrat" action="">
-                                    <option for="brand">Price (Lower to High)</option>
-                                    <option for="brand">Price (Higher to Low)</option>
-                                </div>
-                            </fieldset>
-                            </form>
-                        </div>
-                    <div class="flex flex-wrap justify-center">
-                        <template v-if="filteredBrandProducts.length != 0">
-                            <article v-for="product in filteredBrandProducts" class="flex flex-col items-center px-3 py-5 w-72 m-2 bg-[#1B1D29] gap-2 rounded-lg">
-                                <img v-if="product.discount > 0" class="absolute flex self-end" src="../images/icons8-venta-60.png" alt="discount">
-                                <img class="w-72 object-fit h-60" v-bind:src="product.image_url+'.png'">
-                                <h3 class="font-['Montserrat'] w-full self-start font-bold text-xl text-white text-start">{{product.name}}</h3>
-                                <p class="text-start font-['Poppins'] self-start  text-slate-400">{{product.brand}}</p>
-                                <a class="text-[#8993D1] w-full text-start self-start  font-['Poppins'] hover:underline" v-bind:href="`../pages/product-details.html?id=`+product.id">View details > </a>
-                                <p v-if="product.discount <= 0" class="text-start w-full font-['Poppins'] self-start text-white">{{product.price.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
-                                <p v-if="product.discount > 0" class="text-start w-full font-['Poppins'] self-start text-white line-through">{{product.price.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
-                                <p v-if="product.discount > 0" class="text-start w-full font-['Poppins'] self-start text-[#FF1200]">{{product.discount.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
-                            <div class="flex w-full place-self-start">
-                                <button class="w-32 self-start bg-[#595F87] rounded-sm font-['Signika'] text-white text-lg text-center">ADD TO CART</button>
-                            </div>
-                        </article>
-                        </template>
-                        <template v-else>
-                                <h4 class="text-lg text-white font-['Montserrat'] font-bold">No results found</h4>
-                        </template>
-                    </div>
-                </div>
-            </section>
-        
+            </template>
+        </section>
         </main>
         <footer>
             <div class="flex flex-col w-full p-4 bg-slate-400/20">
@@ -299,9 +221,8 @@
     </div>
     <script src="../js/vanilla-ham.js"></script>
     <script src="../../../tailwind.config.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="../js/product.js"></script>
+    <script src="../js/product-details.js"></script>
 </body>
 </html>
