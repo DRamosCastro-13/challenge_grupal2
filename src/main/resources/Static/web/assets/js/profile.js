@@ -75,5 +75,20 @@ const app = createApp({
         clearSelectedAddress() {
             this.selectedAddress = null;
         },
+        downloadPdf(orderNumber) {
+            axios.get("/api/clients/pdf?orderNumber=" + orderNumber, { responseType: 'blob' })
+                .then(response => {
+                    const blob = new Blob([response.data], { type: 'application/pdf' });
+                    const link = document.createElement('a');
+                    link.download = `Order_${orderNumber}.pdf`;
+                    link.href = window.URL.createObjectURL(blob);
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
     }
 }).mount('#app');

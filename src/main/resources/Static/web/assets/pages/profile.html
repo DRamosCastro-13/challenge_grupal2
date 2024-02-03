@@ -178,27 +178,30 @@
                     </form>
                 </div>
                 <div v-else>
-                    <p class="text-lg text-white font-['Poppins'] lg:text-xl flex justify-center items-center text-center">
+                    <p
+                        class="text-lg text-white font-['Poppins'] lg:text-xl flex justify-center items-center text-center">
                         You can't add more than 3 addresses.
                     </p>
                 </div>
             </div>
-            <div class="flex justify-center items-center">
+            <div class="flex justify-center items-center ">
                 <table class=" mt-5 mb-10 border-solid border-b-2 border-gray-400 ">
                     <tr class="bg-slate-800">
-                        <th class="px-1 lg:px-4 py-3 text-white">Order Number</th>
-                        <th class="px-1 lg:px-4 py-3 text-white">Total Amount</th>
-                        <th class="px-1 lg:px-4 py-3 text-white">Discount</th>
-                        <th class="px-1 lg:px-4 py-3 text-white">Total to pay</th>
+                        <th class=" lg:px-4 py-3 text-white">Order Number</th>
+                        <th class=" lg:px-4 py-3 text-white">Total Amount</th>
+                        <th class=" lg:px-4 py-3 text-white">Discount</th>
+                        <th class=" lg:px-4 py-3 text-white">Download PDF</th>
                     </tr>
                     <tr v-for="purchase in purchases"
                         class="border-solid border-b-2 hover:bg-slate-500 border-gray-400">
-                        <td class="px-1 lg:px-4 py-3 text-white text-start">{{purchase.orderNumber}}</td>
-                        <td class="px-1 lg:px-4 py-3 text-white text-center">{{purchase.totalAmount.toLocaleString("en-US",
+                        <td class="px-[5px] lg:px-4 py-3 text-white text-start">{{purchase.orderNumber}}</td>
+                        <td class="lg:px-4 py-3 text-white text-center">
+                            {{purchase.totalToPay.toLocaleString("en-US",
                             {style:"currency", currency:"USD"})}}</td>
-                        <td class="px-1 lg:px-4 py-3 text-white text-center">{{purchase.discount}}%</td>
-                        <td class="px-1 lg:px-4 md:pr-4 py-3 text-white text-end">{{purchase.totalToPay.toLocaleString("en-US",
-                            {style:"currency", currency:"USD"})}}</td>
+                        <td class="lg:px-4 py-3 text-white text-center">{{purchase.discount}}%</td>
+                        <td class="lg:px-4 md:pr-4 py-3 text-white text-center ">
+                            <button  @click="downloadPdf(purchase.orderNumber)">Download</button>
+                        </td>
                     </tr>
                 </table>
             </div>

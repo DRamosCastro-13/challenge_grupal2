@@ -135,7 +135,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
         Dotenv dotenv = Dotenv.configure().load();
 
-        String email = dotenv.get("${EMAIL}");
+        String email = dotenv.get("EMAIL");
         Email from = new Email(email);
 
         String subject = "Wireit - Purchase order";
