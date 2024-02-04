@@ -22,7 +22,8 @@ let app = createApp({
           saveQuantity:0,
           localStorageQuantity:0,
           search: "",
-          lowStockProduct: []
+          lowStockProduct: [],
+          
         }
     },
     created(){
