@@ -108,7 +108,7 @@
                                         <p class="md:text-lg text-white font-['Montserrat'] font-bold">BRAND</p>
                                         <img src="../images/icons8-chevron-abajo-24.png" alt="chevrondown">
                                     </div>
-                                    <form v-if="isOpen1" class="flex flex-col absolute gap-3 text-sm text-white montserrat" action="">
+                                    <form v-if="isOpen1" class="flex flex-col gap-3 text-sm text-white montserrat" action="">
                                         <template v-if="products.length != 0" v-for="brand in uniqueBrand">
                                             <label class="flex gap-4">
                                                 <input class="brand rounded-sm bg-transparent" type="checkbox" v-model="selectedBrand" :value="brand" @change="filterByBrand">{{brand}}
@@ -125,11 +125,11 @@
                                         <a id="ALL" class="text-sm text-white font-['Montserrat'] cursor-pointer" @click="categoryFilter">ALL &gt;</a>
                                         <a id="CPU" class="text-sm text-white font-['Montserrat'] cursor-pointer " @click="categoryFilter">CPU &gt;</a>
                                         <a id="MONITOR" class="text-sm text-white font-['Montserrat'] cursor-pointer" @click="categoryFilter">MONITOR &gt;</a>
-                                        <a id="KEYBOARD" class="ext-sm text-white font-['Montserrat'] cursor-pointer" @click="categoryFilter">KEYBOARD &gt;</a>
-                                        <a id="MOUSE" class="ext-sm text-white font-['Montserrat'] cursor-pointer" @click="categoryFilter">MOUSE &gt;</a>
-                                        <a id="MOTHERBOARD" class="ext-sm text-white font-['Montserrat'] cursor-pointer cursor-pointer" @click="categoryFilter">MOTHERBOARD &gt;</a>
-                                        <a id="HEADPHONES" class="ext-sm text-white font-['Montserrat'] cursor-pointer cursor-pointer" @click="categoryFilter">HEADPHONES &gt;</a>
-                                        <a id="Accesories" class="ext-sm text-white font-['Montserrat'] cursor-pointer cursor-pointer" @click="categoryFilter">ACCESSORIES &gt;</a>
+                                        <a id="KEYBOARD" class="text-sm text-white font-['Montserrat'] cursor-pointer" @click="categoryFilter">KEYBOARD &gt;</a>
+                                        <a id="MOUSE" class="text-sm text-white font-['Montserrat'] cursor-pointer" @click="categoryFilter">MOUSE &gt;</a>
+                                        <a id="MOTHERBOARD" class="text-sm text-white font-['Montserrat'] cursor-pointer cursor-pointer" @click="categoryFilter">MOTHERBOARD &gt;</a>
+                                        <a id="HEADPHONES" class="text-sm text-white font-['Montserrat'] cursor-pointer cursor-pointer" @click="categoryFilter">HEADPHONES &gt;</a>
+                                        <a id="Accesories" class="text-sm text-white font-['Montserrat'] cursor-pointer cursor-pointer" @click="categoryFilter">ACCESSORIES &gt;</a>
                                     </div>
                                 </div>
                                 <section class="flex flex-col md:w-full md:py-10 md:gap-4">
