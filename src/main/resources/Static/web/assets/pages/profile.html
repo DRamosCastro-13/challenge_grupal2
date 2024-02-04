@@ -88,13 +88,28 @@
             </div>
         </header>
         <main class="bg-gradient-to-r from-[#1B1D29] to-[#7C85BD] flex flex-col pt-16 lg:pt-0 pb-16">
-            <div class=" shadow-lg flex-col justify-center items-center  flex p-3 rounded-b-lg">
-                <h2 class="text-lg text-white font-['Poppins'] lg:text-3xl">Welcome!</h2>
-                <h2 class="text-lg text-white font-['Poppins'] lg:text-xl">{{data.firstName}} {{data.lastName}}</h2>
+            <div class="pt-5 shadow-lg flex-col justify-center items-center  flex p-3 rounded-b-lg">
+                <h2 class="text-2xl text-white font-['Poppins'] font-bold lg:text-4xl">Welcome! {{data.firstName}}</h2>
             </div>
             <div>
-                <h2 class="text-lg text-white font-['Poppins'] lg:text-lg ml-2">Your Email: {{ data.email }}</h2>
-                <h2 class="text-lg text-white font-['Poppins'] lg:text-lg ml-2">Your D.N.I: {{ data.dni }}</h2>
+                <div class="flex flex-col gap-4 items-center justify-center pt-5">
+                    <h3 class="text-xl text-slate-300">PERSONAL DETAILS</h3>
+                    <table class="w-11/12 sm:w-8/12 md:w-6/12 lg:w-4/12 mt-1 mb-10 border-solid border-b-2 border-gray-400">
+                        <tr class="border-b-[1px] border-gray-400">
+                            <td class="text-white py-2">Full Name</td>
+                            <td class="text-white text-end py-2">{{ data.firstName }} {{ data.lastName }}</td>
+                        </tr>
+                        <tr class="border-b-[1px] border-gray-400">
+                            <td class="text-white py-2">Email</td>
+                            <td class="text-white text-end py-2">{{ data.email }}</td>
+                        </tr>
+                        <tr class="border-b-[1px] border-gray-400">
+                            <td class="text-white py-2">D.N.I</td>
+                            <td class="text-white text-end py-2">{{ data.dni }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <h3 class="text-xl text-slate-300 text-center">ADDRESSES</h3>
                 <div class="flex flex-col gap-4 items-center justify-center">
                     <div class="mb-4">
                         <div v-if="addresses.length > 0">
@@ -108,9 +123,8 @@
                             </div>
                         </div>
 
-                        <div v-else>
-                            <h2 class="text-lg text-white font-['Poppins'] lg:text-xl mb-4 underline">You don't have an
-                                address</h2>
+                        <div v-else class="my-5">
+                            <h2 class="text-lg text-white font-semibold lg:text-xl mb-4">No address registered</h2>
                         </div>
                     </div>
                     <!-- Modal para mostrar detalles de la dirección -->
@@ -156,7 +170,7 @@
                             v-model="phone" required />
                         <label class="text-lg text-white font-['Poppins'] lg:text-xl" for="province">Province:</label>
                         <input type="text"
-                            class=" bg-transparent border-b ext-lg text-white font-['Poppins'] border-white rounded-lg"
+                            class=" bg-transparent border-b text-lg text-white font-['Poppins'] border-white rounded-lg"
                             v-model="province" required />
                         <label class="text-lg text-white font-['Poppins'] lg:text-xl" for="country">Country:</label>
                         <input type="text"
@@ -184,7 +198,9 @@
                     </p>
                 </div>
             </div>
-            <div class="flex justify-center items-center ">
+            
+            <h3 class="text-xl text-slate-300 text-center mt-10">PURCHASE HISTORY</h3>
+            <div v-if="purchases.length > 0" class="flex justify-center items-center ">
                 <table class=" mt-5 mb-10 border-solid border-b-2 border-gray-400 ">
                     <tr class="bg-slate-800">
                         <th class=" lg:px-4 py-3 text-white">Order Number</th>
@@ -205,9 +221,12 @@
                     </tr>
                 </table>
             </div>
+            <div v-else class="mt-10 w-11/12 md:w-8/12 p-3 self-center flex flex-col items-center border-solid border-2 rounded-lg border-gray-400">
+                <p class="text-lg lg:text-2xl text-white text-center font-['Poppins']">Hey! It looks like you don't have any purchases yet. Check out our products <span><a href="./product.html" class="text-lg font-semibold text-slate-200 lg:text-2xl">here</a></span></p>
+            </div>
         </main>
         <footer>
-            <div class="flex flex-col w-full p-4 bg-slate-400/20">
+            <div class="flex flex-col w-full p-4 bg-slate-400">
                 <p class="font-['Poppins'] text-white text-lg text-center">Find us</p>
                 <div class="flex w-full justify-center gap-4">
                     <a href="#">
@@ -257,11 +276,8 @@
                 <div class="flex flex-col items-center pt-4 lg:mt-8 lg:pt-0 w-full lg:w-[20%]">
                     <p class="text-slate-200 font-['Montserrat'] font-semibold text-xl text-center">Secure payments</p>
                     <div class="flex flex-row flex-wrap gap-4">
-                        <img class="w-12 object-contain" src="../images/american-express.png" alt="american-express">
                         <img class="w-12 object-contain" src="../images/icons8-tarjeta-visa-48.png" alt="visa">
-                        <img class="w-12 object-contain" src="../images/logo mastercard.png" alt="mastercard">
-                        <img class="w-10 object-contain"
-                            src="../images/2487595_club_diners_finance_international_method_icon.png" alt="dinersclub">
+                        <img class="w-12 object-contain" src="../images/logo.png" alt="mastercard">
                     </div>
                 </div>
                 <div
@@ -294,10 +310,6 @@
                     <a class="text-slate-400 text-center montserrat text-xs hover:underline" href="#">Privacy Policy</a>
                     <a class="text-slate-400 text-center montserrat text-xs hover:underline" href="#">Cookie Policy</a>
                 </nav>
-                <!-- <div class="grid grid-cols-2 divide-x">
-                <p class="text-slate-200 text-center montserrat text-xs hover:underline">United States</p>
-                <a class="text-slate-400 text-center montserrat text-xs hover:underline" href="#">Change Location ></a>
-            </div> -->
             </section>
         </footer>
     </div>
