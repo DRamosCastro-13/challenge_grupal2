@@ -150,7 +150,12 @@ const options = {
       this.modalVisibleAlert = false
       if (this.modalVisibleAlert == false) {
           document.body.classList.remove('overflow-y-hidden')
+         
       }
+  },
+  redirigir(){
+    
+    window.location.href = "http://localhost:8080/payment/cardPayment.html"
   },// finaliza cerrarModal
   },//finaliza methods
   computed: {

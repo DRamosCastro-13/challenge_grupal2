@@ -140,22 +140,10 @@
                     <strong>TOTAL TO PAY: </strong>
                     <strong>{{totalCarrito}}</strong>
                   </div>
-                  <button class="w-32 self-start bg-[#595F87] rounded-sm font-['Signika'] text-white text-lg text-center" @click="abrirAlert">COMPLETAR COMPRA</button>
+                  <button class="w-32 self-start bg-[#595F87] rounded-sm font-['Signika'] text-white text-lg text-center" @click="redirigir">COMPLETAR COMPRA</button>
                 </div>
             </section>
-            <div v-if="modalVisibleAlert" class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-20">
-              <section class="bg-white text-black w-full md:w-1/3 h-1/3 rounded-2xl p-2 flex flex-col">
-                <div class="h-full">
-                  <button class="" @click="cerrarAlert">
-                    <img src="https://png.pngtree.com/png-vector/20190603/ourmid/pngtree-icon-close-button-png-image_1357822.jpg"
-                      class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20" alt="">
-                  </button>
-                  <div class="flex h-full text-center justify-center items-center absolute top-0 inset-0">
-                    <p>¡Muchas gracias por su compra!</p>
-                  </div>
-                </div>
-              </section>
-            </div>    
+          
         </main>
         <footer>
             <div class="flex flex-col w-full p-4 bg-slate-400/20">
