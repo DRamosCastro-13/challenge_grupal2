@@ -132,15 +132,7 @@
             </div>
         </header>
         <main class="w-full pt-10 lg:pt-5 md:pt-28">
-            <section class="w-full flex justify-end md:justify-center md:py-3">
-                <div class="md:flex md:flex-row md:justify-center md:w-[88%]">
-                    <input class="hidden md:block bg-transparent border-b border-white" type="search" name="search" id="search" placeholder="Search...">
-                    <img class="md:opacity-50 md:w-8 w-12 md:object-contain md:bg-transparent bg-slate-400 rounded-l-xl  md:p-0 p-2 cursor-pointer md:static fixed top-20 left-50" src="web/assets/images/icons8-lupa-48.png" alt="search">
-                </div>
-           </section>
-
            <div class="lg:hidden w-full flex justify-end py-2 lg:py-0 lg:pr-5 ">
-                <img class="w-12 object-contain bg-slate-400 rounded-l-xl p-2 cursor-pointer fixed top-20 left-50" src="./web/assets/images/icons8-lupa-48.png" alt="search">
                 <img class="lg:w-14 w-12 bg-slate-400 p-2 rounded-l-xl lg:rounded-full cursor-pointer fixed top-36 left-50" src="./web/assets/images/carrito tuneado.png" alt="cart">
             </div>
             
@@ -148,7 +140,7 @@
                 <div class="flex flex-col md:content-center p-3 md:p-0 md:gap-10 md:w-[50%]">
                     <p class="text-2xl lg:text-5xl flex self-start text-white montserrat">Join us!</p>
                     <h2 class="text-4xl md:text-7xl flex self-start text-white font-bold font-['Montserrat'] md:pb-0 pb-10"> Explore our curated collection of gadgets and tech solutions.</h2> 
-                    <a class="hidden lg:flex w-56 p-3 bg-[#22215D] justify-center rounded-2xl font-['Poppins'] text-white text-3xl animate-pulse shadow-lg shadow-[#22215D]" src="./web/assets/pages/register.html">Start Now</a>
+                    <a class="hidden lg:flex w-56 p-3 bg-[#22215D] justify-center rounded-2xl font-['Poppins'] text-white text-3xl animate-pulse shadow-lg shadow-[#22215D]" href="./web/assets/pages/register.html">Start Now</a>
                 </div>
                 <article class="flex justify-center  md:w-[50%] md:max-h-[105vh]">
                         <img class="hidden md:block object-contain" src="web/assets/images/chico gamer.png" alt="gamerguy">
@@ -201,9 +193,9 @@
         </div>
         <div class="mx-auto bg-[#1B1D29] pb-20">
             <div class="overflow-hidden">
-                <div class="flex transition-transform duration-300 ease-in-out" v-bind:style="{ transform: `translateX(-${currentOffset}%)` }">
+                <div class="flex transition-transform duration-1000 ease-in-out" v-bind:style="{ transform: `translateX(-${currentOffset}%)` }">
                     <template v-if="productsWithDiscountOnIndex.length != 0" v-for="(product, i) in productsWithDiscountOnIndex" :key="i" class="w-full ">
-                        <article class="flex flex-col items-center px-3 py-5 w-80 h-[445px] m-2 bg-slate-400/20 gap-2 rounded-lg flex-shrink-0">
+                        <article class="flex flex-col items-center px-3 py-5 w-80 h-[445px] m-2 bg-slate-400/20 gap-2 rounded-lg flex-shrink-0" @mouseover="handleProductHover(true)" @mouseout="handleProductHover(false)">
                                 <img v-if="product.discount > 0" class="absolute flex self-end" src="./web/assets/images/icons8-venta-60.png" alt="discount">
                                 <img class="w-80 h-44 object-fit" v-bind:src="product.image_url+'.png'">
                                 <h3 class="font-['Montserrat'] w-full self-start font-bold text-xl text-white text-start">{{product.name}}</h3>

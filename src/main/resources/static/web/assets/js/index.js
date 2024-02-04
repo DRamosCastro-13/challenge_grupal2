@@ -21,9 +21,10 @@ const options ={
             productsSaleOnIndex:[],
             currentIndex: 0,
             intervalId: null,
-            intervalDuration: 1000, 
+            intervalDuration: 2000, 
             visibleItems: 4,
-            carouselProducts: []
+            carouselProducts: [],
+            isCarouselPaused: false,
            
         }
     },
@@ -127,15 +128,21 @@ const options ={
                 return carouselProducts;
               },
 
-              startCarousel() { 
-                this.intervalId = setInterval(() => {console.log("start slide")
-                  this.currentIndex++;
-                  if (this.currentIndex >= this.productsSaleOnIndex.length) {
-                    this.currentIndex = 0; // Loop back to the beginning
-                  }
-                  this.carouselProducts = this.generateCarouselProducts();
+              startCarousel() {
+                this.intervalId = setInterval(() => {
+                    if (!this.isCarouselPaused) {
+                        console.log("start slide");
+                        this.currentIndex++;
+                        if (this.currentIndex >= this.productsSaleOnIndex.length) {
+                            this.currentIndex = 0; // Loop back to the beginning
+                        }
+                        this.carouselProducts = this.generateCarouselProducts();
+                    }
                 }, this.intervalDuration);
-                } 
+              }, 
+              handleProductHover(isHovered) {
+                this.isCarouselPaused = isHovered;
+              },
         
           },
               beforeDestroy() {
