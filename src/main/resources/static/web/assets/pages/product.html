@@ -99,14 +99,14 @@
         </section>
         <main>
             <section class="w-full flex flex-col md:flex-row md:divide-x bg-slate-400/20">
-                <article class="w-full md:w-[20%] md:pt-12 flex justify-center bg-slate-400/20">
-                    <div class="flex flex-col">
+                <article class="pt-20 w-full md:w-10/12 lg:w-[20%] md:pt-12 flex justify-center bg-slate-400/20">
+                    <div class="flex flex-col w-full sm:w-8/12 md:w-full">
                         <h2 class="md:text-lg text-white px-3 font-['Montserrat']">FILTER BY</h2>
                             <div class="divide-y md:py-5 px-3">
                                 <div class="flex flex-col md:py-5"> 
-                                    <div @click="dropDownMenu1" class="flex cursor-pointer md:space-x-32">
+                                    <div @click="dropDownMenu1" class="flex cursor-pointer  md:py-0 py-2">
                                         <p class="md:text-lg text-white font-['Montserrat'] font-bold">BRAND</p>
-                                        <img src="../images/icons8-chevron-abajo-24.png" alt="chevrondown">
+                                        <img class="px-2" src="../images/icons8-chevron-abajo-24.png" alt="chevrondown">
                                     </div>
                                     <form v-if="isOpen1" class="flex flex-col gap-3 text-sm text-white montserrat" action="">
                                         <template v-if="products.length != 0" v-for="brand in uniqueBrand">
@@ -117,9 +117,9 @@
                                     </form>
                                 </div>
                                 <div class="flex flex-col md:py-5"> 
-                                    <div @click="dropDownMenu2" class="flex cursor-pointer md:space-x-20">
+                                    <div @click="dropDownMenu2" class="flex cursor-pointer md:py-0 py-2">
                                         <p class="md:text-lg text-white font-['Montserrat'] font-bold">CATEGORIES</p>
-                                        <img src="../images/icons8-chevron-abajo-24.png" alt="chevrondown">
+                                        <img class="px-2" src="../images/icons8-chevron-abajo-24.png" alt="chevrondown">
                                     </div>
                                     <div v-if="isOpen2" class="flex flex-col gap-3 md:py-5">
                                         <a id="ALL" class="text-sm text-white font-['Montserrat'] cursor-pointer hover:underline" @click="categoryFilter">ALL &gt;</a>
@@ -132,13 +132,13 @@
                                         <a id="Accesories" class="text-sm text-white font-['Montserrat'] cursor-pointer cursor-pointer hover:underline" @click="categoryFilter">ACCESSORIES &gt;</a>
                                     </div>
                                 </div>
-                                <section class="flex flex-col md:w-full md:py-10 md:gap-4">
-                                        <p class="text-slate-200 text-center montserrat text-sm">We ship to main cities in less than 24 hours*</p>
-                                    <div class="flex flex-col">
+                                <div class="flex flex-col md:w-full md:py-10 md:gap-4">
+                                    <p class="hidden md:block text-slate-200 text-center montserrat text-sm">We ship to main cities in less than 24 hours*</p>
+                                    <div class="hidden md:flex flex-col">
                                         <p class="text-white text-center montserrat text-sm">Need help?, </p>
                                         <a class="text-white text-center montserrat text-sm hover:underline" href="#">Click here to contact support</a>
                                     </div>
-                                </section> 
+                                </div> 
                             </div>
                     </div>
                 </article>
