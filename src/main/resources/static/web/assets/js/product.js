@@ -34,6 +34,13 @@ let app = createApp({
             this.saveQuantity = this.quantity+1
                
                 console.log(product);
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Item added to cart",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
             }
 
                 
