@@ -8,6 +8,7 @@ let app = createApp({
         id: "",
         product: {},
         productsSale:[],
+        loadingData: true
         
           
             
@@ -27,6 +28,7 @@ let app = createApp({
                 this.products = response.data
                 this.product = this.products.find(product => product.id == this.id)
                 console.log(this.product)
+                this.loadingData = !this.loadingData
                 this.productsSale=this.products.filter(product => product.discount > 0)
                 this.productWithDiscount=this.productsSale.forEach(product =>  { 
                                                     const sale= product.price / 100 * product.discount

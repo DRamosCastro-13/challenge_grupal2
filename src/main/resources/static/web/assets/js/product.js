@@ -23,7 +23,8 @@ let app = createApp({
           localStorageQuantity:0,
           search: "",
           lowStockProduct: [],
-          
+          cartItemCount: 0,
+          loadingData: true
         }
     },
     created(){
@@ -73,6 +74,7 @@ let app = createApp({
                     this.products = response.data
                     this.filteredBrandProducts = this.products
                     this.productsSort = response.data.sort((a, b) => { return a.id - b.id })
+                    this.loadingData = !this.loadingData
                     console.log(this.productsSort)
                     this.lowStockProduct= this.products.filter(product => {return product.stock <= 5})
                     console.log(this.lowStockProduct)
@@ -94,7 +96,7 @@ let app = createApp({
         },
 
         productByCategory(category) {
-            axios.get("/api/products/filtered?category=" + category)
+            axios.get("/api/products" + category)
                 .then(response => {
                     this.products = response.data
                     this.filteredBrandProducts = this.products
@@ -127,21 +129,21 @@ let app = createApp({
             const ACCESSORIES = document.getElementById("Accesories")
 
             if (event.target === ALL) {
-                this.loadData()
+                this.productByCategory("?")
             } else if (event.target === CPU) {
-                this.productByCategory("CPU")
+                this.productByCategory("/filtered?category=CPU")
             } else if (event.target === MONITOR) {
-                this.productByCategory("MONITOR")
+                this.productByCategory("/filtered?category=MONITOR")
             } else if (event.target === KEYBOARD) {
-                this.productByCategory("KEYBOARD")
+                this.productByCategory("/filtered?category=KEYBOARD")
             } else if (event.target === MOUSE) {
-                this.productByCategory("MOUSE")
+                this.productByCategory("/filtered?category=MOUSE")
             } else if (event.target === MOTHERBOARD) {
-                this.productByCategory("MOTHERBOARD")
+                this.productByCategory("/filtered?category=MOTHERBOARD")
             } else if (event.target === HEADPHONES) {
-                this.productByCategory("HEADPHONES")
+                this.productByCategory("/filtered?category=HEADPHONES")
             } else if (event.target === ACCESSORIES) {
-                this.productByCategory("Accesories")
+                this.productByCategory("/filtered?category=Accesories")
             }
         },
         filterByBrand() {
