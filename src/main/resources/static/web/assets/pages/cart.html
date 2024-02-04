@@ -96,66 +96,54 @@
         </header>
         <main class="w-full flex flex-col justify-center items-center flex-grow w-full py-20 lg:pt-8 lg:pb-16 md:py-28">
             <section class="w-full flex flex-col justify-center h-full items-center">
-                <template v-if="localStorageFiltrado.length > 0" v-for="articulo in localStorageFiltrado">
-                  <div v-if="articulo.cantidadEnCarrito > 0"
+                <template v-if="itemsFiltrados.length > 0" v-for="producto in itemsFiltrados">
+                  <div
                     class="flex flex-col gap-2  bg-white shadow-xl rounded-lg my-2 w-[80%] justify-around md:flex-row md:w-[90%]">
-                    <div v-if="articulo.categoria == 'jugueteria'" class="bg-violet-900 rounded-t-lg py-2 w-full md:w-[1%] md:rounded-full md:rounded-r-lg"></div>
-                    <div v-else class="w-full py-2 bg-green-600 rounded-t-lg md:w-[1%] md:rounded-full md:rounded-r-lg"></div>
+                    <div  class="bg-violet-900 rounded-t-lg py-2 w-full md:w-[1%] md:rounded-full md:rounded-r-lg"></div>
+                   
                     <div class="w-full ">
                       <article class="flex flex-col text-center items-center gap-4  md:flex-row  justify-around mb-2 md:flex-row md:items-center md:justify-center md:mx-2">
                         <picture class="flex">
-                          <img :src="articulo.imagen" :alt="articulo.titulo" class="w-[150px] h-[100px] flex object-contain md:m-0">
+                          <img :src="producto.image_url+'.png'" :alt="producto.name" class="w-[150px] h-[100px] flex object-contain md:m-0">
                         </picture>
                         <div class="flex justify-around flex-col gap-2 align-center  md:flex-row md:justify-center ">
-                          <h3 class="text-center font-bold md:w-full">{{articulo.producto}}</h3>
+                          <h3 class="text-center font-bold md:w-full">{{producto.name}}</h3>
                           <div class="flex gap-2 justify-center px-2 items-center md:w-2/4">
                             <div></div>
                             <div class="w-1/6">
                               <button><img src="../Images/minus.png" alt="minus_article" class="object-cover"
-                                  @click="removerDelCarro(articulo,'restar')"></button>
+                                  @click="removerDelCarro(producto,'restar')"></button>
                             </div>
-                            <div  class="border border-gray-400 rounded-full px-6 w-4/6 py-2 text-center align-middle font-bold">
-                              <p v-if="articulo.cantidadEnCarrito >= articulo.disponibles">LIMITE ALCANZADO ({{articulo.cantidadEnCarrito}}) </p>
-                              <p v-else>{{articulo.cantidadEnCarrito}}</p>
+                             <div  class="border border-gray-400 rounded-full px-6 w-4/6 py-2 text-center align-middle font-bold">
+                              <p v-if="producto.cantidadEnCarrito >= producto.disponibles">LIMIT REACHED({{producto.cantidadEnCarrito}}) </p>
+                              <p v-else>{{producto.cantidadEnCarrito}}</p>
                             </div>
                             <div class="w-1/6">
                               <button type="button"><img src="../Images/plus.png" alt="sumar_article" class="object-cover"
-                                  @click="removerDelCarro(articulo, 'sumar')"></button>
+                                  @click="removerDelCarro(producto, 'sumar')"></button>
                             </div>
                           </div>
                         </div>
-                        <strong class="">Total: {{totalPorArticulo(articulo)}}</strong>
+                        <strong class="">Total: {{totalPorproducto(producto)}}</strong>
                       </article>
                     </div>
                   </div>
                 </template>
                 <template v-else>
-                  <div class="flex justify-center align-center">
-                    <strong>TODAVIA NO SE AÑADIO NADA AL CARRITO DE COMPRAS</strong>
+                  <div class="flex justify-center align-center text-white">
+                    <strong>The cart is empty</strong>
                   </div>
                 </template>
-                <div v-if="localStorageFiltrado.length > 0" class="flex flex-col gap-2  bg-white shadow-xl rounded-lg my-2 w-[80%] md:w-[90%] justify-around">
+                <div v-if="itemsFiltrados.length > 0" class="flex flex-col gap-2  bg-white shadow-xl rounded-lg my-2 w-[80%] md:w-[90%] justify-around">
                   <div class="bg-orange-500 rounded-t-lg py-2"></div>
                   <div class="flex justify-around md:text-2xl md:py-2">
-                    <strong>TOTAL A PAGAR: </strong>
+                    <strong>TOTAL TO PAY: </strong>
                     <strong>{{totalCarrito}}</strong>
                   </div>
-                  <button class="bg-verdeClaro text-black font-bold p-2 rounded-b-lg w-full" @click="abrirAlert">COMPLETAR COMPRA</button>
+                  <button class="w-32 self-start bg-[#595F87] rounded-sm font-['Signika'] text-white text-lg text-center" @click="redirigir">COMPLETAR COMPRA</button>
                 </div>
             </section>
-            <div v-if="modalVisibleAlert" class="bg-gray-400/40 fixed top-0 left-0 w-full h-full flex items-center justify-center z-20">
-              <section class="bg-white text-black w-full md:w-1/3 h-1/3 rounded-2xl p-2 flex flex-col">
-                <div class="h-full">
-                  <button class="" @click="cerrarAlert">
-                    <img src="https://png.pngtree.com/png-vector/20190603/ourmid/pngtree-icon-close-button-png-image_1357822.jpg"
-                      class="w-12 h-12  cursor-pointer absolute top-2 right-2 z-20" alt="">
-                  </button>
-                  <div class="flex h-full text-center justify-center items-center absolute top-0 inset-0">
-                    <p>¡Muchas gracias por su compra!</p>
-                  </div>
-                </div>
-              </section>
-            </div>    
+          
         </main>
         <footer>
             <div class="flex flex-col w-full p-4 bg-slate-400/20">

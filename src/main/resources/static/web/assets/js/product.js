@@ -1,6 +1,7 @@
 const { createApp } = Vue
 
 let app = createApp({
+<<<<<<< HEAD
 
     data() {
         return {
@@ -18,12 +19,35 @@ let app = createApp({
             selectedBrand: [],
             filteredBrandProducts: [],
             
+=======
+    
+    data(){
+        return{
+          products: [],
+          productCategory: [],
+          productsSort:[],
+          discount: [],
+          price: 0,
+          productsSale: [],
+          productWithDiscount: [],
+          isOpen1: false,
+          isOpen2: false,
+          isOpen3: false,
+          isOpen4: false,
+          selectedBrand: [],
+          filteredBrandProducts: [],
+          localStorage: [],
+          quantity:1,
+          saveQuantity:0,
+          localStorageQuantity:0,
+          
+>>>>>>> cff435876ec98cb01d1bb9516db41907be854a9e
             
         }
     },
-    created() {
+    created(){
         this.loadData()
-
+       
     },
 
     mounted() {
@@ -36,7 +60,30 @@ let app = createApp({
         },
     },
 
-    methods: {
+    methods : {
+        agregarAlCarrito(product) {
+            let storageCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+            
+          let carrito = this.checket(product)
+           if(!carrito){
+            storageCarrito.push({productId: product.id, quantity: this.quantity});
+            this.saveQuantity = this.quantity+1
+               
+                console.log(product);
+            }
+
+                
+            
+            localStorage.setItem("carrito", JSON.stringify(storageCarrito))
+            this.localStorage = storageCarrito
+    
+
+        },
+        checket(product){
+            let storageCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
+            return storageCarrito.some(item => item === product.id)
+        },
         loadData() {
             axios.get("/api/products")
                 .then(response => {
@@ -84,18 +131,6 @@ let app = createApp({
                 })
         },
 
-        dropDownMenu1() {
-            this.isOpen1 = !this.isOpen1;
-        },
-        dropDownMenu2() {
-            this.isOpen2 = !this.isOpen2;
-        },
-        dropDownMenu3() {
-            this.isOpen3 = !this.isOpen3;
-        },
-        dropDownMenu4() {
-            this.isOpen4 = !this.isOpen4;
-        },
         categoryFilter(event) {
             const ALL = document.getElementById("ALL")
             const CPU = document.getElementById("CPU")
@@ -129,9 +164,28 @@ let app = createApp({
                 return this.selectedBrand.length === 0 || this.selectedBrand.some(brand => product.brand === brand);
             });
         },
+<<<<<<< HEAD
 
     
     } // fin methods
 }) // fin create app
+=======
+        dropDownMenu1() {
+            this.isOpen1 = !this.isOpen1;
+        },
+        dropDownMenu2() {
+            this.isOpen2 = !this.isOpen2;
+        },
+        dropDownMenu3() {
+            this.isOpen3 = !this.isOpen3;
+        },
+        dropDownMenu4() {
+            this.isOpen4 = !this.isOpen4;
+        }
+        
+    }
+
+})
+>>>>>>> cff435876ec98cb01d1bb9516db41907be854a9e
 
 app.mount("#app")
