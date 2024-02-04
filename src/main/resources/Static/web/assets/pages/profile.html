@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROFILE | WIRE IT</title>
+    <link rel="shortcut icon" href="../images/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Montserrat:wght@300;600&family=Poppins:wght@400;700&family=Signika:wght@500&family=Staatliches&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div id="app">
+        <header
+            class="flex flex-wrap fixed lg:static top-0 z-40 bg-gradient-to-r from-[#1B1D29] to-[#7C85BD] w-full justify-around lg:justify-between lg:px-10">
+            <a href="./register.html" class="group flex flex-col pt-4 pb-3 min-h-[10vh] lg:hidden">
+                <svg width="26px" height="26px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"
+                    fill="#ffffff" stroke="#ffffff">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0" />
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+                    <g id="SVGRepo_iconCarrier">
+                        <path fill="#ffffff"
+                            d="M628.736 528.896A416 416 0 0 1 928 928H96a415.872 415.872 0 0 1 299.264-399.104L512 704l116.736-175.104zM720 304a208 208 0 1 1-416 0 208 208 0 0 1 416 0z" />
+                    </g>
+                </svg>
+                <p class="text-white text-[10px] pt-0.5 group-hover:text-neutral-300">Login</p>
+            </a>
+
+            <a href="../../../index.html" class="flex items-center content-center min-h-[10vh]">
+                <img class="w-4 md:w-6" src="../images/icon.png" alt="icon">
+                <h2 class="text-2xl md:text-3xl font-extrabold flex self-center text-white font-['Montserrat']">WIRE IT
+                </h2>
+            </a>
+
+            <ul class="nav-menu">
+                <li class="nav-item border-t-2">
+                    <a href="../pages/register.html" class="nav-link text-white">Login | Register</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../../../index.html" class="nav-link text-white">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-white">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../pages/aboutus.html" class="nav-link text-white">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../pages/contact.html" class="nav-link text-white">Contact Us</a>
+                </li>
+                <li class="nav-item h-[100dvh]">
+                    <a href="#" class="nav-link"></a>
+                </li>
+            </ul>
+            <div class="py-3 [10vh] lg:hidden">
+                <div class="hamburger" @click="showMenu = !showMenu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+                <p class="text-white text-[10px] pt-0.5">Menu</p>
+            </div>
+            <nav class="hidden lg:flex self-center gap-5">
+                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="../../../index.html">Home</a>
+                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="#">Products</a>
+                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="#">About Us</a>
+                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400"
+                    href="../pages/contact.html">Contact</a>
+            </nav>
+
+            <div class="hidden lg:flex flex-row self-center gap-4">
+                <div class="hidden md:block md:flex">
+                    <img class="md:w-8 cursor-pointer object-contain" src="../images/carrito tuneado.png" alt="cart">
+                </div>
+
+                <a href="../pages/register.html" class="group hidden lg:flex flex-row self-center gap-1 p-2">
+                    <h2 class="font-['Poppins'] text-white text-lg group-hover:text-slate-200">Login</h2>
+                    <img class="w-7 group-hover" src="../images/icon-login.png" alt="login">
+                </a>
+            </div>
+        </header>
+        <main class="bg-gradient-to-r from-[#1B1D29] to-[#7C85BD] flex flex-col pt-16 lg:pt-0 pb-16">
+            <div class=" shadow-lg flex-col justify-center items-center  flex p-3 rounded-b-lg">
+                <h2 class="text-lg text-white font-['Poppins'] lg:text-3xl">Welcome!</h2>
+                <h2 class="text-lg text-white font-['Poppins'] lg:text-xl">{{data.firstName}} {{data.lastName}}</h2>
+            </div>
+            <div>
+                <h2 class="text-lg text-white font-['Poppins'] lg:text-lg ml-2">Your Email: {{ data.email }}</h2>
+                <h2 class="text-lg text-white font-['Poppins'] lg:text-lg ml-2">Your D.N.I: {{ data.dni }}</h2>
+                <div class="flex flex-col gap-4 items-center justify-center">
+                    <div class="mb-4">
+                        <div v-if="addresses.length > 0">
+                            <h2 class="text-lg text-white font-['Poppins'] lg:text-lg">Your Addresses:</h2>
+
+                            <div v-for="address in addresses" :key="address.id" class="address-item ">
+                                <button @click="showAddressModal(address)" class="address-header">
+                                    <h2 class="text-lg text-white font-['Poppins'] lg:text-lg">{{ address.address }}
+                                    </h2>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div v-else>
+                            <h2 class="text-lg text-white font-['Poppins'] lg:text-xl mb-4 underline">You don't have an
+                                address</h2>
+                        </div>
+                    </div>
+                    <!-- Modal para mostrar detalles de la dirección -->
+                    <div v-if="selectedAddress" class="modal w-[300px] shadow-lg shadow-slate-800 m-2 rounded-md p-2">
+                        <div class="modal-content ">
+                            <h2 @click="clearSelectedAddress"
+                                class="close hover:text-slate-400 cursor-pointer flex justify-end text-end text-3xl">x
+                            </h2>
+                            <h2 class="text-lg text-white font-['Poppins'] lg:text-xl underline">
+                                {{selectedAddress.address }}
+                            </h2>
+                            <h2 class="text-lg text-white font-['Poppins'] lg:text-lg">Your Phone:
+                                {{selectedAddress.phone}}
+                            </h2>
+                            <h2 class="text-lg text-white font-['Poppins'] lg:text-lg">Your Province:
+                                {{selectedAddress.province}}</h2>
+                            <h2 class="text-lg text-white font-['Poppins'] lg:text-lg">Your Country:
+                                {{selectedAddress.country}}</h2>
+                            <h2 class="text-lg text-white font-['Poppins'] lg:text-lg">Your City:
+                                {{selectedAddress.city}}
+                            </h2>
+                            <h2 class="text-lg text-white font-['Poppins'] lg:text-lg">Your ZipCode:
+                                {{selectedAddress.zipCode}}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-center items-center">
+                <div v-if="addresses.length < 3">
+                    <form
+                        class="shadow-lg flex-col justify-center items-center flex p-3 shadow-lg rounded-lg shadow-slate-800/80 w-[300px]"
+                        @submit.prevent="createAddress()">
+                        <h1 class="flex item center justify-center text-lg text-white font-['Poppins'] lg:text-xl">
+                            Add an address
+                        </h1>
+                        <label class="text-lg text-white font-['Poppins'] lg:text-xl" for="address">Address:</label>
+                        <input type="text"
+                            class="bg-transparent border-b border-white text-lg text-white font-['Poppins'] rounded-lg"
+                            v-model="address" required />
+                        <label class="text-lg text-white font-['Poppins'] lg:text-xl" for="phone">Phone:</label>
+                        <input type="text"
+                            class=" bg-transparent border-b text-lg text-white font-['Poppins'] border-white rounded-lg"
+                            v-model="phone" required />
+                        <label class="text-lg text-white font-['Poppins'] lg:text-xl" for="province">Province:</label>
+                        <input type="text"
+                            class=" bg-transparent border-b ext-lg text-white font-['Poppins'] border-white rounded-lg"
+                            v-model="province" required />
+                        <label class="text-lg text-white font-['Poppins'] lg:text-xl" for="country">Country:</label>
+                        <input type="text"
+                            class=" bg-transparent border-b text-lg text-white font-['Poppins'] border-white rounded-lg"
+                            v-model="country" required />
+                        <label class="text-lg text-white font-['Poppins'] lg:text-xl " for="city">City:</label>
+                        <input type="text"
+                            class=" bg-transparent border-b text-lg text-white font-['Poppins'] border-white rounded-lg"
+                            v-model="city" required />
+                        <label class="text-lg text-white font-['Poppins'] lg:text-xl " for="zipcode">ZipCode:</label>
+                        <input type="text"
+                            class="bg-transparent border-b text-lg text-white font-['Poppins'] border-white rounded-lg"
+                            v-model="zipCode" required />
+                        <button
+                            class="text-lg text-white font-['Poppins'] lg:text-3xl bg-gradient-to-r from-[#1B1D29] to-[#7C85BD hover:bg-blue-700 py-2 px-4 rounded mt-3"
+                            type="submit">
+                            Save Address
+                        </button>
+                    </form>
+                </div>
+                <div v-else>
+                    <p
+                        class="text-lg text-white font-['Poppins'] lg:text-xl flex justify-center items-center text-center">
+                        You can't add more than 3 addresses.
+                    </p>
+                </div>
+            </div>
+            <div class="flex justify-center items-center ">
+                <table class=" mt-5 mb-10 border-solid border-b-2 border-gray-400 ">
+                    <tr class="bg-slate-800">
+                        <th class=" lg:px-4 py-3 text-white">Order Number</th>
+                        <th class=" lg:px-4 py-3 text-white">Total Amount</th>
+                        <th class=" lg:px-4 py-3 text-white">Discount</th>
+                        <th class=" lg:px-4 py-3 text-white">Download PDF</th>
+                    </tr>
+                    <tr v-for="purchase in purchases"
+                        class="border-solid border-b-2 hover:bg-slate-500 border-gray-400">
+                        <td class="px-[5px] lg:px-4 py-3 text-white text-start">{{purchase.orderNumber}}</td>
+                        <td class="lg:px-4 py-3 text-white text-center">
+                            {{purchase.totalToPay.toLocaleString("en-US",
+                            {style:"currency", currency:"USD"})}}</td>
+                        <td class="lg:px-4 py-3 text-white text-center">{{purchase.discount}}%</td>
+                        <td class="lg:px-4 md:pr-4 py-3 text-white text-center ">
+                            <button  @click="downloadPdf(purchase.orderNumber)">Download</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </main>
+        <footer>
+            <div class="flex flex-col w-full p-4 bg-slate-400/20">
+                <p class="font-['Poppins'] text-white text-lg text-center">Find us</p>
+                <div class="flex w-full justify-center gap-4">
+                    <a href="#">
+                        <img class="w-10" src="../images/icons8-facebook-48.png" alt="facebook">
+                    </a>
+                    <a href="#">
+                        <img class="w-10" src="../images/icons8-instagram-64.png" alt="instagram">
+                    </a>
+                    <a href="#">
+                        <img class="w-10" src="../images/icons8-tik-tok-30.png" alt="tiktok">
+                    </a>
+                    <a href="#">
+                        <img class="w-9" src="../images/icons8-twitch-50.png" alt="twitch">
+                    </a>
+                </div>
+            </div>
+            <section
+                class="flex flex-col items-center lg:flex-row lg:content-start lg:items-start gap-5 px-10 w-full pt-8 pb-16 place-content-between bg-[#1B1D29]">
+                <div>
+                    <ul class="list-none flex flex-col gap-2 lg:mt-8">
+                        <li class="text-slate-200 font-bold montserrat text-lg">Shop</li>
+                        <li class="text-slate-400 montserrat text-sm">Gadgets</li>
+                        <li class="text-slate-400 montserrat text-sm">Set up</li>
+                        <li class="text-slate-400 montserrat text-sm">Gaming</li>
+                        <li class="text-slate-400 montserrat text-sm">Merch</li>
+                        <li class="text-slate-400 montserrat text-sm">something</li>
+                        <li class="text-slate-400 montserrat text-sm">something</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="list-none flex flex-col gap-2 lg:mt-8">
+                        <li class="text-slate-200 font-bold montserrat text-lg">Company</li>
+                        <li class="text-slate-400 montserrat text-sm">About us</li>
+                        <li class="text-slate-400 montserrat text-sm">Contact us</li>
+                        <li class="text-slate-400 montserrat text-sm">Support</li>
+                        <li class="text-slate-400 montserrat text-sm">Q&A</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="list-none flex flex-col gap-2 w-[20%] lg:mt-8">
+                        <li class="text-slate-200 font-bold montserrat text-lg">Community</li>
+                        <li class="text-slate-400 montserrat text-sm">Channels</li>
+                        <li class="text-slate-400 montserrat text-sm">News</li>
+                        <li class="text-slate-400 montserrat text-sm">Collaborations</li>
+                    </ul>
+                </div>
+                <div class="flex flex-col items-center pt-4 lg:mt-8 lg:pt-0 w-full lg:w-[20%]">
+                    <p class="text-slate-200 font-['Montserrat'] font-semibold text-xl text-center">Secure payments</p>
+                    <div class="flex flex-row flex-wrap gap-4">
+                        <img class="w-12 object-contain" src="../images/american-express.png" alt="american-express">
+                        <img class="w-12 object-contain" src="../images/icons8-tarjeta-visa-48.png" alt="visa">
+                        <img class="w-12 object-contain" src="../images/logo mastercard.png" alt="mastercard">
+                        <img class="w-10 object-contain"
+                            src="../images/2487595_club_diners_finance_international_method_icon.png" alt="dinersclub">
+                    </div>
+                </div>
+                <div
+                    class="bg-slate-400/20 mt-8 flex flex-col w-full lg:w-[35%] place-items-center rounded-2 rounded-md gap-6 shadow-lg shadow-slate-800 h-80 place-content-center">
+                    <h2 class="text-white font-extrabold font-['Montserrat'] text-3xl md:text-4xl">NEWSLETTER</h2>
+                    <p class="text-white font-['Poppins'] text-sm w-10/12 text-center">Subscribe our newsletter to stay
+                        updated every moment and get the best deals.</p>
+                    <input class="rounded-lg p-1 ring-2 ring-slate-600 w-10/12" type="text" id="email" name="email"
+                        placeholder="Enter your email address">
+                    <button
+                        class="text-white font-['Poppins'] w-8/12 text-sm md:max-w-28 bg-[#22215D] rounded-lg p-1 ring-2 ring-slate-500">Submit</button>
+                    <div class="flex gap-1">
+                        <input type="checkbox" id="terms" name="terms">
+                        <p class="text-white font-['Poppins'] text-xs">I accept</p>
+                        <a class="text-white font-['Poppins'] text-xs underline" href="#">Terms and Conditions</a>
+                    </div>
+                </div>
+            </section>
+            <div class="ps-16 pe-16 bg-[#1B1D29]">
+                <div class="border-b border-slate-600"></div>
+            </div>
+            <section
+                class="flex flex-col gap-4 w-full px-5  items-center md:flex-row md:ps-16 md:pe-16 py-8 place-content-between bg-[#1B1D29]">
+                <p class="text-slate-400 text-center montserrat text-xs w-full md:w-[34%]">Copyright © 2024 WireIt Inc.
+                    MINDHUB Cohort52. All rights reserved.</p>
+                <nav class="grid grid-cols-4 flex flex-col lg:gap-4 md:flex-row text-center divide-x">
+                    <a class="text-slate-400 text-center montserrat text-xs hover:underline self-center" href="#">Site
+                        Map</a>
+                    <a class="text-slate-400 text-center montserrat text-xs hover:underline" href="#">Legal Terms</a>
+                    <a class="text-slate-400 text-center montserrat text-xs hover:underline" href="#">Privacy Policy</a>
+                    <a class="text-slate-400 text-center montserrat text-xs hover:underline" href="#">Cookie Policy</a>
+                </nav>
+                <!-- <div class="grid grid-cols-2 divide-x">
+                <p class="text-slate-200 text-center montserrat text-xs hover:underline">United States</p>
+                <a class="text-slate-400 text-center montserrat text-xs hover:underline" href="#">Change Location ></a>
+            </div> -->
+            </section>
+        </footer>
+    </div>
+    <script src="../js/vanilla-ham.js"></script>
+    <script src="../../../tailwind.config.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="../js/profile.js"></script>
+</body>
+
+</html>
