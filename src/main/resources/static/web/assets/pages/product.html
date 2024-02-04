@@ -122,14 +122,14 @@
                                         <img src="../images/icons8-chevron-abajo-24.png" alt="chevrondown">
                                     </div>
                                     <div v-if="isOpen2" class="flex flex-col gap-3 md:py-5">
-                                        <a id="ALL" class="text-sm text-white font-['Montserrat'] cursor-pointer" @click="categoryFilter">ALL &gt;</a>
-                                        <a id="CPU" class="text-sm text-white font-['Montserrat'] cursor-pointer " @click="categoryFilter">CPU &gt;</a>
-                                        <a id="MONITOR" class="text-sm text-white font-['Montserrat'] cursor-pointer" @click="categoryFilter">MONITOR &gt;</a>
-                                        <a id="KEYBOARD" class="text-sm text-white font-['Montserrat'] cursor-pointer" @click="categoryFilter">KEYBOARD &gt;</a>
-                                        <a id="MOUSE" class="text-sm text-white font-['Montserrat'] cursor-pointer" @click="categoryFilter">MOUSE &gt;</a>
-                                        <a id="MOTHERBOARD" class="text-sm text-white font-['Montserrat'] cursor-pointer cursor-pointer" @click="categoryFilter">MOTHERBOARD &gt;</a>
-                                        <a id="HEADPHONES" class="text-sm text-white font-['Montserrat'] cursor-pointer cursor-pointer" @click="categoryFilter">HEADPHONES &gt;</a>
-                                        <a id="Accesories" class="text-sm text-white font-['Montserrat'] cursor-pointer cursor-pointer" @click="categoryFilter">ACCESSORIES &gt;</a>
+                                        <a id="ALL" class="text-sm text-white font-['Montserrat'] cursor-pointer hover:underline" @click="categoryFilter">ALL &gt;</a>
+                                        <a id="CPU" class="text-sm text-white font-['Montserrat'] cursor-pointer hover:underline" @click="categoryFilter">CPU &gt;</a>
+                                        <a id="MONITOR" class="text-sm text-white font-['Montserrat'] cursor-pointer hover:underline" @click="categoryFilter">MONITOR &gt;</a>
+                                        <a id="KEYBOARD" class="text-sm text-white font-['Montserrat'] cursor-pointer hover:underline" @click="categoryFilter">KEYBOARD &gt;</a>
+                                        <a id="MOUSE" class="text-sm text-white font-['Montserrat'] cursor-pointer hover:underline" @click="categoryFilter">MOUSE &gt;</a>
+                                        <a id="MOTHERBOARD" class="text-sm text-white font-['Montserrat'] cursor-pointer cursor-pointer hover:underline" @click="categoryFilter">MOTHERBOARD &gt;</a>
+                                        <a id="HEADPHONES" class="text-sm text-white font-['Montserrat'] cursor-pointer cursor-pointer hover:underline" @click="categoryFilter">HEADPHONES &gt;</a>
+                                        <a id="Accesories" class="text-sm text-white font-['Montserrat'] cursor-pointer cursor-pointer hover:underline" @click="categoryFilter">ACCESSORIES &gt;</a>
                                     </div>
                                 </div>
                                 <section class="flex flex-col md:w-full md:py-10 md:gap-4">
@@ -170,10 +170,11 @@
                                 <p v-if="product.discount <= 0" class="text-start w-full font-['Poppins'] self-start text-white">{{product.price.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
                                 <p v-if="product.discount > 0" class="text-start w-full font-['Poppins'] self-start text-white line-through">{{product.price.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
                                 <p v-if="product.discount > 0" class="text-start w-full font-['Poppins'] self-start text-[#FF1200]">{{product.discount.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
+                                <p v-if="product.stock <= 5" class="text-start w-full font-['Poppins'] self-start text-[#FFD04D] animate-pulse">Last {{product.stock}} units!</p>
                             <div class="flex w-full place-self-start">
                                 <button class="w-32 self-start bg-[#595F87] rounded-sm font-['Signika'] text-white text-lg text-center"  @click.prevent="agregarAlCarrito(product)">ADD TO CART</button> 
-                                <input type="number" v-model="quantity">
-                                <label class="text-white">{{quantity}}</label>
+                             <!--   <input type="number" v-model="quantity">
+                                <label class="text-white">{{quantity}}</label>-->
                             </div>
                         </article>
                         </template>

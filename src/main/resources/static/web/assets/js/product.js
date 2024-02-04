@@ -21,7 +21,8 @@ let app = createApp({
           quantity:1,
           saveQuantity:0,
           localStorageQuantity:0,
-          search: ""   
+          search: "",
+          lowStockProduct: []
         }
     },
     created(){
@@ -72,6 +73,8 @@ let app = createApp({
                     this.filteredBrandProducts = this.products
                     this.productsSort = response.data.sort((a, b) => { return a.id - b.id })
                     console.log(this.productsSort)
+                    this.lowStockProduct= this.products.filter(product => {return product.stock <= 5})
+                    console.log(this.lowStockProduct)
                     this.productsSale = this.products.filter(product => product.discount > 0)
                     this.productWithDiscount = this.productsSale.forEach(product => {
                         const sale = product.price / 100 * product.discount
