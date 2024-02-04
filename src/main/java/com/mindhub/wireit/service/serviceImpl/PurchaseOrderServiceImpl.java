@@ -68,74 +68,74 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     @Transactional
     public ResponseEntity<String> purchaseProcess(PurchaseRequest purchaseRequest, Authentication authentication) {
         Client client = clientRepository.findByEmail(authentication.getName());
-            if (client == null) {
-                return new ResponseEntity<>("You need to be logged in to checkout", HttpStatus.FORBIDDEN);
+
+        if (client == null) {
+            return new ResponseEntity<>("You need to be logged in to checkout", HttpStatus.FORBIDDEN);
+        }
+
+        if (purchaseRequest.getDiscount() < 0) {
+            return new ResponseEntity<>("Discount cannot be less than 0", HttpStatus.FORBIDDEN);
+        }
+
+        PurchaseOrder purchaseOrder = new PurchaseOrder();
+
+        for (NewCart item : purchaseRequest.getItems()) {
+            if (item == null) {
+                return new ResponseEntity<>("Please, add products to your cart before checkout", HttpStatus.FORBIDDEN);
             }
 
-            if (purchaseRequest.getDiscount() < 0) {
-                return new ResponseEntity<>("Discount can not be less than 0", HttpStatus.FORBIDDEN);
+            Long productId = item.getProductId();
+            int quantity = item.getQuantity();
+
+            Product product = productService.getProductById(productId);
+
+            if (quantity > product.getStock()) {
+                return new ResponseEntity<>("Not enough stock available for " + product.getName(), HttpStatus.FORBIDDEN);
             }
 
-            PurchaseOrder purchaseOrder = new PurchaseOrder();
-
-            for (NewCart item : purchaseRequest.getItems()) {
-
-                if (item == null) {
-                    return new ResponseEntity<>("Please, add products to your cart before checkout", HttpStatus.FORBIDDEN);
-                }
-
-                Long productId = item.getProductId();
-                int quantity = item.getQuantity();
-
-                Product product = productService.getProductById(productId);
-
-                if (quantity > product.getStock()) {
-                    return new ResponseEntity<>("Not enough stock available for " + product.getName(), HttpStatus.FORBIDDEN);
-                }
-                if (product != null) {
-                    ProductOrder productOrder = new ProductOrder();
-                    productOrder.setProduct(product);
-                    productOrder.setQuantity((byte) quantity);
-                    purchaseOrder.addProductOrder(productOrder);
-                    productOrderService.saveProductOrder(productOrder);
-
-                    product.setStock(product.getStock() - productOrder.getQuantity());
-                }
+            if (product != null) {
+                ProductOrder productOrder = new ProductOrder();
+                productOrder.setProduct(product);
+                productOrder.setQuantity((byte) quantity);
+                purchaseOrder.addProductOrder(productOrder);
             }
+        }
 
-            purchaseOrder.setOrderNumber(OrderNumberGenerator.OrderNumberGenerator());
-            purchaseOrder.setShipment_date(LocalDate.now());
-            purchaseOrder.setAdditionalComment(purchaseRequest.getComment());
-            if (purchaseRequest.getDiscount() == 0) {
-                purchaseOrder.setDiscount(1);
-            } else {
-                purchaseOrder.setDiscount(purchaseRequest.getDiscount());
-            }
-            purchaseOrder.setOrderStatus(OrderStatus.CREATED);
+        purchaseOrder.setOrderNumber(OrderNumberGenerator.OrderNumberGenerator(purchaseOrderRepository));
+        purchaseOrder.setShipment_date(LocalDate.now());
+        purchaseOrder.setAdditionalComment(purchaseRequest.getComment());
+        if (purchaseRequest.getDiscount() == 0) {
+            purchaseOrder.setDiscount(1);
+        } else {
+            purchaseOrder.setDiscount(purchaseRequest.getDiscount());
+        }
+        purchaseOrder.setOrderStatus(OrderStatus.CREATED);
 
-            List<ProductOrder> productOrders = purchaseOrder.getProductOrders();
-            CalculateTotalAmount.calculateTotalPrice(purchaseOrder, productOrders);
+        List<ProductOrder> productOrders = purchaseOrder.getProductOrders();
+        CalculateTotalAmount.calculateTotalPrice(purchaseOrder, productOrders);
 
-            purchaseOrder.setTotalToPay(purchaseOrder.getTotalAmount() * (1 - (purchaseOrder.getDiscount() / 100)));
+        purchaseOrder.setTotalToPay(purchaseOrder.getTotalAmount() * (1 - (purchaseOrder.getDiscount() / 100)));
 
-            client.addOrders(purchaseOrder);
+        client.addOrders(purchaseOrder);
 
-            savePurchaseOrder(purchaseOrder);
+        // Guardar PurchaseOrder y ProductOrders en la base de datos
+        purchaseOrderRepository.save(purchaseOrder);
 
         try {
             sendEmailAttachment(authentication, purchaseOrder.getOrderNumber());
             return new ResponseEntity<>("Purchase order Successfully", HttpStatus.CREATED);
         } catch (IOException ex) {
-            ex.printStackTrace(); // Imprime la traza de la excepción en la consola (puedes cambiar esto según tus necesidades)
+            ex.printStackTrace();
             return new ResponseEntity<>("Error sending email attachment", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     public void sendEmailAttachment(Authentication authentication, String orderNumber) throws IOException {
         Client client = clientRepository.findByEmail(authentication.getName());
 
         Dotenv dotenv = Dotenv.configure().load();
 
-        String email = dotenv.get("${EMAIL}");
+        String email = dotenv.get("EMAIL");
         Email from = new Email(email);
 
         String subject = "Wireit - Purchase order";

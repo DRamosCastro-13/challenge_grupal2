@@ -15,9 +15,10 @@
         rel="stylesheet">
     <title>SIGN IN | WIRE IT</title>
 </head>
+
 <body class="bg-gradient-to-r from-[#1B1D29] to-[#7C85BD]">
     <div id="app">
-      
+
         <header class="flex flex-wrap w-full justify-between lg:justify-start lg:space-x-80 lg:px-10 p-3">
             <a href="../../../index.html" class="flex items-center content-center min-h-[10vh]">
                 <img class="w-4 md:w-6" src="../images/icon.png" alt="icon">
@@ -54,9 +55,12 @@
             </div>
             <nav class="hidden lg:flex self-center gap-5">
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="../../../index.html">Home</a>
-                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="../pages/product.html">Products</a>
-                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="../pages/aboutus.html">About Us</a>
-                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="../pages/contact.html">Contact</a>
+                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400"
+                    href="../pages/product.html">Products</a>
+                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="../pages/aboutus.html">About
+                    Us</a>
+                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400"
+                    href="../pages/contact.html">Contact</a>
             </nav>
             <div class="hidden flex-row self-center gap-4">
                 <div class="hidden md:block md:flex">
@@ -75,11 +79,11 @@
                     <form class="formulario" @submit.prevent>
                         <h1 class="title">Create Account</h1>
                         <span>or use your email for registration</span>
-                        <input class="inputs" type="text" placeholder="Name" v-model="firstName"/>
-                        <input class="inputs" type="text" placeholder="Last Name" v-model="lastName"/>
-                        <input class="inputs" type="number" placeholder="ID number" v-model="dni"/>
+                        <input class="inputs" type="text" placeholder="Name" v-model="firstName" />
+                        <input class="inputs" type="text" placeholder="Last Name" v-model="lastName" />
+                        <input class="inputs" type="number" placeholder="ID number" v-model="dni" />
                         <input class="inputs" type="email" placeholder="Email" v-model="emailReg" />
-                        <input class="inputs" type="password" placeholder="Password" v-model="passwordReg"/>
+                        <input class="inputs" type="password" placeholder="Password" v-model="passwordReg" />
                         <button class="boton" @click="registerClient()">Sign Up</button>
                         <div v-if="errorReg">
                             <p class="text-red-500 text-center text-md">*{{errorReg}}</p>
@@ -91,7 +95,7 @@
                         <h1 class="title">Sign in</h1>
                         <span>or use your account</span>
                         <input class="inputs" type="email" placeholder="Email" v-model="email" />
-                        <input class="inputs" type="password" placeholder="Password"  v-model="password"/>
+                        <input class="inputs" type="password" placeholder="Password" v-model="password" />
                         <a href="#" class="social">Forgot your password?</a>
                         <button class="boton" @click="loginEvent()">Sign In</button>
                         <div v-if="error">
@@ -133,7 +137,8 @@
                     </a>
                 </div>
             </div>
-            <section class="flex flex-col items-center lg:flex-row lg:content-start lg:items-start gap-5 px-10 w-full pt-8 pb-16 place-content-between bg-[#1B1D29]">
+            <section
+                class="flex flex-col items-center lg:flex-row lg:content-start lg:items-start gap-5 px-10 w-full pt-8 pb-16 place-content-between bg-[#1B1D29]">
                 <div>
                     <ul class="list-none flex flex-col gap-2 lg:mt-8">
                         <li class="text-slate-200 font-bold montserrat text-lg">Shop</li>
@@ -168,14 +173,19 @@
                         <img class="w-12 object-contain" src="../images/american-express.png" alt="ae">
                         <img class="w-12 object-contain" src="../images/icons8-tarjeta-visa-48.png" alt="visa">
                         <img class="w-12 object-contain" src="../images/logo mastercard.png" alt="mastercard">
-                        <img class="w-12 object-contain" src="../images/2487595_club_diners_finance_international_method_icon.png" alt="diners">
+                        <img class="w-12 object-contain"
+                            src="../images/2487595_club_diners_finance_international_method_icon.png" alt="diners">
                     </div>
                 </div>
-                <div class="bg-slate-400/20 mt-8 flex flex-col w-full lg:w-[35%] place-items-center rounded-2 rounded-md gap-6 shadow-lg shadow-slate-800 h-80 place-content-center">
+                <div
+                    class="bg-slate-400/20 mt-8 flex flex-col w-full lg:w-[35%] place-items-center rounded-2 rounded-md gap-6 shadow-lg shadow-slate-800 h-80 place-content-center">
                     <h2 class="text-white font-extrabold font-['Montserrat'] text-3xl md:text-4xl">NEWSLETTER</h2>
-                    <p class="text-white font-['Poppins'] text-sm w-10/12 text-center">Subscribe our newsletter to stay updated every moment and get the best deals.</p>
-                    <input class="rounded-lg p-1 ring-2 ring-slate-600 w-10/12" type="text" id="email" name="email" placeholder="Enter your email address">
-                    <button class="text-white font-['Poppins'] w-8/12 text-sm md:max-w-28 bg-[#22215D] rounded-lg p-1 ring-2 ring-slate-500">Submit</button>
+                    <p class="text-white font-['Poppins'] text-sm w-10/12 text-center">Subscribe our newsletter to stay
+                        updated every moment and get the best deals.</p>
+                    <input class="rounded-lg p-1 ring-2 ring-slate-600 w-10/12" type="text" id="email" name="email"
+                        placeholder="Enter your email address">
+                    <button
+                        class="text-white font-['Poppins'] w-8/12 text-sm md:max-w-28 bg-[#22215D] rounded-lg p-1 ring-2 ring-slate-500">Submit</button>
                     <div class="flex gap-1">
                         <input type="checkbox" id="terms" name="terms">
                         <p class="text-white font-['Poppins'] text-xs">I accept</p>
@@ -186,8 +196,10 @@
             <div class="ps-16 pe-16 bg-[#1B1D29]">
                 <div class="border-b border-slate-600"></div>
             </div>
-            <section class="flex flex-col gap-4 w-full px-5  items-center md:flex-row md:ps-16 md:pe-16 py-8 place-content-between bg-[#1B1D29]">
-                <p class="text-slate-400 text-center montserrat text-xs w-full md:w-[34%]">Copyright © 2024 WireIt Inc. MINDHUB Cohort52. All rights reserved.</p>
+            <section
+                class="flex flex-col gap-4 w-full px-5  items-center md:flex-row md:ps-16 md:pe-16 py-8 place-content-between bg-[#1B1D29]">
+                <p class="text-slate-400 text-center montserrat text-xs w-full md:w-[34%]">Copyright © 2024 WireIt Inc.
+                    MINDHUB Cohort52. All rights reserved.</p>
                 <nav class="grid grid-cols-4 flex flex-col lg:gap-4 md:flex-row text-center divide-x">
                     <a class="text-slate-400 text-center montserrat text-xs hover:underline self-center" href="#">Site
                         Map</a>
@@ -195,11 +207,11 @@
                     <a class="text-slate-400 text-center montserrat text-xs hover:underline" href="#">Privacy Policy</a>
                     <a class="text-slate-400 text-center montserrat text-xs hover:underline" href="#">Cookie Policy</a>
                 </nav>
-               
+
             </section>
         </footer>
     </div>
-    <script src="../js/vanilla-ham.js"></script>
+    <script src="../js/vanilla-reg.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="/tailwind.config.js"></script>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,19 +7,15 @@
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Montserrat:wght@300;600&family=Poppins:wght@400;700&family=Signika:wght@500&family=Staatliches&display=swap"
-        rel="stylesheet">
-    <title>CONTACT US | WIRE IT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Montserrat:wght@300;600&family=Poppins:wght@400;700&family=Signika:wght@500&family=Staatliches&display=swap" rel="stylesheet">
+    <title>PRODUCTS | WIRE IT</title>
 </head>
 
 <body class="bg-gradient-to-r from-[#1B1D29] to-[#7C85BD]">
     <div id="app">
-        <!--<div class="z-10 h-[100vh] w-[100vw]">
-            <div class="  w-[0%] h-[0%] top-0 left-0"></div>
-            <div class="absolute w-[100%] h-[100%] top-[-1%] z-20 bg-no-repeat opacity-25" style="background-image: url('./assets/images/wave.png')"></div>-->
         <header class="flex flex-wrap fixed lg:static top-0 z-40 bg-gradient-to-r from-[#1B1D29] to-[#7C85BD] w-full justify-around lg:justify-between lg:px-10">
             <a href="./register.html" class="group flex flex-col pt-4 pb-3 min-h-[10vh] lg:hidden">
                 <svg width="26px" height="26px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"
@@ -55,13 +50,13 @@
                     <a href="../../../index.html" class="nav-link text-white">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="../pages/product.html" class="nav-link text-white">Products</a>
+                    <a href="#" class="nav-link text-white">Products</a>
                 </li>
                 <li class="nav-item">
                     <a href="../pages/aboutus.html" class="nav-link text-white">About Us</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link text-white">Contact Us</a>
+                    <a href="../pages/contact.html" class="nav-link text-white">Contact Us</a>
                 </li>
                 <li class="nav-item h-[100dvh]">
                     <a href="#" class="nav-link"></a>
@@ -78,11 +73,11 @@
             <nav class="hidden lg:flex self-center gap-5">
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="../../../index.html">Home</a>
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400"
-                    href="../pages/product.html">Products</a>
+                    href="#">Products</a>
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400"
-                    href="../pages/aboutus.html">About Us</a>
+                    href="#">About Us</a>
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400"
-                    href="#">Contact</a>
+                    href="../pages/contact.html">Contact</a>
             </nav>
 
             <div class="hidden lg:flex flex-row self-center gap-4">
@@ -97,29 +92,37 @@
                 </a>
             </div>
         </header>
-        <main class="w-full flex flex-col justify-center items-center flex-grow w-full py-20 lg:pt-8 lg:pb-16 md:py-28">
-            <div class="lg:hidden w-full flex justify-end py-2 lg:py-0 lg:pr-5">
-                <img class="w-12 z-10 object-contain bg-slate-400 rounded-l-xl p-2 cursor-pointer fixed top-20 left-50" src="../images/icons8-lupa-48.png" alt="search">
-                <img class="lg:w-14 z-10 w-12 bg-slate-400 p-2 rounded-l-xl lg:rounded-full cursor-pointer fixed top-36 left-50" src="../images/carrito tuneado.png" alt="cart">
-            </div>
+        <main class="w-full pt-10 lg:pt-5 md:pt-28">
+            <section class="w-full flex justify-end md:justify-center md:py-3">
+                <div class="md:flex md:flex-row md:justify-center md:w-[88%]">
+                    <input class="hidden md:block bg-transparent border-b border-white" type="search" name="search" id="search" placeholder="Search...">
+                    <img class="md:opacity-50 md:w-8 w-12 md:object-contain md:bg-transparent bg-slate-400 rounded-l-xl  md:p-0 p-2 cursor-pointer md:static fixed top-20 left-50" src="../images/icons8-lupa-48.png" alt="search">
+                </div>
+           </section>
+        <section class="w-full flex justify-center">
+           <template v-if="product">
+                <article class="flex flex-col md:flex-row md:w-[70%] justify-center md:p-12 bg-[#1B1D29] p-4 rounded-lg md:gap-24 mx-3 md:mx-0 md:my-10 my-16">
+                        <img v-if="product.discount > 0" class="absolute flex self-start w-14" src="../images/icons8-venta-60.png" alt="discount">
+                        <img class="md:w-[50%] p-2 self-center" v-bind:src="product.image_url+'.png'">
+                    <div class="flex flex-col self-center md:gap-6">
+                            <h3 class="font-['Montserrat'] self-start font-bold text-4xl md:text-5xl text-white text-start">{{product.name}}</h3>
+                            <p class="text-start font-['Poppins'] self-start text-2xl text-slate-400">Brand: {{product.brand}}</p>
+                            <p v-if="product.discount <= 0" class="text-start font-['Poppins'] self-start text-white text-3xl">{{product.price.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
+                            <p v-if="product.discount > 0" class="text-start font-['Poppins'] self-start text-white text-3xl">{{product.price.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
+                            <p v-if="product.discount > 0" class="text-start font-['Poppins'] self-start text-[#FF1200] text-3xl">{{product.discount.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
 
-            <div class="flex flex-col w-full mb-16 md:mb-6 gap-4 justify-center items-center">
-                <h2 class="text-5xl flex text-white montserrat font-bold">Contact</h2>
-                <p class="text-2xl flex text-white montserrat" >Here to help</p>
-            </div>
-           
-            <form class="flex py-3 sm:w-8/12 md:py-5 w-11/12 lg:w-6/12 rounded-xl justify-center items-center gap-4 flex-col bg-slate-400/20 shadow-lg shadow-slate-800" action="">
-                <label for="name" class="text-xl font-bold flex flex-col text-center text-white montserrat">Name:</label>
-                <input name="name" class="font-normal rounded-xl text-center border border-black shadow-lg px-2 w-9/12" placeholder="Your name" type="text">
-                
-                <label for="email" class="text-xl font-bold flex flex-col text-center text-white montserrat ">Email:</label>
-                <input name="email" class= "font-normal rounded-xl text-center border-black border shadow-lg px-2 w-9/12" placeholder="Your email" type="mail:to">
-                
-                <label for="question" class="text-xl font-bold flex flex-col text-center text-white montserrat ">Leave your inquiry:</label>
-                <textarea name="question" class="font-normal rounded-xl text-center border border-black shadow-lg w-9/12" placeholder="Type in your inquiry"  cols="30" rows="5"></textarea>
-             
-                <button  class="w-44 bg-[#22215D] m-6 md:m-0 p-2 rounded-2xl items-center font-['Poppins'] text-white text-2xl animate-pulse shadow-lg shadow-[#22215D]" v-on:click="mostrarModal">Send</button>
-            </form>
+                            <p class="text-slate-200 text-start self-start font-['Poppins'] text-lg">{{product.description}}</p>
+                        <div class="flex w-full place-self-start ">
+                            <button class="w-full p-4 bg-[#595F87] rounded-lg font-['Signika'] text-white text-xl text-center">ADD TO CART</button>
+                        </div>
+                        <div class="flex place-self-start gap-2">
+                            <img class="w-8 object-contain self-center" src="../images/icons8-en-tránsito-50.png" alt="shipping">
+                            <h3 class="text-slate-200 font-['Poppins'] font-sm self-center">Order now!, Shipping in less than 24 hours</h3>
+                        </div>
+                    </div>
+                </article>
+            </template>
+        </section>
         </main>
         <footer>
             <div class="flex flex-col w-full p-4 bg-slate-400/20">
@@ -172,8 +175,11 @@
                 <div class="flex flex-col items-center pt-4 lg:mt-8 lg:pt-0 w-full lg:w-[20%]">
                     <p class="text-slate-200 font-['Montserrat'] font-semibold text-xl text-center">Secure payments</p>
                     <div class="flex flex-row flex-wrap gap-4">
+                        <img class="w-12 object-contain" src="../images/american-express.png" alt="american-express">
                         <img class="w-12 object-contain" src="../images/icons8-tarjeta-visa-48.png" alt="visa">
-                        <img class="w-12 object-contain" src="../images/logo.png" alt="mastercard">
+                        <img class="w-12 object-contain" src="../images/logo mastercard.png" alt="mastercard">
+                        <img class="w-10 object-contain"
+                            src="../images/2487595_club_diners_finance_international_method_icon.png" alt="dinersclub">
                     </div>
                 </div>
                 <div
@@ -206,12 +212,17 @@
                     <a class="text-slate-400 text-center montserrat text-xs hover:underline" href="#">Privacy Policy</a>
                     <a class="text-slate-400 text-center montserrat text-xs hover:underline" href="#">Cookie Policy</a>
                 </nav>
+                <!-- <div class="grid grid-cols-2 divide-x">
+                    <p class="text-slate-200 text-center montserrat text-xs hover:underline">United States</p>
+                    <a class="text-slate-400 text-center montserrat text-xs hover:underline" href="#">Change Location ></a>
+                </div> -->
             </section>
         </footer>
     </div>
     <script src="../js/vanilla-ham.js"></script>
-    <script src="./tailwindconfig.js"></script>
-    <script src="./assets/js/contact.js"></script>
+    <script src="../../../tailwind.config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="../js/product-details.js"></script>
 </body>
-
 </html>
