@@ -17,6 +17,8 @@ let app = createApp({
             isOpen4: false,
             selectedBrand: [],
             filteredBrandProducts: [],
+            
+            
         }
     },
     created() {
@@ -51,6 +53,7 @@ let app = createApp({
                         return product
                     })
                     console.log(this.productsSale)
+                   
 
                 })
                 .catch(error => {
@@ -74,6 +77,7 @@ let app = createApp({
                         return product
                     })
                     console.log(this.productsSale)
+                    
                 })
                 .catch(error => {
                     console.log(error)
@@ -125,6 +129,8 @@ let app = createApp({
                 return this.selectedBrand.length === 0 || this.selectedBrand.some(brand => product.brand === brand);
             });
         },
+
+    
     } // fin methods
 }) // fin create app
 

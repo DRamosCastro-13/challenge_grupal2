@@ -98,8 +98,10 @@
         </header>
         <section class="w-full flex justify-end md:justify-center md:py-3 bg-[#1B1D29]">
             <div class="md:flex md:flex-row md:justify-center md:w-[88%]">
-                <input class="hidden md:block bg-transparent border-b-white" type="search" name="search" id="search" placeholder="Search...">
+            
+                <input class="hidden md:block bg-transparent border-b-white text-white"  type="text" placeholder="Search..." v-on:input="saveSearch">
                 <img class="md:opacity-50 md:w-8 w-12 md:object-contain md:bg-transparent bg-slate-400 rounded-l-xl  md:p-0 p-2 cursor-pointer md:static fixed top-20 left-50" src="../images/icons8-lupa-48.png" alt="search">
+            
             </div>
         </section>
         <main>
@@ -163,7 +165,7 @@
                 </article>
                 <div class="w-[75%] pt-12 bg-slate-400/20">
                         <div class="flex place-content-between px-12 pb-10">
-                                <p class="flex self-start text-sm text-white font-['Montserrat']">{{productsSort.length}} Products</p>
+                                <p class="flex self-start text-sm text-white font-['Montserrat']">{{filteredBrandProducts.length}} Products</p>
                             <form action="">
                             <fieldset>
                                 <legend class="text-lg text-white font-['Montserrat'] font-bold">Sort By</legend>
