@@ -190,7 +190,9 @@
                                 <p v-if="product.discount > 0" class="text-start w-full font-['Poppins'] self-start text-white line-through">{{product.price.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
                                 <p v-if="product.discount > 0" class="text-start w-full font-['Poppins'] self-start text-[#FF1200]">{{product.discount.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
                             <div class="flex w-full place-self-start">
-                                <button class="w-32 self-start bg-[#595F87] rounded-sm font-['Signika'] text-white text-lg text-center">ADD TO CART</button>
+                                <button class="w-32 self-start bg-[#595F87] rounded-sm font-['Signika'] text-white text-lg text-center"  @click.prevent="agregarAlCarrito(product)" >ADD TO CART</button> 
+                                <input type="number" v-model="quantity">
+                                <label class="text-white">{{quantity}}</label>
                             </div>
                         </article>
                         </template>
