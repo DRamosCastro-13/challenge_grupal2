@@ -15,7 +15,7 @@
 <body class="bg-gradient-to-r from-[#1B1D29] to-[#7C85BD]">
     <div id="app">
         <header class="flex flex-wrap fixed lg:static top-0 z-40 bg-gradient-to-r from-[#1B1D29] to-[#7C85BD] w-full justify-around lg:justify-between lg:px-10">
-            <a v-if="!isLoggedIn" href="web/assets/pages/register.html" class="group flex flex-col pt-4 pb-3 min-h-[10vh] lg:hidden">
+            <a v-if="!isLoggedIn" href="./web/assets/pages/register.html" class="group flex flex-col pt-4 pb-3 min-h-[10vh] lg:hidden">
                 <svg width="26px" height="26px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#ffffff" stroke="#ffffff">
 
                     <g id="SVGRepo_bgCarrier" stroke-width="0"/>
@@ -56,16 +56,19 @@
 
             <ul class="nav-menu lg:hidden">
                 <li v-show="!isLoggedIn" class="nav-item border-t-2">
-                    <a href="./assets/js/register.js" class="nav-link text-white">Login | Register</a>
+                    <a href="./assets/pages/register.html" class="nav-link text-white">Login | Register</a>
+                </li>
+                <li v-show="isLoggedIn" class="nav-item" class="nav-item border-t-2">
+                    <a href="./web/assets/pages/profile.html" class="nav-link text-white">My Account</a>
                 </li>
                 <li class="nav-item" >
-                    <a href="web/assets/pages/carrito.html" class="nav-link text-white">Products</a>
+                    <a href="web/assets/pages/cart.html" class="nav-link text-white">Products</a>
                 </li>
                 <li class="nav-item">
                     <a href="./web/assets/pages/aboutus.html" class="nav-link text-white">About Us</a>
                 </li>
                 <li class="nav-item">
-                    <a href="web/assets/pages/contact.html" class="nav-link text-white">Contact Us</a>
+                    <a href="./web/assets/pages/contact.html" class="nav-link text-white">Contact Us</a>
                 </li>
                 <li v-show="isLoggedIn" class="nav-item">
                     <button class="nav-link text-white" @click="logout()">Logout</button>
@@ -87,14 +90,15 @@
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="web/assets/pages/product.html">Products</a>
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="./web/assets/pages/aboutus.html">About Us</a>
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="web/assets/pages/contact.html">Contact</a>
+                <a v-show="isLoggedIn" class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="web/assets/pages/profile.html">My Account</a>
             </nav>
 
             <div class="hidden lg:flex flex-row self-center gap-4">
                 <div class="hidden md:block md:flex">
-                    <img class="md:w-8 cursor-pointer object-contain" src="web/assets/images/carrito tuneado.png" alt="cart">
+                    <img class="md:w-8 cursor-pointer object-contain" src="./web/assets/images/carrito tuneado.png" alt="cart">
                 </div>
                 
-                <a v-if="!isLoggedIn" href="web/assets/pages/register.html" class="group hidden lg:flex flex-row self-center gap-1 p-2">
+                <a v-if="!isLoggedIn" href="./web/assets/pages/register.html" class="group hidden lg:flex flex-row self-center gap-1 p-2">
                     <h2 class="font-['Poppins'] text-white text-lg group-hover:text-slate-200">Login</h2>
                     <img class="w-7 group-hover" src="./web/assets/images/icon-login.png" alt="login">
                 </a>
@@ -122,7 +126,7 @@
                                 <a href="./web/assets/pages/cart.html">Cart</a>
                             </li>
                             <li>
-                                <a href="#">Previous Orders</a>
+                                <a href="./web/assets/pages/profile.html">Previous Orders</a>
                             </li>
                             <li @click="logout()">Log Out</li>
                             <li class="h-[100vh]" style="pointer-events: none;"></li>

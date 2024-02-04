@@ -159,7 +159,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
             Attachments attachments = new Attachments();
             attachments.setContent(Base64.getEncoder().encodeToString(pdfBytes));
             attachments.setType("application/pdf");
-            attachments.setFilename("order.pdf");
+            attachments.setFilename("order_"+ orderNumber +".pdf");
             attachments.setDisposition("attachment");
             attachments.setContentId("OrderAttachment");
 
