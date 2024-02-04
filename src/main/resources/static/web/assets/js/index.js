@@ -18,7 +18,13 @@ const options ={
             isLoggedIn: false,
             showDropdown: false,
             error: '',
-
+            productsSaleOnIndex:[],
+            currentIndex: 0,
+            intervalId: null,
+            intervalDuration: 1000, 
+            visibleItems: 4,
+            carouselProducts: []
+           
         }
     },
     created() {
@@ -26,12 +32,27 @@ const options ={
 
     },
   created() {
-    this.getproducts();
+    this.getproducts()
   },
     computed: {
       productsWithDiscounts() {
         return this.products.filter(product => product.discount > 0);
-      }
+      },
+      productsWithDiscountOnIndex() {
+        this.productsSaleOnIndex= this.productsSale.slice(0,17)
+                return this.productsSaleOnIndex
+      },  
+      currentOffset() {
+        return (this.currentIndex * (100 / this.visibleItems));
+      },
+
+     
+    },
+
+    mounted() {
+      console.log('Component mounted');
+      this.carouselProducts = this.generateCarouselProducts()
+      this.startCarousel()
     },
 
     methods: {
@@ -82,13 +103,47 @@ const options ={
                         return product
                     })
                     console.log(this.productsSale)
+                  
 
                 })
                 .catch(error => {
                     console.log(error)
                 })
-        },
-    } // fin methods
+              },
+
+              generateCarouselProducts() {
+                const carouselProducts = [];
+                let startIndex = this.currentIndex;
+            
+                for (let i = 0; i < this.visibleItems; i++) {
+                  carouselProducts.push(this.productsSaleOnIndex[startIndex]);
+            
+                  startIndex++;
+                  if (startIndex >= this.productsSaleOnIndex.length) {
+                    startIndex = 0; // Loop back to the beginning
+                  }
+                }
+            
+                return carouselProducts;
+              },
+
+              startCarousel() { 
+                this.intervalId = setInterval(() => {console.log("start slide")
+                  this.currentIndex++;
+                  if (this.currentIndex >= this.productsSaleOnIndex.length) {
+                    this.currentIndex = 0; // Loop back to the beginning
+                  }
+                  this.carouselProducts = this.generateCarouselProducts();
+                }, this.intervalDuration);
+                } 
+        
+          },
+              beforeDestroy() {
+                clearInterval(this.intervalId);
+              }
+
+
+     // fin methods
 } // fin create app
 const app = createApp(options)
 app.mount("#app")

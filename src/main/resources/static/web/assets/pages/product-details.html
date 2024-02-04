@@ -108,7 +108,7 @@
                             <h3 class="font-['Montserrat'] self-start font-bold text-4xl md:text-5xl text-white text-start">{{product.name}}</h3>
                             <p class="text-start font-['Poppins'] self-start text-2xl text-slate-400">Brand: {{product.brand}}</p>
                             <p v-if="product.discount <= 0" class="text-start font-['Poppins'] self-start text-white text-3xl">{{product.price.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
-                            <p v-if="product.discount > 0" class="text-start font-['Poppins'] self-start text-white text-3xl line-through">{{product.price.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
+                            <p v-if="product.discount > 0" class="text-start font-['Poppins'] self-start text-white text-3xl">{{product.price.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
                             <p v-if="product.discount > 0" class="text-start font-['Poppins'] self-start text-[#FF1200] text-3xl">{{product.discount.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
 
                             <p class="text-slate-200 text-start self-start font-['Poppins'] text-lg">{{product.description}}</p>
