@@ -1,25 +1,6 @@
 const { createApp } = Vue
 
 let app = createApp({
-<<<<<<< HEAD
-
-    data() {
-        return {
-            products: [],
-            productCategory: [],
-            productsSort: [],
-            discount: [],
-            price: 0,
-            productsSale: [],
-            productWithDiscount: [],
-            isOpen1: false,
-            isOpen2: false,
-            isOpen3: false,
-            isOpen4: false,
-            selectedBrand: [],
-            filteredBrandProducts: [],
-            
-=======
     
     data(){
         return{
@@ -40,18 +21,18 @@ let app = createApp({
           quantity:1,
           saveQuantity:0,
           localStorageQuantity:0,
-          
->>>>>>> cff435876ec98cb01d1bb9516db41907be854a9e
-            
+          search: ""   
         }
     },
     created(){
         this.loadData()
+  
        
     },
 
     mounted() {
-        this.filterByBrand();
+        this.filterByBrand()
+      
     },
 
     computed: {
@@ -161,15 +142,10 @@ let app = createApp({
         },
         filterByBrand() {
             this.filteredBrandProducts = this.products.filter(product => {
-                return this.selectedBrand.length === 0 || this.selectedBrand.some(brand => product.brand === brand);
+                return this.selectedBrand.length === 0 || this.selectedBrand.some(brand => product.brand.toLowerCase().toUpperCase() === brand.toLowerCase().toUpperCase());
             });
         },
-<<<<<<< HEAD
-
-    
-    } // fin methods
-}) // fin create app
-=======
+        
         dropDownMenu1() {
             this.isOpen1 = !this.isOpen1;
         },
@@ -181,11 +157,19 @@ let app = createApp({
         },
         dropDownMenu4() {
             this.isOpen4 = !this.isOpen4;
-        }
+        },
+
+        saveSearch(event) {
+            this.search = event.target.value
+            this.searchFilter()
+        },
+
+        searchFilter() {
+            this.filteredBrandProducts = this.products.filter(product => product.name.toLowerCase().includes(this.search.toLowerCase()))
+        },
         
     }
 
 })
->>>>>>> cff435876ec98cb01d1bb9516db41907be854a9e
 
 app.mount("#app")
