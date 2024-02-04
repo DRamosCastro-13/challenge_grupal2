@@ -43,6 +43,37 @@
   background-color: #ffffff;
 }
 
+/* Dropdown Menu*/
+
+.dropdown-menu {
+  position: absolute;
+  top: 70px;
+  right: 0;
+  width: 30%;
+  min-height: 100%;
+  background-color: rgba(27, 29, 41, 0.8);
+  padding: 8px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 7;
+  backdrop-filter: blur(8px); 
+}
+
+.dropdown-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-menu li {
+  color: #ffffff;
+  padding: 15px;
+  cursor: pointer;
+}
+
+.dropdown-menu li:hover {
+  background-color: #7C85BD;
+}
 
 @media screen {
   .hamburger {
