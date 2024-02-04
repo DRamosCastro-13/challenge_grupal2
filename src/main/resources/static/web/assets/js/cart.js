@@ -3,85 +3,116 @@ const { createApp } = Vue
 const options = {
   data() {
     return {
-      articulos: [],
+      productos: [],
     
       localStorageCart: [],
-      localStorageFiltrado: [],
       modalHVisible:false,
       modalVisibleAlert:false,
       items:[],
       comment:'',
       discount:0,
+      itemsFiltrados:[],
+    
     }
   },
 
-  beforeCreate() {
-      let localStorageCart = JSON.parse(localStorage.getItem('carrito')) || [];
-      const body={
-        items:this.items,
-        comment: this.comment,
-        discount: this.discount
-      }
-      axios.post("/api/checkout/",body)
-        .then(response => response.json())
-        .then(data => {
-          this.articulos = data
-          t
-          // Filtra los artículos que estan en el carrito
-          this.localStorageFiltrado = this.articulos.filter(articulo =>
-            this.localStorageCart.some(storage => storage.id === articulo._id))
-          // Agrega la cantidad del carrito a cada artículo filtrado
-          this.localStorageFiltrado.forEach(articuloFiltrado => {
-            const cantidadEnCarrito = this.localStorageCart.find(storage => storage.id === articuloFiltrado._id)
-            if (cantidadEnCarrito) {
-              articuloFiltrado.cantidadEnCarrito = cantidadEnCarrito.cantidad
-            }
-          })
-          console.log(this.localStorageFiltrado)
-        })
-        .catch(error => console.log(error))
+  created() {
+    this.loadData()
+      
 
     
    
-  },//finaliza beforeCreate
+  },//Create
   methods: {
-    removerDelCarro(articulo, accion) {
+    loadData() {
+     
+      axios.get('/api/products')
+        .then(data => {
+          this.productos = data.data
+          this.localStorageCart = JSON.parse(localStorage.getItem('carrito')) || [];
+          console.log(this.localStorageCart)
+          // Filtra los artículos que estan en el carrito
+         this.localStorageFiltrado()
+         this.addQuantity()
+    
+      
+    
+          //itemsFiltrados = localStorageCart.map(item => ({ productId: item.id, quantity: item.cantidad }))
+          // Filtra los artículos que estan en el carrito
+          // console.log(this.localStorageCart)
+          // this.localStorageFiltrado = this.productos.filter(producto =>
+          //   this.localStorageCart.some(storage => storage.id === producto.productId))
+          // // Agrega la cantidad del carrito a cada artículo filtrado
+        
+          // console.log(this.localStorageFiltrado)
+        })
+        .catch(error => console.log(error))
+    },
+    addQuantity() {
+      this.itemsFiltrados.forEach(producto => {
+        const cantidadEnCarrito = this.localStorageCart.find(storage => storage.productId === producto.id)
+        if (cantidadEnCarrito) {
+        producto.cantidadEnCarrito = cantidadEnCarrito.quantity
+        console.log(producto.cantidadEnCarrito)
+       }
+      })
+      
+    },
+    localStorageFiltrado(){
+     this.itemsFiltrados= this.productos.filter(producto => this.localStorageCart.some(storage => storage.productId === producto.id))
+     console.log(this.itemsFiltrados)
+    },
+    checkout(){
+      const body = {
+        items: itemsFiltrados,
+        comment: this.comment,
+        discount: this.discount
+        
+      }
+      axios.post("/api/checkout/",body)
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => console.log(error))
+    },
+  
+    removerDelCarro(producto, accion) {
       let storageCarrito = JSON.parse(localStorage.getItem('carrito')) || [];
-      const index = storageCarrito.findIndex(item => item.id === articulo._id);
+      const index = storageCarrito.findIndex(item => item.id === producto.id);
 
       if (accion === 'restar') {
-        this.restar(articulo);
+        this.restar(producto);
       } else if (accion === 'sumar') {
-        this.sumar(articulo);
+        this.sumar(producto);
       }
 
       // Actualiza la cantidad en el localStorage
       if (index !== -1) {
-        storageCarrito[index].cantidad = articulo.cantidadEnCarrito;
+        storageCarrito[index].cantidad = producto.cantidadEnCarrito;
 
         // Elimina el elemento si la cantidad es cero
-        if (articulo.cantidadEnCarrito === 0) {
+        if (producto.cantidadEnCarrito === 0) {
           storageCarrito.splice(index, 1);
         }
-      } else if (articulo.cantidadEnCarrito > 0) {
+      } else if (producto.cantidadEnCarrito > 0) {
         // Agrega el elemento solo si la cantidad es mayor a cero
-        storageCarrito.push({ id: articulo._id, cantidad: articulo.cantidadEnCarrito });
+        storageCarrito.push({ id: producto.id, cantidad: producto.cantidadEnCarrito });
       }
       localStorage.setItem('carrito', JSON.stringify(storageCarrito));
       this.localStorage = storageCarrito
     }, //aca termina removerDelCarro
-    totalPorArticulo(articulo) {
-      let total = articulo.cantidadEnCarrito * articulo.precio
+    totalPorproducto(producto) {
+      let total = producto.cantidadEnCarrito * producto.price
       return this.dotsNumbers(total)
-    }, // finaliza totalPorArticulo
-    restar(articulo) {
-      if (articulo.cantidadEnCarrito > 0) {
-        articulo.cantidadEnCarrito--
+    }, // finaliza totalPorproducto
+    restar(producto) {
+      if (producto.cantidadEnCarrito > 0) {
+        producto.cantidadEnCarrito--
       }
     },//finaliza restar
-    sumar(articulo) {
-      if (articulo.cantidadEnCarrito < articulo.disponibles) {
-        articulo.cantidadEnCarrito++
+    sumar(producto) {
+      if (producto.cantidadEnCarrito < producto.stock) {
+        producto.cantidadEnCarrito++
       }
     },// finaliza sumar
     dotsNumbers(number) {
@@ -93,13 +124,13 @@ const options = {
       if (number !== undefined && number !== null) {
         return number.toLocaleString("es-MX", {
           style: "currency",
-          currency: "ARS",
+          currency: "USD",
           minimumFractingDigits: 0,
         })
       }
     },//fin del dotsNumbers
     graciasPorSuCompra() {
-      alert("gracias por su compra")
+      alert("Thanks for your purchase!")
     }, //finaliza graciasporsucompra
     //inicia menu hamburguesa
     abrirModalHamb() {
@@ -119,15 +150,20 @@ const options = {
       this.modalVisibleAlert = false
       if (this.modalVisibleAlert == false) {
           document.body.classList.remove('overflow-y-hidden')
+         
       }
+  },
+  redirigir(){
+    
+    window.location.href = "http://localhost:8080/payment/cardPayment.html"
   },// finaliza cerrarModal
   },//finaliza methods
   computed: {
     totalCarrito() {
       let total = 0
-      for (let i = 0; i < this.localStorageFiltrado.length; i++) {
-        const articulo = this.localStorageFiltrado[i]
-        total += articulo.cantidadEnCarrito * articulo.precio
+      for (let i = 0; i < this.itemsFiltrados.length; i++) {
+        const producto = this.itemsFiltrados[i]
+        total += producto.cantidadEnCarrito * producto.price
       }
       return this.dotsNumbers(total)
     }, //aca finaliza totalCarrito
