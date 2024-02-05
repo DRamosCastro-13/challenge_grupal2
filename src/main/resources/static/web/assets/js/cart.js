@@ -190,7 +190,7 @@ const options = {
   redirigir() {
     if(this.notLoggedIn() === 'ok' && this.addressCheck() === 'ok'){
       this.saveCartAmount()
-      window.location.href = "/payment/cardPayment.html"
+      window.location.href = "./web/payment/cardPayment.html"
     }
   },// finaliza cerrarModal
   saveCartAmount(){
