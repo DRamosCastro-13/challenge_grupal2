@@ -99,27 +99,27 @@
                 <template v-if="itemsFiltrados.length > 0" v-for="producto in itemsFiltrados">
                   <div
                     class="flex flex-col gap-2  bg-white shadow-xl rounded-lg my-2 w-[80%] justify-around md:flex-row md:w-[90%]">
-                    <div  class="bg-violet-900 rounded-t-lg py-2 w-full md:w-[1%] md:rounded-full md:rounded-r-lg"></div>
+                    <div  class="bg-[#595F87] rounded-t-lg py-2 w-full md:w-[1%] md:rounded-full md:rounded-r-lg"></div>
                    
                     <div class="w-full ">
-                      <article class="flex flex-col text-center items-center gap-4  md:flex-row  justify-around mb-2 md:flex-row md:items-center md:justify-center md:mx-2">
+                      <article class="flex flex-col text-center items-center gap-4  md:flex-row  justify-between mb-2 md:flex-row md:items-center md:justify-center md:mx-2">
                         <picture class="flex">
                           <img :src="producto.image_url+'.png'" :alt="producto.name" class="w-[150px] h-[100px] flex object-contain md:m-0">
                         </picture>
                         <div class="flex justify-around flex-col gap-2 align-center  md:flex-row md:justify-center ">
                           <h3 class="text-center font-bold md:w-full">{{producto.name}}</h3>
                           <div class="flex gap-2 justify-center px-2 items-center md:w-2/4">
-                            <div></div>
-                            <div class="w-1/6">
-                              <button><img src="../Images/minus.png" alt="minus_article" class="object-cover"
+                            
+                            <div class="w-1/6 flex items-center justify-center">
+                              <button class="flex items-center justify-center"><img src="../Images/minus.png" alt="minus_article" class="object-cover"
                                   @click="removerDelCarro(producto,'restar')"></button>
                             </div>
-                             <div  class="border border-gray-400 rounded-full px-6 w-4/6 py-2 text-center align-middle font-bold">
-                              <p v-if="producto.cantidadEnCarrito >= producto.disponibles">LIMIT REACHED({{producto.cantidadEnCarrito}}) </p>
+                             <div  class="flex items-center justify-center border border-gray-400 rounded-full  w-3/6 py-2 text-center align-middle font-bold">
+                              <p  v-if="producto.cantidadEnCarrito >= producto.disponibles">LIMIT REACHED({{producto.cantidadEnCarrito}}) </p>
                               <p v-else>{{producto.cantidadEnCarrito}}</p>
                             </div>
-                            <div class="w-1/6">
-                              <button type="button"><img src="../Images/plus.png" alt="sumar_article" class="object-cover"
+                            <div class="w-1/6 flex items-center justify-center">
+                              <button class="flex items-center justify-center" type="button"><img src="../Images/plus.png" alt="sumar_article" class="object-cover"
                                   @click="removerDelCarro(producto, 'sumar')"></button>
                             </div>
                           </div>
@@ -135,12 +135,12 @@
                   </div>
                 </template>
                 <div v-if="itemsFiltrados.length > 0" class="flex flex-col gap-2  bg-white shadow-xl rounded-lg my-2 w-[80%] md:w-[90%] justify-around">
-                  <div class="bg-orange-500 rounded-t-lg py-2"></div>
+                  <div class="bg-[#595F87] rounded-t-lg py-2"></div>
                   <div class="flex justify-around md:text-2xl md:py-2">
                     <strong>TOTAL TO PAY: </strong>
                     <strong>{{totalCarrito}}</strong>
                   </div>
-                  <button class="w-32 self-start bg-[#595F87] rounded-sm font-['Signika'] text-white text-lg text-center" @click="redirigir">COMPLETAR COMPRA</button>
+                  <button class="w-45 mb-2 mr-2 p-2 self-end bg-[#595F87] rounded-lg animate-pulse shadow-lg shadow-[#22215D] font-['Signika'] text-white text-lg" @click="redirigir"> Checkout</button>
                 </div>
             </section>
           

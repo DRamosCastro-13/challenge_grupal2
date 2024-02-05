@@ -21,15 +21,15 @@
                 <svg width="26px" height="26px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#ffffff" stroke="#ffffff">
 
                     <g id="SVGRepo_bgCarrier" stroke-width="0"/>
-                    
+
                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-                    
+
                     <g id="SVGRepo_iconCarrier">
-                    
+
                     <path fill="#ffffff" d="M628.736 528.896A416 416 0 0 1 928 928H96a415.872 415.872 0 0 1 299.264-399.104L512 704l116.736-175.104zM720 304a208 208 0 1 1-416 0 208 208 0 0 1 416 0z"/>
-                    
+
                     </g>
-                    
+
                 </svg>
                 <p class="text-white text-[10px] pt-0.5 group-hover:text-neutral-300">Login</p>
             </a>
@@ -37,15 +37,15 @@
                 <svg width="26px" height="26px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#ffffff" stroke="#ffffff">
 
                     <g id="SVGRepo_bgCarrier" stroke-width="0"/>
-                    
+
                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-                    
+
                     <g id="SVGRepo_iconCarrier">
-                    
+
                     <path fill="#ffffff" d="M628.736 528.896A416 416 0 0 1 928 928H96a415.872 415.872 0 0 1 299.264-399.104L512 704l116.736-175.104zM720 304a208 208 0 1 1-416 0 208 208 0 0 1 416 0z"/>
-                    
+
                     </g>
-                    
+
                 </svg>
                 <p class="text-white text-[10px] pt-0.5 group-hover:text-neutral-300">Account</p>
             </a>
@@ -143,10 +143,10 @@
         </header>
         <section class="w-full flex justify-end md:justify-center md:pt-3 md:pb-12">
             <div class="md:flex md:flex-row md:justify-center md:w-[88%]">
-            
+
                 <input class="hidden md:block bg-slate-400/20 rounded-xl border-none border-b-white text-white"  type="text" placeholder="Search..." v-on:input="saveSearch">
                 <img class="md:opacity-50 md:w-8 w-12 md:object-contain md:bg-transparent bg-slate-400 rounded-l-xl  md:p-0 p-2 cursor-pointer md:static fixed top-20 left-50" src="../images/icons8-lupa-48.png" alt="search">
-            
+
             </div>
         </section>
         <main>
@@ -158,7 +158,7 @@
                     <div class="flex flex-col w-full sm:w-8/12 md:w-full">
                         <h2 class="md:text-lg text-white px-3 font-['Montserrat']">FILTER BY</h2>
                             <div class="divide-y md:py-5 px-3">
-                                <div class="flex flex-col md:py-5"> 
+                                <div class="flex flex-col md:py-5">
                                     <div @click="dropDownMenu1" class="flex cursor-pointer  md:py-0 py-2">
                                         <p class="md:text-lg text-white font-['Montserrat'] font-bold">BRAND</p>
                                         <img class="px-2" src="../images/icons8-chevron-abajo-24.png" alt="chevrondown">
@@ -171,7 +171,7 @@
                                         </template>
                                     </form>
                                 </div>
-                                <div class="flex flex-col md:py-5"> 
+                                <div class="flex flex-col md:py-5">
                                     <div @click="dropDownMenu2" class="flex cursor-pointer md:py-0 py-2">
                                         <p class="md:text-lg text-white font-['Montserrat'] font-bold">CATEGORIES</p>
                                         <img class="px-2" src="../images/icons8-chevron-abajo-24.png" alt="chevrondown">
@@ -194,7 +194,7 @@
                                         <p class="text-white text-center montserrat text-sm">Need help?, </p>
                                         <a class="text-white text-center montserrat text-sm hover:underline" href="../pages/contact.html">Click here to contact support</a>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
                     </div>
                 </article>
@@ -227,7 +227,7 @@
                             </svg>
                             <h2 class="text-2xl self-center text-white font-['Montserrat']">Loading...</h2>
                         </div>
-                    
+
                     <div v-else class="flex flex-wrap justify-center gap-4">
                         <template v-if="filteredBrandProducts.length != 0">
                             <article v-for="product in filteredBrandProducts" class="flex flex-col items-center px-3 py-5 w-72 m-2 bg-[#1B1D29] gap-2 rounded-lg">
@@ -239,9 +239,13 @@
                                 <p v-if="product.discount <= 0" class="text-start w-full font-['Poppins'] self-start text-white">{{product.price.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
                                 <p v-if="product.discount > 0" class="text-start w-full font-['Poppins'] self-start text-white line-through">{{product.price.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
                                 <p v-if="product.discount > 0" class="text-start w-full font-['Poppins'] self-start text-[#FF1200]">{{product.discount.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
+                            <div class="flex w-full gap-1  place-self-start">
+                                <button class="w-2/3 py-2 self-start bg-[#595F87] rounded-sm font-['Signika'] text-white text-lg text-center"  @click.prevent="agregarAlCarrito(product)">ADD TO CART</button>
+                                <input class="w-1/3 font-['Signika'] text-lg rounded-full text-center" type="number" v-model="quantity">
+
                                 <p v-if="product.stock <= 5" class="text-start w-full font-['Poppins'] self-start text-[#FFD04D] animate-pulse">Last {{product.stock}} units!</p>
                             <div class="flex w-full place-self-start">
-                                <button class="w-32 self-start bg-[#595F87] rounded-sm font-['Signika'] text-white text-lg text-center"  @click.prevent="agregarAlCarrito(product)">ADD TO CART</button> 
+                                <button class="w-32 self-start bg-[#595F87] rounded-sm font-['Signika'] text-white text-lg text-center"  @click.prevent="agregarAlCarrito(product)">ADD TO CART</button>
                              <!--   <input type="number" v-model="quantity">
                                 <label class="text-white">{{quantity}}</label>-->
                             </div>

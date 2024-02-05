@@ -64,7 +64,7 @@ const options = {
     },
     checkout(){
       const body = {
-        items: itemsFiltrados,
+        items: this.itemsFiltrados,
         comment: this.comment,
         discount: this.discount
         
@@ -78,7 +78,7 @@ const options = {
   
     removerDelCarro(producto, accion) {
       let storageCarrito = JSON.parse(localStorage.getItem('carrito')) || [];
-      const index = storageCarrito.findIndex(item => item.id === producto.id);
+      const index = storageCarrito.findIndex(item => item.productId === producto.id);
 
       if (accion === 'restar') {
         this.restar(producto);
@@ -88,15 +88,16 @@ const options = {
 
       // Actualiza la cantidad en el localStorage
       if (index !== -1) {
-        storageCarrito[index].cantidad = producto.cantidadEnCarrito;
-
+      
         // Elimina el elemento si la cantidad es cero
         if (producto.cantidadEnCarrito === 0) {
           storageCarrito.splice(index, 1);
+        } else {
+          storageCarrito[index].quantity = producto.cantidadEnCarrito;
         }
       } else if (producto.cantidadEnCarrito > 0) {
         // Agrega el elemento solo si la cantidad es mayor a cero
-        storageCarrito.push({ id: producto.id, cantidad: producto.cantidadEnCarrito });
+        storageCarrito.push({ productId: producto.id, quantity: producto.cantidadEnCarrito });
       }
       localStorage.setItem('carrito', JSON.stringify(storageCarrito));
       this.localStorage = storageCarrito
@@ -125,7 +126,7 @@ const options = {
         return number.toLocaleString("es-MX", {
           style: "currency",
           currency: "USD",
-          minimumFractingDigits: 0,
+          minimumFractionDigits: 0,
         })
       }
     },//fin del dotsNumbers
@@ -154,7 +155,7 @@ const options = {
       }
   },
   redirigir(){
-    
+    const totalCarrito = this.totalCarrito;
     window.location.href = "http://localhost:8080/payment/cardPayment.html"
   },// finaliza cerrarModal
   },//finaliza methods

@@ -69,6 +69,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     public ResponseEntity<String> purchaseProcess(PurchaseRequest purchaseRequest, Authentication authentication) {
         Client client = clientRepository.findByEmail(authentication.getName());
 
+
         if (client == null) {
             return new ResponseEntity<>("You need to be logged in to checkout", HttpStatus.FORBIDDEN);
         }
