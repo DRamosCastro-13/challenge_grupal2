@@ -25,15 +25,11 @@ const options ={
             visibleItems: 4,
             carouselProducts: [],
             isCarouselPaused: false,
-
-           
         }
     },
     created() {
-       
         this.checkLogin(),
         this.getproducts()
-
     },
     computed: {
       productsWithDiscounts() {
@@ -46,15 +42,11 @@ const options ={
       currentOffset() {
         return (this.currentIndex * (100 / this.visibleItems));
       },
-
-     
     },
-
     mounted() {
       this.carouselProducts = this.generateCarouselProducts()
       this.startCarousel()
     },
-
     methods: {
     loadData() {
           this.checkLogin() || false;
@@ -91,7 +83,6 @@ const options ={
                 this.products = response.data
                 this.filteredBrandProducts = this.products
                 this.productsSort = response.data.sort((a, b) => { return a.id - b.id })
-              
                 this.productsSale = this.products.filter(product => product.discount > 0)
                 this.productWithDiscount = this.productsSale.forEach(product => {
                     const sale = product.price / 100 * product.discount
@@ -104,23 +95,18 @@ const options ={
                 console.log(error)
             })
           },
-
           generateCarouselProducts() {
             const carouselProducts = [];
             let startIndex = this.currentIndex;
-        
             for (let i = 0; i < this.visibleItems; i++) {
               carouselProducts.push(this.productsSaleOnIndex[startIndex]);
-        
               startIndex++;
               if (startIndex >= this.productsSaleOnIndex.length) {
                 startIndex = 0; // Loop back to the beginning
               }
             }
-        
             return carouselProducts;
           },
-
           startCarousel() {
             this.intervalId = setInterval(() => {
                 if (!this.isCarouselPaused) {
@@ -135,13 +121,10 @@ const options ={
           handleProductHover(isHovered) {
             this.isCarouselPaused = isHovered;
           },
-    
       },
           beforeDestroy() {
             clearInterval(this.intervalId);
           }
-
-
      // fin methods
 } // fin create app
 const app = createApp(options)
