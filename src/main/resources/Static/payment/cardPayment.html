@@ -24,13 +24,13 @@
     <main class="bg-[#EEFFFD] mx-3">
         <section class="w-full flex justify-center">
             <form class="w-80 h-4/5 border-2 bg-[#FFFFFF] shadow-2xl p-4 flex flex-col gap-3 rounded-xl m-3 place-content-center" action="">
-                <label class="font-['Comfortaa'] font-bold text-sm" for="account">Numero de tarjeta</label>
+                <label class="font-['Comfortaa'] font-bold text-sm" for="account">Card number</label>
                 <input v-model="number" class="p-1 text-[#000000] rounded-lg border-2" type="text" id="number" name="number" required placeholder="XXX-XXX-XXX">
                 <label class="font-['Comfortaa'] font-bold text-sm" for="cvv">cvv</label>
                 <input v-model="cvv" class="p-1 text-[#000000] rounded-lg border-2" type="number" id="cvv" name="cvv" placeholder="c**" required>
-                <label class="font-['Comfortaa'] font-bold text-sm" for="amount">Monto</label>
-                <input v-model="amount"  class="p-1 text-[#000000] rounded-lg border-2" type="number" id="amount" name="amount" placeholder="$" required>
-                <label class="font-['Comfortaa'] font-bold text-sm" for="Description">Descripcion</label>
+                <label class="font-['Comfortaa'] font-bold text-sm" for="amount">Amount</label>
+                <input v-model="amount"  class="p-1 text-[#000000] rounded-lg border-2" type="number" id="amount" name="amount" :placeholder="{{amount}}" required>
+                <label class="font-['Comfortaa'] font-bold text-sm" for="Description">Description</label>
                 <input v-model="description" class="p-1 text-[#000000] rounded-lg border-2" type="text" id="description" name="description">
                 <div class="w-full flex justify-center">
                 <button @click.prevent="cardPayment" class="text-white font-bold w-20 text-lg bg-[#7ACED7] rounded-xl flex hover:animate-pulse justify-center">Pagar</button>
@@ -50,7 +50,7 @@
     </div>
 </footer>
     </div>
-    <script src="./tailwindconfig.js"></script>
+    <script src="tailwindconfig.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="cardPayment.js"></script>
