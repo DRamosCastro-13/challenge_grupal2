@@ -67,7 +67,7 @@
                     <a href="./product.html" class="nav-link text-white">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link text-white">About Us</a>
+                    <a href="./aboutus.html" class="nav-link text-white">About Us</a>
                 </li>
                 <li class="nav-item">
                     <a href="./contact.html" class="nav-link text-white">Contact Us</a>
@@ -89,19 +89,19 @@
             </div>
             <nav class="hidden lg:flex self-center gap-5">
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="../../../index.html">Home</a>
-                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400"
+                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400 active"
                     href="#">Products</a>
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400"
                     href="./aboutus.html">About Us</a>
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400"
                     href="../pages/contact.html">Contact</a>
-                <a v-show="isLoggedIn" class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="./profile.html">My Account</a>
+                <!-- <a v-show="isLoggedIn" class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="./profile.html">My Account</a> -->
             </nav>
 
             <div class="hidden lg:flex flex-row self-center gap-4">
-                <a href="./cart.html" class="hidden md:block md:flex">
-                    <div>
-                        <p class="absolute top-4 -right-4 text-white text-center font-bold relative rounded-full px-2 w-9/12 bg-red-600">{{itemsQuantity}}</p>
+                <a href="./cart.html" class="hidden md:block md:flex justify-center items-center">
+                    <div class="flex justify-center items-center">
+                        <p class="absolute -top-2 -right-12 text-white text-center font-bold relative rounded-full px-2 w-9/12 bg-red-600">{{itemsQuantity}}</p>
                         <img class="md:w-8 cursor-pointer object-contain" src="../images/carrito tuneado.png" alt="cart">
                     </div>
                 </a>
@@ -137,7 +137,7 @@
                                 <a href="./profile.html">Previous Orders</a>
                             </li>
                             <li @click="logout()">Log Out</li>
-                            <li class="h-[100vh]" style="pointer-events: none;"></li>
+                            <!-- <li class="h-[100vh]" style="pointer-events: none;"></li> -->
                         </ul>
                     </div>
                 </button>
@@ -182,9 +182,9 @@
                                         <img class="px-2" src="../images/icons8-chevron-abajo-24.png" alt="chevrondown">
                                     </div>
                                     <div v-if="isOpen2" class="flex flex-col gap-3 md:py-5">
+                                        <svg class="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24"></svg>
                                         <a id="ALL" class="text-sm text-white font-['Montserrat'] cursor-pointer hover:underline" @click="categoryFilter">ALL &gt;</a>
                                         <a id="CPU" class="text-sm text-white font-['Montserrat'] cursor-pointer hover:underline" @click="categoryFilter">CPU &gt;</a>
-                                        <svg class="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24"></svg>
                                         <a id="MONITOR" class="text-sm text-white font-['Montserrat'] cursor-pointer hover:underline" @click="categoryFilter">MONITOR &gt;</a>
                                         <a id="KEYBOARD" class="text-sm text-white font-['Montserrat'] cursor-pointer hover:underline" @click="categoryFilter">KEYBOARD &gt;</a>
                                         <a id="MOUSE" class="text-sm text-white font-['Montserrat'] cursor-pointer hover:underline" @click="categoryFilter">MOUSE &gt;</a>
@@ -235,7 +235,7 @@
 
                         <div v-else class="flex flex-wrap justify-center gap-4">
                             <template v-if="filteredBrandProducts.length != 0">
-                              <article v-for="product in filteredBrandProducts" :key="product.id" class="flex flex-col relative z-10 items-center px-3 py-5  pb-16 w-72 m-2 bg-[#1B1D29] gap-2 rounded-lg">
+                              <article v-for="product in filteredBrandProducts" :key="product.id" class="flex flex-col relative z-40 items-center px-3 py-5  pb-16 w-72 m-2 bg-[#1B1D29] gap-2 rounded-lg">
                                 <img v-if="product.discount > 0" class="absolute flex self-end" src="../images/icons8-venta-60.png" alt="discount">
                                 <img class="w-72 object-fit h-60" v-bind:src="product.image_url+'.png'">
                                 <h3 class="font-['Montserrat'] w-full self-start font-bold text-xl text-white text-start">{{product.name}}</h3>

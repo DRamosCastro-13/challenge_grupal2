@@ -36,14 +36,17 @@ let app = createApp({
         this.checkLogin()
         let storageCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
         this.itemsQuantity = storageCarrito.reduce((total, item) => total + item.quantity, 0);
-       
     },
 
-    mounted() {
+    mounted(){
+        document.addEventListener("DOMContentLoaded", function() {
+            const activeNavItem = document.querySelector('.active')
+            if (activeNavItem) {
+                activeNavItem.classList.add('border-b','border-slate-400')
+            }
+        })
         this.filterByBrand()
-      
     },
-
     computed: {
         uniqueBrand() {
             return [...new Set(this.products.map(product => product.brand))];

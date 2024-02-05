@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -103,6 +104,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public ResponseEntity<ProductDTO> getSingleProductById(Long id) {
+        Optional<Product> productOptional = productRepository.findById(id);
+
+        if (productOptional.isPresent()) {
+            ProductDTO productDTO = new ProductDTO(productOptional.get());
+            return ResponseEntity.ok(productDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @Override
     public Product getProductById(Long id) {
         return productRepository.findById(id).orElse(null);
     }
@@ -181,5 +194,7 @@ public class ProductServiceImpl implements ProductService {
 
         return new ResponseEntity<>("Category created Successfully",HttpStatus.CREATED);
     }
+
+
 
 }

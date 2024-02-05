@@ -15,28 +15,16 @@ const options = {
     }
   },
 
-  beforeCreate() {
-    fetch("https://moviestack.onrender.com/api/petshop")
-      .then(response => response.json())
-      .then(data => {
-        this.articulos = data
-        this.localStorageCart = JSON.parse(localStorage.getItem('carrito')) || []
-        // Filtra los artículos que estan en el carrito
-        this.localStorageFiltrado = this.articulos.filter(articulo =>
-          this.localStorageCart.some(storage => storage.id === articulo._id))
-        // Agrega la cantidad del carrito a cada artículo filtrado
-        this.localStorageFiltrado.forEach(articuloFiltrado => {
-          const cantidadEnCarrito = this.localStorageCart.find(storage => storage.id === articuloFiltrado._id)
-          if (cantidadEnCarrito) {
-            articuloFiltrado.cantidadEnCarrito = cantidadEnCarrito.cantidad
-          }
-        })
-        console.log(this.localStorageFiltrado)
-      })
-      .catch(error => console.log(error))
-  },//finaliza beforeCreate
   created() {
     this.checkLogin()
+  },
+  mounted(){
+    document.addEventListener("DOMContentLoaded", function() {
+      const activeNavItem = document.querySelector('.active')
+      if (activeNavItem) {
+          activeNavItem.classList.add('border-b','border-slate-400')
+      }
+  })
   },
   methods: {
     checkLogin() {

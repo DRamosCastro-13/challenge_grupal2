@@ -2,7 +2,9 @@ package com.mindhub.wireit.controllers;
 
 import com.mindhub.wireit.dto.ProductDTO;
 import com.mindhub.wireit.dto.bodyjson.NewProduct;
+import com.mindhub.wireit.models.Product;
 import com.mindhub.wireit.service.ProductService;
+import com.sendgrid.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -46,4 +48,9 @@ public class ProductController {
         return  response;
     }
 
+    @GetMapping("/products/{id}")
+    public ResponseEntity<String> getProductById(@PathVariable Long id){
+        ResponseEntity response = productService.getSingleProductById(id);
+        return response;
+    }
 }

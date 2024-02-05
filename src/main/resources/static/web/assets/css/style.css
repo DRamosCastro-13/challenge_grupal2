@@ -49,17 +49,21 @@
   position: absolute;
   top: 70px;
   right: 0;
-  width: 30%;
-  min-height: 100%;
+  width: 200px;
+  height: 250px;
   background-color: rgba(27, 29, 41, 0.8);
   padding: 8px;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 7;
+  z-index: 1000 !important;
   backdrop-filter: blur(8px); 
 }
 
 .dropdown-menu ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
   list-style: none;
   padding: 0;
   margin: 0;

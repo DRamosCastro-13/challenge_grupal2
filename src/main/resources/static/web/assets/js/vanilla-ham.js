@@ -11,5 +11,4 @@ document.addEventListener('DOMContentLoaded', function () {
         hamburger.classList.remove("active");
         navMenu.classList.remove("active");
     }));
-
 });

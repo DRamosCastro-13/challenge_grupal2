@@ -66,13 +66,13 @@ let app = createApp({
                               }
                               axios.post("/api/checkout",cart)
                               .then(response => {
-                                localStorage.removeItem(carrito)
-                                localStorage.removeItem(amount)
                                 console.log(response)
                               })
                               .catch(error => console.log(error))
-                            
-                          
+                              .finally(() =>{
+                                localStorage.removeItem('carrito')
+                                localStorage.removeItem('amount')
+                              })
                           })
                         })
                     .catch(error => {

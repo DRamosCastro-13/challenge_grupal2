@@ -92,19 +92,18 @@
             </div>
             <nav class="hidden lg:flex self-center gap-5">
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="../../../index.html">Home</a>
-                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400"
-                    href="../pages/product.html">Products</a>
-                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400"
-                    href="#">About Us</a>
-                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400"
-                    href="./contact.html">Contact</a>
-                <a v-show="isLoggedIn" class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="./profile.html">My Account</a>
+                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="../pages/product.html">Products</a>
+                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400 active" href="#">About Us</a>
+                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="./contact.html">Contact</a>
+                <!-- <a v-show="isLoggedIn" class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="./profile.html">My Account</a> -->
             </nav>
 
             <div class="hidden lg:flex flex-row self-center gap-4">
-                <a href="./cart.html" class="hidden md:block md:flex">
-                    <img class="md:w-8 cursor-pointer object-contain" src="../images/carrito tuneado.png"
-                        alt="cart">
+                <a href="./cart.html" class="hidden md:block md:flex justify-center items-center">
+                    <div class="flex justify-center items-center">
+                        <p class="absolute -top-2 -right-12 text-white text-center font-bold relative rounded-full px-2 w-9/12 bg-red-600">{{itemsQuantity}}</p>
+                        <img class="md:w-8 cursor-pointer object-contain" src="../images/carrito tuneado.png" alt="cart">
+                    </div>
                 </a>
 
                 <a v-if="!isLoggedIn" href="./register.html" class="group hidden lg:flex flex-row self-center gap-1 p-2">

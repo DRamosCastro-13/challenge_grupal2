@@ -24,6 +24,14 @@ const app = createApp({
         let storageCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
         this.itemsQuantity = storageCarrito.reduce((total, item) => total + item.quantity, 0);
     },
+    mounted(){
+        document.addEventListener("DOMContentLoaded", function() {
+            const activeNavItem = document.querySelector('.active')
+            if (activeNavItem) {
+                activeNavItem.classList.add('border-b','border-slate-400')
+            }
+        })
+    },
     methods: {
         checkLogin() {
             axios.get('/api/clients/current')

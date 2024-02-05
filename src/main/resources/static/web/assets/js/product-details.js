@@ -4,21 +4,21 @@ let app = createApp({
     
     data(){
         return{
-        products: [],
         id: "",
         product: {},
-        productsSale:[],
         isLoggedIn: false,
         showDropdown: false,
         error: '', 
-            
+        loadingData:true,
         }
     },
     created(){
-        this.id=new URLSearchParams(window.location.search).get("id")
+        const search = location.search
+        const url = new URLSearchParams(search)
+        this.id = url.get("id")
         this.loadData()
         this.checkLogin()
-       
+        console.log(this.id)
     },
 
     methods : {
@@ -49,20 +49,21 @@ let app = createApp({
             this.showDropdown = !this.showDropdown;
           },
         loadData(){
-            axios.get("/api/products")
+            axios.get("/api/products/"+this.id)
             .then(response => {
-                this.products = response.data
-                this.product = this.products.find(product => product.id == this.id)
-                console.log(this.product)
-                this.loadingData = !this.loadingData
-                this.productsSale=this.products.filter(product => product.discount > 0)
-                this.productWithDiscount=this.productsSale.forEach(product =>  { 
-                                                    const sale= product.price / 100 * product.discount
-                                                    const newPrice= product.price - sale
-                                                    product.discount=newPrice
-                                                    console.log(product)
-                                                    return product })
-                console.log(this.productsSale)
+              this.product = response.data
+              console.log(this.product)
+              this.loadingData = !this.loadingData
+                // this.product = response.data.some(product => this.id === product.id)
+                // console.log(this.product)
+                // this.productsSale=this.products.filter(product => product.discount > 0)
+                // this.productWithDiscount=this.productsSale.forEach(product =>  { 
+                //                                     const sale= product.price / 100 * product.discount
+                //                                     const newPrice= product.price - sale
+                //                                     product.discount=newPrice
+                //                                     console.log(product)
+                //                                     return product })
+                // console.log(this.productsSale)
             })
             .catch(error => {
                 console.log(error)

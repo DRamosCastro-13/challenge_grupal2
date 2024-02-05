@@ -24,6 +24,14 @@ const options = {
     this.loadData()
     this.checkLogin()
   },//Create
+  mounted(){
+    document.addEventListener("DOMContentLoaded", function() {
+      const activeNavItem = document.querySelector('.active')
+      if (activeNavItem) {
+          activeNavItem.classList.add('border-b','border-slate-400')
+      }
+  })
+  },
   methods: {
     loadData() {
       axios.get('/api/products')
@@ -190,7 +198,7 @@ const options = {
   redirigir() {
     if(this.notLoggedIn() === 'ok' && this.addressCheck() === 'ok'){
       this.saveCartAmount()
-      window.location.href = "./web/payment/cardPayment.html"
+      window.location.href = "/web/payment/cardPayment.html"
     }
   },// finaliza cerrarModal
   saveCartAmount(){

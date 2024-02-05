@@ -46,6 +46,12 @@ const options ={
     mounted() {
       this.carouselProducts = this.generateCarouselProducts()
       this.startCarousel()
+      document.addEventListener("DOMContentLoaded", function() {
+        const activeNavItem = document.querySelector('.active')
+        if (activeNavItem) {
+            activeNavItem.classList.add('border-b','border-slate-400')
+        }
+    })
     },
     methods: {
     loadData() {

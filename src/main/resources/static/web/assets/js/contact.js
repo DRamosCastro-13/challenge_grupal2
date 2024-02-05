@@ -12,7 +12,14 @@ const options = {
   created() {
     this.checkLogin()
   }, //finaliza created
-
+  mounted(){
+    document.addEventListener("DOMContentLoaded", function() {
+      const activeNavItem = document.querySelector('.active')
+      if (activeNavItem) {
+          activeNavItem.classList.add('border-b','border-slate-400')
+      }
+  })
+  },
   methods: {
     checkLogin() {
       axios.get('/api/clients/current')
