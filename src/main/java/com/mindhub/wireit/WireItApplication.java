@@ -70,7 +70,6 @@ public class WireItApplication {
 
 			client.addOrders(purchaseOrder);
 
-
 			// Guardar entidades
 			purchaseOrderRepository.save(purchaseOrder);
 			productOrderRepository.save(productOrder);

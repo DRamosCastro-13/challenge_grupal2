@@ -23,7 +23,6 @@ public class SecurityConfig {
         http.authorizeHttpRequests(authorize -> authorize
                 .anyRequest().permitAll());
 
-
         http.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable());
 
         http.headers(httpSecurityHeadersConfigurer -> httpSecurityHeadersConfigurer.frameOptions(
