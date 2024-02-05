@@ -21,17 +21,24 @@ let app = createApp({
           quantity:1,
           saveQuantity:0,
           localStorageQuantity:0,
-          
-            
+          search: "",
+          lowStockProduct: [],
+          cartItemCount: 0,
+          loadingData: true,
+          isLoggedIn: false,
+          showDropdown: false,
+          error: '',
         }
     },
     created(){
-        this.loadData()
+        this.loadData();
+        this.checkLogin()
        
     },
 
     mounted() {
-        this.filterByBrand();
+        this.filterByBrand()
+      
     },
 
     computed: {
@@ -41,6 +48,32 @@ let app = createApp({
     },
 
     methods : {
+        checkLogin() {
+            axios.get('/api/clients/current')
+              .then(response => {
+                if (response.data.role == "CLIENT" || response.data.role == "ADMIN") {
+                  this.isLoggedIn = true;
+                }
+                else {
+                  this.isLoggedIn = false;
+                }
+              })
+              .catch(error => {
+                console.error("Error loading user data:", error);
+              });
+          },
+          logout() {
+            axios.post("/api/logout")
+                .then(response => {
+                    window.location.href = "/index.html";
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+          },
+          toggleDropdown() {
+            this.showDropdown = !this.showDropdown;
+          },
         agregarAlCarrito(product) {
             let storageCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
@@ -70,7 +103,10 @@ let app = createApp({
                     this.products = response.data
                     this.filteredBrandProducts = this.products
                     this.productsSort = response.data.sort((a, b) => { return a.id - b.id })
+                    this.loadingData = !this.loadingData
                     console.log(this.productsSort)
+                    this.lowStockProduct= this.products.filter(product => {return product.stock <= 5})
+                    console.log(this.lowStockProduct)
                     this.productsSale = this.products.filter(product => product.discount > 0)
                     this.productWithDiscount = this.productsSale.forEach(product => {
                         const sale = product.price / 100 * product.discount
@@ -80,6 +116,7 @@ let app = createApp({
                         return product
                     })
                     console.log(this.productsSale)
+                   
 
                 })
                 .catch(error => {
@@ -88,7 +125,7 @@ let app = createApp({
         },
 
         productByCategory(category) {
-            axios.get("/api/products/filtered?category=" + category)
+            axios.get("/api/products" + category)
                 .then(response => {
                     this.products = response.data
                     this.filteredBrandProducts = this.products
@@ -103,6 +140,7 @@ let app = createApp({
                         return product
                     })
                     console.log(this.productsSale)
+                    
                 })
                 .catch(error => {
                     console.log(error)
@@ -120,28 +158,29 @@ let app = createApp({
             const ACCESSORIES = document.getElementById("Accesories")
 
             if (event.target === ALL) {
-                this.loadData()
+                this.productByCategory("?")
             } else if (event.target === CPU) {
-                this.productByCategory("CPU")
+                this.productByCategory("/filtered?category=CPU")
             } else if (event.target === MONITOR) {
-                this.productByCategory("MONITOR")
+                this.productByCategory("/filtered?category=MONITOR")
             } else if (event.target === KEYBOARD) {
-                this.productByCategory("KEYBOARD")
+                this.productByCategory("/filtered?category=KEYBOARD")
             } else if (event.target === MOUSE) {
-                this.productByCategory("MOUSE")
+                this.productByCategory("/filtered?category=MOUSE")
             } else if (event.target === MOTHERBOARD) {
-                this.productByCategory("MOTHERBOARD")
+                this.productByCategory("/filtered?category=MOTHERBOARD")
             } else if (event.target === HEADPHONES) {
-                this.productByCategory("HEADPHONES")
+                this.productByCategory("/filtered?category=HEADPHONES")
             } else if (event.target === ACCESSORIES) {
-                this.productByCategory("Accesories")
+                this.productByCategory("/filtered?category=Accesories")
             }
         },
         filterByBrand() {
             this.filteredBrandProducts = this.products.filter(product => {
-                return this.selectedBrand.length === 0 || this.selectedBrand.some(brand => product.brand === brand);
+                return this.selectedBrand.length === 0 || this.selectedBrand.some(brand => product.brand.toLowerCase().toUpperCase() === brand.toLowerCase().toUpperCase());
             });
         },
+        
         dropDownMenu1() {
             this.isOpen1 = !this.isOpen1;
         },
@@ -153,7 +192,16 @@ let app = createApp({
         },
         dropDownMenu4() {
             this.isOpen4 = !this.isOpen4;
-        }
+        },
+
+        saveSearch(event) {
+            this.search = event.target.value
+            this.searchFilter()
+        },
+
+        searchFilter() {
+            this.filteredBrandProducts = this.products.filter(product => product.name.toLowerCase().includes(this.search.toLowerCase()))
+        },
         
     }
 
