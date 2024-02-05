@@ -152,7 +152,7 @@
             </div>
         </section>
         <main>
-            <a href="./cart.html" class="lg:hidden w-full flex justify-end py-2 lg:py-0 lg:pr-5">
+            <a href="./cart.html" class="lg:hidden w-full fixed z-30 flex justify-end py-2 lg:py-0 lg:pr-5">
                 <div class="fixed top-36 left-50 cursor-pointer">
                     <p class="text-white font-bold absolute -top-2 right-8 text-center rounded-full px-2 w-6/12 bg-red-600">{{itemsQuantity}}</p>
                     <img class="lg:w-14 z-10 w-12 bg-slate-400 p-2 rounded-l-xl lg:rounded-full" src="../images/carrito tuneado.png" alt="cart">
@@ -235,17 +235,17 @@
 
                         <div v-else class="flex flex-wrap justify-center gap-4">
                             <template v-if="filteredBrandProducts.length != 0">
-                              <article v-for="product in filteredBrandProducts" :key="product.id" class="flex flex-col items-center px-3 py-5 w-72 m-2 bg-[#1B1D29] gap-2 rounded-lg">
+                              <article v-for="product in filteredBrandProducts" :key="product.id" class="flex flex-col relative z-10 items-center px-3 py-5  pb-16 w-72 m-2 bg-[#1B1D29] gap-2 rounded-lg">
                                 <img v-if="product.discount > 0" class="absolute flex self-end" src="../images/icons8-venta-60.png" alt="discount">
                                 <img class="w-72 object-fit h-60" v-bind:src="product.image_url+'.png'">
                                 <h3 class="font-['Montserrat'] w-full self-start font-bold text-xl text-white text-start">{{product.name}}</h3>
                                 <p class="text-start font-['Poppins'] self-start  text-slate-400">{{product.brand}}</p>
                                 <a class="text-[#8993D1] w-full text-start self-start  font-['Poppins'] hover:underline" v-bind:href="`../pages/product-details.html?id=`+product.id">View details &gt;</a>
                                 <p v-if="product.discount <= 0" class="text-start w-full font-['Poppins'] self-start text-white">{{product.price.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
-                                <p v-if="product.discount > 0" class="text-start w-full font-['Poppins'] self-start text-white line-through">{{product.price.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
+                                <p v-if="product.discount > 0" class="text-start w-full font-['Poppins']  self-start text-white line-through">{{product.price.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
                                 <p v-if="product.discount > 0" class="text-start w-full font-['Poppins'] self-start text-[#FF1200]">{{product.discount.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
-                                <div class="flex w-full gap-1  place-self-start gap-3">
-                                    <p v-if="product.stock <= 5" class="text-start w-full font-['Poppins'] self-start text-[#FFD04D] animate-pulse">Last {{product.stock}} units!</p>
+                                <p v-if="product.stock <= 5" class="text-start w-full font-['Poppins']  self-start text-[#FFD04D] animate-pulse">Last {{product.stock}} units!</p>
+                                <div class="flex w-full gap-1 absolute bottom-3 place-self-start gap-3">  
                                     <button class="w-2/3 py-2 self-start bg-[#595F87] rounded-sm font-['Signika'] text-white text-lg text-center" @click.prevent="agregarAlCarrito(product)">ADD TO CART</button>
                                     <input class="w-16 font-['Signika'] text-lg rounded-full text-center" type="number" min="1" placeholder="1" v-model="product.quantities" />
                                 </div>
