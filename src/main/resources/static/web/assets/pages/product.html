@@ -100,7 +100,10 @@
 
             <div class="hidden lg:flex flex-row self-center gap-4">
                 <a href="./cart.html" class="hidden md:block md:flex">
-                    <img class="md:w-8 cursor-pointer object-contain" src="../images/carrito tuneado.png" alt="cart">
+                    <div>
+                        <p class="absolute top-4 -right-4 text-white text-center font-bold relative rounded-full px-2 w-9/12 bg-red-600">{{itemsQuantity}}</p>
+                        <img class="md:w-8 cursor-pointer object-contain" src="../images/carrito tuneado.png" alt="cart">
+                    </div>
                 </a>
 
                 <a v-if="!isLoggedIn" href="./register.html" class="group hidden lg:flex flex-row self-center gap-1 p-2">
@@ -150,7 +153,10 @@
         </section>
         <main>
             <a href="./cart.html" class="lg:hidden w-full flex justify-end py-2 lg:py-0 lg:pr-5">
-                <img class="lg:w-14 z-10 w-12 bg-slate-400 p-2 rounded-l-xl lg:rounded-full cursor-pointer fixed top-36 left-50" src="../images/carrito tuneado.png" alt="cart">
+                <div class="fixed top-36 left-50 cursor-pointer">
+                    <p class="text-white font-bold absolute -top-2 right-8 text-center rounded-full px-2 w-6/12 bg-red-600">{{itemsQuantity}}</p>
+                    <img class="lg:w-14 z-10 w-12 bg-slate-400 p-2 rounded-l-xl lg:rounded-full" src="../images/carrito tuneado.png" alt="cart">
+                </div>
             </a>
             <section class="w-full flex flex-col md:flex-row md:divide-x bg-slate-400/20">
                 <article class="pt-20 w-full md:w-10/12 lg:w-[20%] md:pt-12 flex justify-center bg-slate-400/20">
@@ -200,7 +206,7 @@
                 <div class="md:w-[80%] w-full pt-12 bg-slate-400/20 px-12">
                         <div class="flex md:place-content-between  md:pb-10">
                                 <p class="flex self-start text-sm text-white font-['Montserrat']">{{filteredBrandProducts.length}} Products</p>
-                            <form class="hidden md:block"  action="">
+                            <!-- <form class="hidden md:block"  action="">
                             <fieldset>
                                 <legend class="md:text-lg text-white font-['Montserrat'] font-bold">Sort By</legend>
                                 <div @click="dropDownMenu4" class="flex cursor-pointer md:space-x-10">
@@ -212,7 +218,7 @@
                                     <option for="brand">Price (Higher to Low)</option>
                                 </div>
                             </fieldset>
-                            </form>
+                            </form> -->
                         </div>
                     <div class="flex w-full justify-center">
                         <div v-if="loadingData" class="flex flex-col w-44">

@@ -15,40 +15,25 @@ const options = {
       isLoggedIn: false,
       showDropdown: false,
       error: '',
+      areAddresses:false
     
     }
   },
 
   created() {
-    this.loadData(),
+    this.loadData()
     this.checkLogin()
-      
-
-    
-   
   },//Create
   methods: {
     loadData() {
-     
       axios.get('/api/products')
         .then(data => {
           this.productos = data.data
           this.localStorageCart = JSON.parse(localStorage.getItem('carrito')) || [];
           console.log(this.localStorageCart)
           // Filtra los artículos que estan en el carrito
-         this.localStorageFiltrado()
-         this.addQuantity()
-    
-      
-    
-          //itemsFiltrados = localStorageCart.map(item => ({ productId: item.id, quantity: item.cantidad }))
-          // Filtra los artículos que estan en el carrito
-          // console.log(this.localStorageCart)
-          // this.localStorageFiltrado = this.productos.filter(producto =>
-          //   this.localStorageCart.some(storage => storage.id === producto.productId))
-          // // Agrega la cantidad del carrito a cada artículo filtrado
-        
-          // console.log(this.localStorageFiltrado)
+        this.localStorageFiltrado()
+        this.addQuantity()
         })
         .catch(error => console.log(error))
     },
@@ -57,14 +42,33 @@ const options = {
         .then(response => {
           if (response.data.role == "CLIENT" || response.data.role == "ADMIN") {
             this.isLoggedIn = true;
+            if(response.data.addresses.length >= 1){
+              this.areAddresses = true
+            } else{
+              this.areAddresses = false
+            }
           }
           else {
-            this.isLoggedIn = false;
+            this.isLoggedIn = false
           }
         })
         .catch(error => {
           console.error("Error loading user data, please login", error);
         });
+    },
+    notLoggedIn(){
+      if (!this.isLoggedIn) {        
+        Swal.fire({
+            icon: "error",
+            title: "Please log in or register to add products to the cart",
+            text: "Redirecting you to the login page",
+          });
+          setTimeout(() => {
+            window.location.href = "../pages/register.html";
+        }, 4000);
+        return 'not-ok'
+      }
+      return 'ok'
     },
     logout() {
       axios.post("/api/logout")
@@ -91,21 +95,7 @@ const options = {
     localStorageFiltrado(){
      this.itemsFiltrados= this.productos.filter(producto => this.localStorageCart.some(storage => storage.productId === producto.id))
      console.log(this.itemsFiltrados)
-    },
-    checkout(){
-      const body = {
-        items: this.itemsFiltrados,
-        comment: this.comment,
-        discount: this.discount
-        
-      }
-      axios.post("/api/checkout/",body)
-      .then(response => {
-        console.log(response)
-      })
-      .catch(error => console.log(error))
-    },
-  
+    },  
     removerDelCarro(producto, accion) {
       let storageCarrito = JSON.parse(localStorage.getItem('carrito')) || [];
       const index = storageCarrito.findIndex(item => item.productId === producto.id);
@@ -180,13 +170,28 @@ const options = {
   cerrarAlert() {
       this.modalVisibleAlert = false
       if (this.modalVisibleAlert == false) {
-          document.body.classList.remove('overflow-y-hidden')
-         
+          document.body.classList.remove('overflow-y-hidden')         
       }
   },
+  addressCheck(){
+    if(!this.areAddresses){
+      Swal.fire({
+        icon: "error",
+        title: "Please register an address before proceed",
+        text: "Redirecting you to profile page",
+      });
+      setTimeout(() => {
+        window.location.href = "../pages/profile.html";
+      }, 4000);
+      return 'not ok'
+    }
+    return 'ok'
+  },
   redirigir() {
-    this.saveCartAmount()
-    window.location.href = "http://localhost:8080/payment/cardPayment.html"
+    if(this.notLoggedIn() === 'ok' && this.addressCheck() === 'ok'){
+      this.saveCartAmount()
+      window.location.href = "http://localhost:8080/payment/cardPayment.html"
+    }
   },// finaliza cerrarModal
   saveCartAmount(){
     let cleanedAmount = this.saveAmount.replace(/[^\d.]/g, '')

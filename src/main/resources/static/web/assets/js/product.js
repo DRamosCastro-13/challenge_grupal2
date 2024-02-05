@@ -28,11 +28,14 @@ let app = createApp({
           isLoggedIn: false,
           showDropdown: false,
           error: '',
+          itemsQuantity:0
         }
     },
     created(){
         this.loadData();
         this.checkLogin()
+        let storageCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
+        this.itemsQuantity = storageCarrito.reduce((total, item) => total + item.quantity, 0);
        
     },
 
@@ -76,22 +79,21 @@ let app = createApp({
           },
           agregarAlCarrito(product) {
             this.checkLogin();
-            if (!this.isLoggedIn) {
+            // // if (!this.isLoggedIn) {
                
-                Swal.fire({
-                    icon: "error",
-                    title: "Please log in or register to add products to the cart",
-                    text: "Redirecting you to the login page",
-                  });
+            //     Swal.fire({
+            //         icon: "error",
+            //         title: "Please log in or register to add products to the cart",
+            //         text: "Redirecting you to the login page",
+            //       });
 
-                  setTimeout(() => {
-                    window.location.href = "../pages/register.html";
-                }, 4000);
-            }else{
+            //       setTimeout(() => {
+            //         window.location.href = "../pages/register.html";
+            //     }, 4000);
+            // // }else{
             let storageCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
             let existingProductIndex = storageCarrito.findIndex(item => item.productId === product.id);
             let quantity = parseInt(product.quantities) || 1;
-    
 
             if (existingProductIndex !== -1) {
                 // Si el producto ya está en el carrito, actualiza su cantidad
@@ -102,6 +104,8 @@ let app = createApp({
                 storageCarrito.push({ productId: product.id, quantity: quantity });
                 this.saveQuantity = quantity;
             }
+
+            this.itemsQuantity = storageCarrito.reduce((total, item) => total + item.quantity, 0);
         
             localStorage.setItem("carrito", JSON.stringify(storageCarrito));
             this.localStorage = storageCarrito;
@@ -113,7 +117,7 @@ let app = createApp({
                 showConfirmButton: false,
                 timer: 1500
             });
-            }            
+            // }            
         },
         checket(product){
             let storageCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
