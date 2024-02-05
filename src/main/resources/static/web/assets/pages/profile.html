@@ -101,9 +101,12 @@
             </nav>
 
             <div class="hidden lg:flex flex-row self-center gap-4">
-                <div class="hidden md:block md:flex">
-                    <img class="md:w-8 cursor-pointer object-contain" src="../images/carrito tuneado.png" alt="cart">
-                </div>
+                <a href="./cart.html" class="hidden md:block md:flex">
+                    <div>
+                        <p class="absolute top-4 -right-4 text-white text-center font-bold relative rounded-full px-2 w-9/12 bg-red-600">{{itemsQuantity}}</p>
+                        <img class="md:w-8 cursor-pointer object-contain" src="../images/carrito tuneado.png" alt="cart">
+                    </div>
+                </a>
 
                 <a v-if="!isLoggedIn" href="./register.html" class="group hidden lg:flex flex-row self-center gap-1 p-2">
                     <h2 class="font-['Poppins'] text-white text-lg group-hover:text-slate-200">Login</h2>

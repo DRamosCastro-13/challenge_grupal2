@@ -25,7 +25,7 @@
         <section class="w-full flex justify-center">
             <form class="w-80 h-4/5 border-2 bg-[#FFFFFF] shadow-2xl p-4 flex flex-col gap-3 rounded-xl m-3 place-content-center" action="">
                 <label class="font-['Comfortaa'] font-bold text-sm" for="account">Card number</label>
-                <input v-model="number" class="p-1 text-[#000000] rounded-lg border-2" type="text" id="number" name="number" required placeholder="XXX-XXX-XXX">
+                <input v-model="number" @input="formatTarjeta" class="p-1 text-[#000000] rounded-lg border-2" type="text" id="number" name="number" required placeholder="XXX-XXX-XXX">
                 <label class="font-['Comfortaa'] font-bold text-sm" for="cvv">cvv</label>
                 <input v-model="cvv" class="p-1 text-[#000000] rounded-lg border-2" type="number" id="cvv" name="cvv" placeholder="c**" required>
                 <label class="font-['Comfortaa'] font-bold text-sm" for="amount">Amount</label>

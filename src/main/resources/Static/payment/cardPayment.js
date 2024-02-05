@@ -22,6 +22,16 @@ let app = createApp({
     },
 
     methods : {
+      formatTarjeta() {
+        // Elimina caracteres no numéricos
+        let inputValue = this.number.replace(/\D/g, '');
+        // Formatea el número de tarjeta con un guion cada 4 dígitos
+        let formattedValue = inputValue.replace(/(\d{4})/g, '$1-');
+        // Elimina el guion adicional al final, si lo hay
+        formattedValue = formattedValue.replace(/-$/, '');
+        // Actualiza el valor del campo de entrada
+        this.number = formattedValue;
+      },
       traerAmount(){},
         cardPayment(){
             Swal.fire({
@@ -41,7 +51,7 @@ let app = createApp({
                       "description" : this.description
                   }
                     console.log(body)
-                    axios.post("http://localhost:8081/api/cards/payments", body)
+                    axios.post("https://opythabank.onrender.com/api/cards/payments", body)
                     .then(result => {Swal.fire({
                             title: "Successful payment!",
                             text: "",
@@ -56,6 +66,8 @@ let app = createApp({
                               }
                               axios.post("/api/checkout",cart)
                               .then(response => {
+                                localStorage.removeItem(carrito)
+                                localStorage.removeItem(amount)
                                 console.log(response)
                               })
                               .catch(error => console.log(error))

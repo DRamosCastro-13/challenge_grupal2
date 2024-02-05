@@ -148,8 +148,21 @@
                     <img class="md:opacity-50 md:w-8 w-12 md:object-contain md:bg-transparent bg-slate-400 rounded-l-xl  md:p-0 p-2 cursor-pointer md:static fixed top-20 left-50" src="../images/icons8-lupa-48.png" alt="search">
                 </div>
            </section>
-        <section class="w-full flex justify-center">
-           <template v-if="product">
+        <div v-if="loadingData" class="flex w-full justify-center">
+            <div  class="flex flex-col w-44">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><radialGradient id="a12" cx=".66" fx=".66" cy=".3125" fy=".3125" gradientTransform="scale(1.5)"><stop offset="0" stop-color="#FFFFFF"></stop>
+                    <stop offset=".3" stop-color="#FFFFFF" stop-opacity=".9"></stop>
+                    <stop offset=".6" stop-color="#FFFFFF" stop-opacity=".6"></stop>
+                    <stop offset=".8" stop-color="#FFFFFF" stop-opacity=".3"></stop>
+                    <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"></stop>
+                    </radialGradient><circle transform-origin="center" fill="none" stroke="url(#a12)" stroke-width="15" stroke-linecap="round" stroke-dasharray="200 1000" stroke-dashoffset="0" cx="100" cy="100" r="70"><animateTransform type="rotate" attributeName="transform" calcMode="spline" dur="2" values="360;0" keyTimes="0;1" keySplines="0 0 1 1" repeatCount="indefinite"></animateTransform></circle>
+                    <circle transform-origin="center" fill="none" opacity=".2" stroke="#FFFFFF" stroke-width="15" stroke-linecap="round" cx="100" cy="100" r="70"></circle>
+                </svg>
+                <h2 class="text-2xl self-center text-white font-['Montserrat']">Loading...</h2>
+            </div>
+        </div>
+        <section v-else class="w-full flex justify-center">
+           <template  v-if="product">
                 <article class="flex flex-col md:flex-row md:w-[70%] justify-center md:p-12 bg-[#1B1D29] p-4 rounded-lg md:gap-24 mx-3 md:mx-0 md:my-10 my-16">
                         <img v-if="product.discount > 0" class="absolute flex self-start w-14" src="../images/icons8-venta-60.png" alt="discount">
                         <img class="md:w-[50%] p-2 self-center" v-bind:src="product.image_url+'.png'">

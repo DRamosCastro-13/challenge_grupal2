@@ -8,6 +8,7 @@ import com.mindhub.wireit.models.Client;
 import com.mindhub.wireit.repositories.AddressRepository;
 import com.mindhub.wireit.repositories.ClientRepository;
 import com.mindhub.wireit.service.ClientService;
+import io.micrometer.common.util.StringUtils;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,6 +45,9 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ResponseEntity<ClientDTO> getClient(Authentication authentication) {
+        if (authentication == null || StringUtils.isBlank(authentication.getName())) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         Client client = clientRepository.findByEmail(authentication.getName());
         ResponseEntity response;
         if (client != null) {

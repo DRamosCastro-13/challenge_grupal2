@@ -25,6 +25,7 @@ const options ={
             visibleItems: 4,
             carouselProducts: [],
             isCarouselPaused: false,
+
            
         }
     },

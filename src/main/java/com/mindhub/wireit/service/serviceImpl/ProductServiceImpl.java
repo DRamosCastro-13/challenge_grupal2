@@ -167,6 +167,8 @@ public class ProductServiceImpl implements ProductService {
             return  new ResponseEntity<>("Category can not be blank", HttpStatus.FORBIDDEN);
         }
 
+        category = category.toUpperCase();
+
         ProductCategory productCategory = productCategoryRepository.findByCategoryIgnoreCase(category);
 
         if(productCategory != null){

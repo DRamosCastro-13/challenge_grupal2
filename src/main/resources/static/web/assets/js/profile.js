@@ -19,8 +19,10 @@ const app = createApp({
         };
     },
     created() {
-        this.loadData();
+        this.loadData()
         this.checkLogin()
+        let storageCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
+        this.itemsQuantity = storageCarrito.reduce((total, item) => total + item.quantity, 0);
     },
     methods: {
         checkLogin() {
@@ -82,6 +84,12 @@ const app = createApp({
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: 'OK'
                     });
+                    this.address = ""
+                    this.phone = ""
+                    this.province = ""
+                    this.country = ""
+                    this.city = ""
+                    this.zipCode = ""
                 })
                 .catch(error => {
                     console.log(error);
