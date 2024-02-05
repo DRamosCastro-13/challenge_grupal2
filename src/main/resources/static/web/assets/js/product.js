@@ -18,7 +18,7 @@ let app = createApp({
           selectedBrand: [],
           filteredBrandProducts: [],
           localStorage: [],
-          quantity:1,
+          quantities:1,
           saveQuantity:0,
           localStorageQuantity:0,
           search: "",
@@ -59,7 +59,7 @@ let app = createApp({
                 }
               })
               .catch(error => {
-                console.error("Error loading user data:", error);
+                console.error("Error loading user data, please login", error);
               });
           },
           logout() {
@@ -74,31 +74,46 @@ let app = createApp({
           toggleDropdown() {
             this.showDropdown = !this.showDropdown;
           },
-        agregarAlCarrito(product) {
-            let storageCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
-
-            
-          let carrito = this.checket(product)
-           if(!carrito){
-            storageCarrito.push({productId: product.id, quantity: this.quantity});
-            this.saveQuantity = this.quantity+1
+          agregarAlCarrito(product) {
+            this.checkLogin();
+            if (!this.isLoggedIn) {
                
-                console.log(product);
                 Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Item added to cart",
-                    showConfirmButton: false,
-                    timer: 1500
+                    icon: "error",
+                    title: "Please log in or register to add products to the cart",
+                    text: "Redirecting you to the login page",
                   });
-            }
 
-                
-            
-            localStorage.setItem("carrito", JSON.stringify(storageCarrito))
-            this.localStorage = storageCarrito
+                  setTimeout(() => {
+                    window.location.href = "../pages/register.html";
+                }, 4000);
+            }else{
+            let storageCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
+            let existingProductIndex = storageCarrito.findIndex(item => item.productId === product.id);
+            let quantity = parseInt(product.quantities) || 1;
     
 
+            if (existingProductIndex !== -1) {
+                // Si el producto ya está en el carrito, actualiza su cantidad
+                storageCarrito[existingProductIndex].quantity += quantity;
+                this.saveQuantity = storageCarrito[existingProductIndex].quantity;
+            } else {
+                // Si el producto no está en el carrito, agrégalo con la cantidad especificada
+                storageCarrito.push({ productId: product.id, quantity: quantity });
+                this.saveQuantity = quantity;
+            }
+        
+            localStorage.setItem("carrito", JSON.stringify(storageCarrito));
+            this.localStorage = storageCarrito;
+        
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Item added to cart",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            }            
         },
         checket(product){
             let storageCarrito = JSON.parse(localStorage.getItem("carrito")) || [];

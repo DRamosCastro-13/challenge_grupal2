@@ -50,7 +50,7 @@ const options = {
           }
         })
         .catch(error => {
-          console.error("Error loading user data:", error);
+          console.error("Error loading user data, please login", error);
         });
     },
     logout() {
