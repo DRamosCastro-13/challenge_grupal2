@@ -58,6 +58,9 @@
                 <li v-show="!isLoggedIn" class="nav-item border-t-2">
                     <a href="./assets/js/register.js" class="nav-link text-white">Login | Register</a>
                 </li>
+                <li v-show="isLoggedIn" class="nav-item" class="nav-item border-t-2">
+                    <a href="./web/assets/pages/profile.html" class="nav-link text-white">My Account</a>
+                </li>
                 <li class="nav-item" >
                     <a href="web/assets/pages/carrito.html" class="nav-link text-white">Products</a>
                 </li>
@@ -84,15 +87,16 @@
             </div>            
             <nav class="hidden lg:flex self-center gap-5">
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="#">Home</a>
-                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="web/assets/pages/product.html">Products</a>
+                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="./web/assets/pages/product.html">Products</a>
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="./web/assets/pages/aboutus.html">About Us</a>
-                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="web/assets/pages/contact.html">Contact</a>
+                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="./web/assets/pages/contact.html">Contact</a>
+                <a v-show="isLoggedIn" class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="./web/assets/pages/profile.html">My Account</a>
             </nav>
 
             <div class="hidden lg:flex flex-row self-center gap-4">
-                <div class="hidden md:block md:flex">
+                <a href="./web/assets/pages/cart.html" class="hidden md:block md:flex">
                     <img class="md:w-8 cursor-pointer object-contain" src="web/assets/images/carrito tuneado.png" alt="cart">
-                </div>
+                </a>
                 
                 <a v-if="!isLoggedIn" href="web/assets/pages/register.html" class="group hidden lg:flex flex-row self-center gap-1 p-2">
                     <h2 class="font-['Poppins'] text-white text-lg group-hover:text-slate-200">Login</h2>
@@ -132,9 +136,9 @@
             </div>
         </header>
         <main class="w-full pt-10 lg:pt-5 md:pt-28">
-           <div class="lg:hidden w-full flex justify-end py-2 lg:py-0 lg:pr-5 ">
+           <a href="./web/assets/pages/cart.html" class="lg:hidden w-full flex justify-end py-2 lg:py-0 lg:pr-5 ">
                 <img class="lg:w-14 w-12 bg-slate-400 p-2 rounded-l-xl lg:rounded-full cursor-pointer fixed top-36 left-50" src="./web/assets/images/carrito tuneado.png" alt="cart">
-            </div>
+            </a>
             
             <section class="flex flex-col md:flex-row w-full mt-8 md:px-10 md:max-h-[120vh] md:mt-0 items-center">
                 <div class="flex flex-col md:content-center p-3 md:p-0 md:gap-10 md:w-[50%]">
@@ -308,9 +312,6 @@
                     </div>
                 </div>
                 </div>
-                <div class="mx-auto text-center md:max-w-xl lg:max-w-3xl my-8">
-                    <a href="./web/assets/pages/contact.html" class="mb-6 text-2xl font-['Poppins'] text-white underline animate-pulse">I want to leave a review</a>
-                    </div>
             </section>
         </main>
         <footer>
@@ -363,10 +364,8 @@
                 <div class="flex flex-col items-center pt-4 lg:mt-8 lg:pt-0 w-full lg:w-[20%]">
                     <p class="text-slate-200 font-['Montserrat'] font-semibold text-xl text-center">Secure payments</p>
                     <div class="flex flex-row flex-wrap gap-4">
-                        <img class="w-12 object-contain" src="web/assets/images/american-express.png" alt="ae">
                         <img class="w-12 object-contain" src="web/assets/images/icons8-tarjeta-visa-48.png" alt="visa">
                         <img class="w-12 object-contain" src="web/assets/images/logo.png" alt="mastercard">
-                        <img class="w-12 object-contain" src="web/assets/images/2487595_club_diners_finance_international_method_icon.png" alt="clubs">
                     </div>
                 </div>
                 <div class="bg-slate-400/20 mt-8 flex flex-col w-full lg:w-[35%] place-items-center rounded-2 rounded-md gap-6 shadow-lg shadow-slate-800 h-80 place-content-center">

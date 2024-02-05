@@ -12,12 +12,16 @@ const options = {
       comment:'',
       discount:0,
       itemsFiltrados:[],
+      isLoggedIn: false,
+      showDropdown: false,
+      error: '',
     
     }
   },
 
   created() {
-    this.loadData()
+    this.loadData(),
+    this.checkLogin()
       
 
     
@@ -47,6 +51,32 @@ const options = {
           // console.log(this.localStorageFiltrado)
         })
         .catch(error => console.log(error))
+    },
+    checkLogin() {
+      axios.get('/api/clients/current')
+        .then(response => {
+          if (response.data.role == "CLIENT" || response.data.role == "ADMIN") {
+            this.isLoggedIn = true;
+          }
+          else {
+            this.isLoggedIn = false;
+          }
+        })
+        .catch(error => {
+          console.error("Error loading user data, please login", error);
+        });
+    },
+    logout() {
+      axios.post("/api/logout")
+          .then(response => {
+              window.location.href = "/index.html";
+          })
+          .catch(error => {
+              console.log(error);
+          });
+    },
+    toggleDropdown() {
+      this.showDropdown = !this.showDropdown;
     },
     addQuantity() {
       this.itemsFiltrados.forEach(producto => {
@@ -154,20 +184,28 @@ const options = {
          
       }
   },
-  redirigir(){
-    const totalCarrito = this.totalCarrito;
+  redirigir() {
+    this.saveCartAmount()
     window.location.href = "http://localhost:8080/payment/cardPayment.html"
   },// finaliza cerrarModal
-  },//finaliza methods
-  computed: {
-    totalCarrito() {
-      let total = 0
-      for (let i = 0; i < this.itemsFiltrados.length; i++) {
-        const producto = this.itemsFiltrados[i]
-        total += producto.cantidadEnCarrito * producto.price
-      }
-      return this.dotsNumbers(total)
-    }, //aca finaliza totalCarrito
+  saveCartAmount(){
+    let cleanedAmount = this.saveAmount.replace(/[^\d.]/g, '')
+    localStorage.setItem('amount',JSON.stringify(cleanedAmount))
+  }
+},//finaliza methods
+computed: {
+  totalCarrito() {
+    let total = 0
+    for (let i = 0; i < this.itemsFiltrados.length; i++) {
+      const producto = this.itemsFiltrados[i]
+      total += producto.cantidadEnCarrito * producto.price
+    }
+    return this.dotsNumbers(total)
+  }, //aca finaliza totalCarrito
+  saveAmount() {
+    let totalCarrito = this.totalCarrito
+    return totalCarrito;
+  },
   },//aca finaliza el computed
 }//finalizacion de options
 

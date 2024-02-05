@@ -9,6 +9,9 @@ const options = {
       localStorageFiltrado: [],
       modalHVisible:false,
       modalVisibleAlert:false,
+      isLoggedIn: false,
+      showDropdown: false,
+      error: '',
     }
   },
 
@@ -32,7 +35,36 @@ const options = {
       })
       .catch(error => console.log(error))
   },//finaliza beforeCreate
+  created() {
+    this.checkLogin()
+  },
   methods: {
+    checkLogin() {
+      axios.get('/api/clients/current')
+        .then(response => {
+          if (response.data.role == "CLIENT" || response.data.role == "ADMIN") {
+            this.isLoggedIn = true;
+          }
+          else {
+            this.isLoggedIn = false;
+          }
+        })
+        .catch(error => {
+          console.error("Error loading user data, please login", error);
+        });
+    },
+    logout() {
+      axios.post("/api/logout")
+          .then(response => {
+              window.location.href = "/index.html";
+          })
+          .catch(error => {
+              console.log(error);
+          });
+    },
+    toggleDropdown() {
+      this.showDropdown = !this.showDropdown;
+    },
     removerDelCarro(articulo, accion) {
       let storageCarrito = JSON.parse(localStorage.getItem('carrito')) || [];
       const index = storageCarrito.findIndex(item => item.id === articulo._id);

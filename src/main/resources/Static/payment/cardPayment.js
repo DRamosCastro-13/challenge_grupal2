@@ -9,7 +9,9 @@ let app = createApp({
             amount:0,
             description:"",
             e:"",
-            cart:JSON.parse(localStorage.getItem('carrito')) || [],
+            cart: JSON.parse(localStorage.getItem('carrito')) || [],
+            totalAmount: JSON.parse(localStorage.getItem('amount')),
+
             
         }
     },
@@ -32,12 +34,12 @@ let app = createApp({
                 confirmButtonText: "Yes, send money!"
               }).then((result) => {
                 if (result.isConfirmed) {
-                    const body = {
-                        "number" : this.number,
-                        "cvv" : this.cvv,
-                        "amount" : this.amount,
-                        "description" : this.description
-                    }
+                  const body = {
+                      "number" : this.number,
+                      "cvv" : this.cvv,
+                      "amount" : this.totalAmount,
+                      "description" : this.description
+                  }
                     console.log(body)
                     axios.post("http://localhost:8081/api/cards/payments", body)
                     .then(result => {Swal.fire({
