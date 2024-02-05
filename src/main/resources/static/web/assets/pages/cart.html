@@ -19,23 +19,37 @@
 <body class="bg-gradient-to-r from-[#1B1D29] to-[#7C85BD]">
     <div id="app">
         <header class="flex flex-wrap fixed lg:static top-0 z-40 bg-gradient-to-r from-[#1B1D29] to-[#7C85BD] w-full justify-around lg:justify-between lg:px-10">
-            <a href="./register.html" class="group flex flex-col pt-4 pb-3 min-h-[10vh] lg:hidden">
-                <svg width="26px" height="26px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"
-                    fill="#ffffff" stroke="#ffffff">
+            <a v-if="!isLoggedIn" href="../pages/register.html" class="group flex flex-col pt-4 pb-3 min-h-[10vh] lg:hidden">
+                <svg width="26px" height="26px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#ffffff" stroke="#ffffff">
 
-                    <g id="SVGRepo_bgCarrier" stroke-width="0" />
-
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
-
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                    
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                    
                     <g id="SVGRepo_iconCarrier">
-
-                        <path fill="#ffffff"
-                            d="M628.736 528.896A416 416 0 0 1 928 928H96a415.872 415.872 0 0 1 299.264-399.104L512 704l116.736-175.104zM720 304a208 208 0 1 1-416 0 208 208 0 0 1 416 0z" />
-
+                    
+                    <path fill="#ffffff" d="M628.736 528.896A416 416 0 0 1 928 928H96a415.872 415.872 0 0 1 299.264-399.104L512 704l116.736-175.104zM720 304a208 208 0 1 1-416 0 208 208 0 0 1 416 0z"/>
+                    
                     </g>
-
+                    
                 </svg>
                 <p class="text-white text-[10px] pt-0.5 group-hover:text-neutral-300">Login</p>
+            </a>
+            <a v-else href="../pages/profile.html" class="group flex flex-col items-center pt-4 pb-3 min-h-[10vh] lg:hidden">
+                <svg width="26px" height="26px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#ffffff" stroke="#ffffff">
+
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                    
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                    
+                    <g id="SVGRepo_iconCarrier">
+                    
+                    <path fill="#ffffff" d="M628.736 528.896A416 416 0 0 1 928 928H96a415.872 415.872 0 0 1 299.264-399.104L512 704l116.736-175.104zM720 304a208 208 0 1 1-416 0 208 208 0 0 1 416 0z"/>
+                    
+                    </g>
+                    
+                </svg>
+                <p class="text-white text-[10px] pt-0.5 group-hover:text-neutral-300">Account</p>
             </a>
 
             <a href="../../../index.html" class="flex items-center content-center min-h-[10vh]">
@@ -44,21 +58,24 @@
                 </h2>
             </a>
 
-            <ul class="nav-menu">
-                <li class="nav-item border-t-2">
-                    <a href="../pages/register.html" class="nav-link text-white">Login | Register</a>
+            <ul class="nav-menu lg:hidden">
+                <li v-show="!isLoggedIn" class="nav-item border-t-2">
+                    <a href="./register.html" class="nav-link text-white">Login | Register</a>
+                </li>
+                <li v-show="isLoggedIn" class="nav-item" class="nav-item border-t-2">
+                    <a href="./profile.html" class="nav-link text-white">My Account</a>
+                </li>
+                <li class="nav-item" >
+                    <a href="./product.html" class="nav-link text-white">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a href="../../../index.html" class="nav-link text-white">Home</a>
+                    <a href="./aboutus.html" class="nav-link text-white">About Us</a>
                 </li>
                 <li class="nav-item">
-                    <a href="../pages/product.html" class="nav-link text-white">Products</a>
+                    <a href="./contact.html" class="nav-link text-white">Contact Us</a>
                 </li>
-                <li class="nav-item">
-                    <a href="../pages/aboutus.html" class="nav-link text-white">About Us</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link text-white">Contact Us</a>
+                <li v-show="isLoggedIn" class="nav-item">
+                    <button class="nav-link text-white" @click="logout()">Logout</button>
                 </li>
                 <li class="nav-item h-[100dvh]">
                     <a href="#" class="nav-link"></a>
@@ -79,19 +96,51 @@
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400"
                     href="../pages/aboutus.html">About Us</a>
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400"
-                    href="#">Contact</a>
+                    href="./contact.html">Contact</a>
+                <a v-show="isLoggedIn" class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="./profile.html">My Account</a>
             </nav>
 
             <div class="hidden lg:flex flex-row self-center gap-4">
-                <div class="hidden md:block md:flex">
+                <a href="#" class="hidden md:block md:flex">
                     <img class="md:w-8 cursor-pointer object-contain" src="../images/carrito tuneado.png"
                         alt="cart">
-                </div>
+                </a>
 
-                <a href="../pages/register.html" class="group hidden lg:flex flex-row self-center gap-1 p-2">
+                <a v-if="!isLoggedIn" href="./register.html" class="group hidden lg:flex flex-row self-center gap-1 p-2">
                     <h2 class="font-['Poppins'] text-white text-lg group-hover:text-slate-200">Login</h2>
                     <img class="w-7 group-hover" src="../images/icon-login.png" alt="login">
                 </a>
+                <button v-else class="group hidden lg:flex flex-row self-center gap-1 p-2" @click="toggleDropdown">
+                    <svg width="28px" height="28px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#ffffff">
+                        <circle cx="12" cy="7.25" r="5.73" stroke-width="1.91px"/>
+                        <path d="M1.5,23.48l.37-2.05A10.3,10.3,0,0,1,12,13h0a10.3,10.3,0,0,1,10.13,8.45l.37,2.05" fill="none" stroke-width="1.91px"/>
+                    </svg>
+                    <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#ffffff" stroke="#ffffff">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                        <g id="SVGRepo_iconCarrier">
+                            <defs>
+                               <!--<style>.cls-1{fill:none;stroke:#ffffff;stroke-miterlimit:10;stroke-width:1.91px;}</style>-->
+                            </defs>
+                            <polyline class="cls-1" points="6 10 12 20 18 11"/>
+                        </g>
+                    </svg>
+                    <div v-if="showDropdown" class="dropdown-menu">
+                        <ul>
+                            <li>
+                                <a href="./profile.html">My Account</a>
+                            </li>
+                            <li>
+                                <a href="./cart.html">Cart</a>
+                            </li>
+                            <li>
+                                <a href="./profile.html">Previous Orders</a>
+                            </li>
+                            <li @click="logout()">Log Out</li>
+                            <li class="h-[100vh]" style="pointer-events: none;"></li>
+                        </ul>
+                    </div>
+                </button>
             </div>
         </header>
         <main class="w-full flex flex-col justify-center items-center flex-grow w-full py-20 lg:pt-8 lg:pb-16 md:py-28">
@@ -99,27 +148,27 @@
                 <template v-if="itemsFiltrados.length > 0" v-for="producto in itemsFiltrados">
                   <div
                     class="flex flex-col gap-2  bg-white shadow-xl rounded-lg my-2 w-[80%] justify-around md:flex-row md:w-[90%]">
-                    <div  class="bg-violet-900 rounded-t-lg py-2 w-full md:w-[1%] md:rounded-full md:rounded-r-lg"></div>
+                    <div  class="bg-[#595F87] rounded-t-lg py-2 w-full md:w-[1%] md:rounded-full md:rounded-r-lg"></div>
                    
                     <div class="w-full ">
-                      <article class="flex flex-col text-center items-center gap-4  md:flex-row  justify-around mb-2 md:flex-row md:items-center md:justify-center md:mx-2">
+                      <article class="flex flex-col text-center items-center gap-4  md:flex-row  justify-between mb-2 md:flex-row md:items-center md:justify-center md:mx-2">
                         <picture class="flex">
                           <img :src="producto.image_url+'.png'" :alt="producto.name" class="w-[150px] h-[100px] flex object-contain md:m-0">
                         </picture>
                         <div class="flex justify-around flex-col gap-2 align-center  md:flex-row md:justify-center ">
                           <h3 class="text-center font-bold md:w-full">{{producto.name}}</h3>
                           <div class="flex gap-2 justify-center px-2 items-center md:w-2/4">
-                            <div></div>
-                            <div class="w-1/6">
-                              <button><img src="../Images/minus.png" alt="minus_article" class="object-cover"
+                            
+                            <div class="w-1/6 flex items-center justify-center">
+                              <button class="flex items-center justify-center"><img src="../Images/minus.png" alt="minus_article" class="object-cover"
                                   @click="removerDelCarro(producto,'restar')"></button>
                             </div>
-                             <div  class="border border-gray-400 rounded-full px-6 w-4/6 py-2 text-center align-middle font-bold">
-                              <p v-if="producto.cantidadEnCarrito >= producto.disponibles">LIMIT REACHED({{producto.cantidadEnCarrito}}) </p>
+                             <div  class="flex items-center justify-center border border-gray-400 rounded-full  w-3/6 py-2 text-center align-middle font-bold">
+                              <p  v-if="producto.cantidadEnCarrito >= producto.disponibles">LIMIT REACHED({{producto.cantidadEnCarrito}}) </p>
                               <p v-else>{{producto.cantidadEnCarrito}}</p>
                             </div>
-                            <div class="w-1/6">
-                              <button type="button"><img src="../Images/plus.png" alt="sumar_article" class="object-cover"
+                            <div class="w-1/6 flex items-center justify-center">
+                              <button class="flex items-center justify-center" type="button"><img src="../Images/plus.png" alt="sumar_article" class="object-cover"
                                   @click="removerDelCarro(producto, 'sumar')"></button>
                             </div>
                           </div>
@@ -135,12 +184,12 @@
                   </div>
                 </template>
                 <div v-if="itemsFiltrados.length > 0" class="flex flex-col gap-2  bg-white shadow-xl rounded-lg my-2 w-[80%] md:w-[90%] justify-around">
-                  <div class="bg-orange-500 rounded-t-lg py-2"></div>
+                  <div class="bg-[#595F87] rounded-t-lg py-2"></div>
                   <div class="flex justify-around md:text-2xl md:py-2">
                     <strong>TOTAL TO PAY: </strong>
                     <strong>{{totalCarrito}}</strong>
                   </div>
-                  <button class="w-32 self-start bg-[#595F87] rounded-sm font-['Signika'] text-white text-lg text-center" @click="redirigir">COMPLETAR COMPRA</button>
+                  <button class="w-45 mb-2 mr-2 p-2 self-end bg-[#595F87] rounded-lg animate-pulse shadow-lg shadow-[#22215D] font-['Signika'] text-white text-lg" @click="redirigir"> Checkout</button>
                 </div>
             </section>
           

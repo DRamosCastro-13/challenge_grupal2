@@ -69,6 +69,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     public ResponseEntity<String> purchaseProcess(PurchaseRequest purchaseRequest, Authentication authentication) {
         Client client = clientRepository.findByEmail(authentication.getName());
 
+
         if (client == null) {
             return new ResponseEntity<>("You need to be logged in to checkout", HttpStatus.FORBIDDEN);
         }
@@ -159,7 +160,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
             Attachments attachments = new Attachments();
             attachments.setContent(Base64.getEncoder().encodeToString(pdfBytes));
             attachments.setType("application/pdf");
-            attachments.setFilename("order.pdf");
+            attachments.setFilename("order_"+ orderNumber +".pdf");
             attachments.setDisposition("attachment");
             attachments.setContentId("OrderAttachment");
 

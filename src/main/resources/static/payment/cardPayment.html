@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../images/icons8-elemento-aire-32.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body class="">
+    <div id="app">
+        <header class=" flex  shadow-2xl border-2  flex-row items-center lg:p-8 mt-3 mx-3 pl-3 rounded-t-xl min-h-[10vh]  lg:gap-0 space-x-28 ">
+            <div class="flex flex-row lg:w-64 gap-2">
+            <img class="w-5 object-contain lg:w-10" src="https://cdn3.iconfinder.com/data/icons/strokeline/128/21_icons-512.png" alt="Baloon">
+            <h1 class="text-lg lg:text-3xl font-bold font-['Poppins']">Pay now</h1>
+            </div>
+            <div class="flex w-full justify-end ">
+                <h2 class="text-lg lg:text-xl text-white font-bold font-['Comfortaa'] bg-[#7ACED7] rounded-xl p-1">Learn more</h2>
+            </div>
+        </header>
+    <main class="bg-[#EEFFFD] mx-3">
+        <section class="w-full flex justify-center">
+            <form class="w-80 h-4/5 border-2 bg-[#FFFFFF] shadow-2xl p-4 flex flex-col gap-3 rounded-xl m-3 place-content-center" action="">
+                <label class="font-['Comfortaa'] font-bold text-sm" for="account">Card number</label>
+                <input v-model="number" class="p-1 text-[#000000] rounded-lg border-2" type="text" id="number" name="number" required placeholder="XXX-XXX-XXX">
+                <label class="font-['Comfortaa'] font-bold text-sm" for="cvv">cvv</label>
+                <input v-model="cvv" class="p-1 text-[#000000] rounded-lg border-2" type="number" id="cvv" name="cvv" placeholder="c**" required>
+                <label class="font-['Comfortaa'] font-bold text-sm" for="amount">Amount</label>
+                <input v-model="totalAmount" class="p-1 text-[#000000] rounded-lg border-2" type="number" id="amount" name="amount" disabled>
+                <label class="font-['Comfortaa'] font-bold text-sm" for="Description">Description</label>
+                <input v-model="description" class="p-1 text-[#000000] rounded-lg border-2" type="text" id="description" name="description">
+                <div class="w-full flex justify-center">
+                <button @click.prevent="cardPayment" class="text-white font-bold w-20 text-lg bg-[#7ACED7] rounded-xl flex hover:animate-pulse justify-center">Pagar</button>
+                </div>
+            </form>
+        </section>
+    </main>
+   <footer class="mx-3 shadow-2xl border-2  rounded-b-xl lg:p-4 flex flex-col gap-2 p-1 lg:flex-row lg:gap-96 mb-3 min-h-[20vh]">
+    <div class="flex flex-row lg:w-56 items-center justify-center">
+        <img class="lg:w-8 w-5 object-contain" src="https://cdn3.iconfinder.com/data/icons/strokeline/128/21_icons-512.png" alt="Baloon">
+        <h1 class="lg:text-2xl text-sm font-bold font-['Poppins']">Pay now</h1>
+    </div>
+    <h2 class="lg:w-[400px]  text-sm  font-['Comfortaa'] flex items-center text-center">Copyright © 2023 Baloon Corporation Group</h2>
+    <div class="text-center">
+        <h3 class="lg:text-xl text-sm font-bold font-['Poppins']">Futurama</h3>
+        <h4 class="text-sm font-['Comfortaa']">Cohort 52</h4>
+    </div>
+</footer>
+    </div>
+    <script src="./tailwindconfig.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="cardPayment.js"></script>
+</body>
+</html>

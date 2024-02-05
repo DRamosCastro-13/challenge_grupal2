@@ -12,12 +12,16 @@ const options = {
       comment:'',
       discount:0,
       itemsFiltrados:[],
+      isLoggedIn: false,
+      showDropdown: false,
+      error: '',
     
     }
   },
 
   created() {
-    this.loadData()
+    this.loadData(),
+    this.checkLogin()
       
 
     
@@ -48,6 +52,32 @@ const options = {
         })
         .catch(error => console.log(error))
     },
+    checkLogin() {
+      axios.get('/api/clients/current')
+        .then(response => {
+          if (response.data.role == "CLIENT" || response.data.role == "ADMIN") {
+            this.isLoggedIn = true;
+          }
+          else {
+            this.isLoggedIn = false;
+          }
+        })
+        .catch(error => {
+          console.error("Error loading user data, please login", error);
+        });
+    },
+    logout() {
+      axios.post("/api/logout")
+          .then(response => {
+              window.location.href = "/index.html";
+          })
+          .catch(error => {
+              console.log(error);
+          });
+    },
+    toggleDropdown() {
+      this.showDropdown = !this.showDropdown;
+    },
     addQuantity() {
       this.itemsFiltrados.forEach(producto => {
         const cantidadEnCarrito = this.localStorageCart.find(storage => storage.productId === producto.id)
@@ -64,7 +94,7 @@ const options = {
     },
     checkout(){
       const body = {
-        items: itemsFiltrados,
+        items: this.itemsFiltrados,
         comment: this.comment,
         discount: this.discount
         
@@ -78,7 +108,7 @@ const options = {
   
     removerDelCarro(producto, accion) {
       let storageCarrito = JSON.parse(localStorage.getItem('carrito')) || [];
-      const index = storageCarrito.findIndex(item => item.id === producto.id);
+      const index = storageCarrito.findIndex(item => item.productId === producto.id);
 
       if (accion === 'restar') {
         this.restar(producto);
@@ -88,15 +118,16 @@ const options = {
 
       // Actualiza la cantidad en el localStorage
       if (index !== -1) {
-        storageCarrito[index].cantidad = producto.cantidadEnCarrito;
-
+      
         // Elimina el elemento si la cantidad es cero
         if (producto.cantidadEnCarrito === 0) {
           storageCarrito.splice(index, 1);
+        } else {
+          storageCarrito[index].quantity = producto.cantidadEnCarrito;
         }
       } else if (producto.cantidadEnCarrito > 0) {
         // Agrega el elemento solo si la cantidad es mayor a cero
-        storageCarrito.push({ id: producto.id, cantidad: producto.cantidadEnCarrito });
+        storageCarrito.push({ productId: producto.id, quantity: producto.cantidadEnCarrito });
       }
       localStorage.setItem('carrito', JSON.stringify(storageCarrito));
       this.localStorage = storageCarrito
@@ -125,7 +156,7 @@ const options = {
         return number.toLocaleString("es-MX", {
           style: "currency",
           currency: "USD",
-          minimumFractingDigits: 0,
+          minimumFractionDigits: 0,
         })
       }
     },//fin del dotsNumbers
@@ -153,20 +184,28 @@ const options = {
          
       }
   },
-  redirigir(){
-    
+  redirigir() {
+    this.saveCartAmount()
     window.location.href = "http://localhost:8080/payment/cardPayment.html"
   },// finaliza cerrarModal
-  },//finaliza methods
-  computed: {
-    totalCarrito() {
-      let total = 0
-      for (let i = 0; i < this.itemsFiltrados.length; i++) {
-        const producto = this.itemsFiltrados[i]
-        total += producto.cantidadEnCarrito * producto.price
-      }
-      return this.dotsNumbers(total)
-    }, //aca finaliza totalCarrito
+  saveCartAmount(){
+    let cleanedAmount = this.saveAmount.replace(/[^\d.]/g, '')
+    localStorage.setItem('amount',JSON.stringify(cleanedAmount))
+  }
+},//finaliza methods
+computed: {
+  totalCarrito() {
+    let total = 0
+    for (let i = 0; i < this.itemsFiltrados.length; i++) {
+      const producto = this.itemsFiltrados[i]
+      total += producto.cantidadEnCarrito * producto.price
+    }
+    return this.dotsNumbers(total)
+  }, //aca finaliza totalCarrito
+  saveAmount() {
+    let totalCarrito = this.totalCarrito
+    return totalCarrito;
+  },
   },//aca finaliza el computed
 }//finalizacion de options
 

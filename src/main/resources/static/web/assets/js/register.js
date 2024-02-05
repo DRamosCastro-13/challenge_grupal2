@@ -35,7 +35,7 @@ let app = createApp({
                                 if (response2.data.role == "ADMIN") {
                                     window.location.href = "/web/assets/admin/overviewAdmin.html";
                                 } else {
-                                    window.location.href = "./product.html";
+                                    window.location.href = "../pages/product.html";
                                 }
                             })
                             .catch(error => console.log(error))

@@ -30,12 +30,11 @@ const options ={
         }
     },
     created() {
-        this.loadData()
+       
+        this.checkLogin(),
+        this.getproducts()
 
     },
-  created() {
-    this.getproducts()
-  },
     computed: {
       productsWithDiscounts() {
         return this.products.filter(product => product.discount > 0);
@@ -52,7 +51,6 @@ const options ={
     },
 
     mounted() {
-      console.log('Component mounted');
       this.carouselProducts = this.generateCarouselProducts()
       this.startCarousel()
     },
@@ -61,94 +59,87 @@ const options ={
     loadData() {
           this.checkLogin() || false;
         },
-        checkLogin() {
-          axios.get('/api/clients/current')
+    checkLogin() {
+      axios.get('/api/clients/current')
+        .then(response => {
+          if (response.data.role == "CLIENT" || response.data.role == "ADMIN") {
+            this.isLoggedIn = true;
+          }
+          else {
+            this.isLoggedIn = false;
+          }
+        })
+        .catch(error => {
+          console.error("Error loading user data, please login", error);
+        });
+    },
+    toggleDropdown() {
+      this.showDropdown = !this.showDropdown;
+    },
+    logout() {
+      axios.post("/api/logout")
+          .then(response => {
+              window.location.href = "/index.html";
+          })
+          .catch(error => {
+              console.log(error);
+          });
+    },
+    getproducts() {
+        axios.get("/api/products")
             .then(response => {
-              if (response.data.role == "CLIENT" || response.data.role == "ADMIN") {
-                this.isLoggedIn = true;
-                console.log(this.isLoggedIn);
-              }
-              else {
-                this.isLoggedIn = false;
-                console.log(this.isLoggedIn);
-              }
+                this.products = response.data
+                this.filteredBrandProducts = this.products
+                this.productsSort = response.data.sort((a, b) => { return a.id - b.id })
+              
+                this.productsSale = this.products.filter(product => product.discount > 0)
+                this.productWithDiscount = this.productsSale.forEach(product => {
+                    const sale = product.price / 100 * product.discount
+                    const newPrice = product.price - sale
+                    product.discount = newPrice
+                    return product
+                })
             })
             .catch(error => {
-              console.error("Error loading user data:", error);
-            });
-        },
-        toggleDropdown() {
-          this.showDropdown = !this.showDropdown;
-        },
-        logout() {
-          axios.post("/api/logout")
-              .then(response => {
-                  window.location.href = "/index.html";
-              })
-              .catch(error => {
-                  console.log(error);
-              });
-        },
-        getproducts() {
-            axios.get("/api/products")
-                .then(response => {
-                    this.products = response.data
-                    this.filteredBrandProducts = this.products
-                    this.productsSort = response.data.sort((a, b) => { return a.id - b.id })
-                    console.log(this.productsSort)
-                    this.productsSale = this.products.filter(product => product.discount > 0)
-                    this.productWithDiscount = this.productsSale.forEach(product => {
-                        const sale = product.price / 100 * product.discount
-                        const newPrice = product.price - sale
-                        product.discount = newPrice
-                        console.log(product)
-                        return product
-                    })
-                    console.log(this.productsSale)
-                  
-
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-              },
-
-              generateCarouselProducts() {
-                const carouselProducts = [];
-                let startIndex = this.currentIndex;
-            
-                for (let i = 0; i < this.visibleItems; i++) {
-                  carouselProducts.push(this.productsSaleOnIndex[startIndex]);
-            
-                  startIndex++;
-                  if (startIndex >= this.productsSaleOnIndex.length) {
-                    startIndex = 0; // Loop back to the beginning
-                  }
-                }
-            
-                return carouselProducts;
-              },
-
-              startCarousel() {
-                this.intervalId = setInterval(() => {
-                    if (!this.isCarouselPaused) {
-                        console.log("start slide");
-                        this.currentIndex++;
-                        if (this.currentIndex >= this.productsSaleOnIndex.length) {
-                            this.currentIndex = 0; // Loop back to the beginning
-                        }
-                        this.carouselProducts = this.generateCarouselProducts();
-                    }
-                }, this.intervalDuration);
-              }, 
-              handleProductHover(isHovered) {
-                this.isCarouselPaused = isHovered;
-              },
-        
+                console.log(error)
+            })
           },
-              beforeDestroy() {
-                clearInterval(this.intervalId);
+
+          generateCarouselProducts() {
+            const carouselProducts = [];
+            let startIndex = this.currentIndex;
+        
+            for (let i = 0; i < this.visibleItems; i++) {
+              carouselProducts.push(this.productsSaleOnIndex[startIndex]);
+        
+              startIndex++;
+              if (startIndex >= this.productsSaleOnIndex.length) {
+                startIndex = 0; // Loop back to the beginning
               }
+            }
+        
+            return carouselProducts;
+          },
+
+          startCarousel() {
+            this.intervalId = setInterval(() => {
+                if (!this.isCarouselPaused) {
+                    this.currentIndex++;
+                    if (this.currentIndex >= this.productsSaleOnIndex.length) {
+                        this.currentIndex = 0; // Loop back to the beginning
+                    }
+                    this.carouselProducts = this.generateCarouselProducts();
+                }
+            }, this.intervalDuration);
+          }, 
+          handleProductHover(isHovered) {
+            this.isCarouselPaused = isHovered;
+          },
+    
+      },
+          beforeDestroy() {
+            clearInterval(this.intervalId);
+          }
 
 
      // fin methods
