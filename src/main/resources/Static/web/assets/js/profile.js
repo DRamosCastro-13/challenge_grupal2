@@ -13,12 +13,42 @@ const app = createApp({
             selectedAddress: null,
             addresses: [],
             purchases: [],
+            isLoggedIn: false,
+            showDropdown: false,
+            error: '',
         };
     },
     created() {
         this.loadData();
+        this.checkLogin()
     },
     methods: {
+        checkLogin() {
+            axios.get('/api/clients/current')
+              .then(response => {
+                if (response.data.role == "CLIENT" || response.data.role == "ADMIN") {
+                  this.isLoggedIn = true;
+                }
+                else {
+                  this.isLoggedIn = false;
+                }
+              })
+              .catch(error => {
+                console.error("Error loading user data:", error);
+              });
+          },
+          logout() {
+            axios.post("/api/logout")
+                .then(response => {
+                    window.location.href = "/index.html";
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+          },
+          toggleDropdown() {
+            this.showDropdown = !this.showDropdown;
+          },
         loadData() {
             axios.get(CLIENT)
                 .then(response => {
