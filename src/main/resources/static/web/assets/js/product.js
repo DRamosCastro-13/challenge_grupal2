@@ -2,24 +2,25 @@ const { createApp } = Vue
 
 let app = createApp({
 
-    data() {
-        return {
-            products: [],
-            productCategory: [],
-            productsSort: [],
-            discount: [],
-            price: 0,
-            productsSale: [],
-            productWithDiscount: [],
-            isOpen1: false,
-            isOpen2: false,
-            isOpen3: false,
-            isOpen4: false,
-            selectedBrand: [],
-            filteredBrandProducts: [],
+    data(){
+        return{
+          products: [],
+          productCategory: [],
+          productsSort:[],
+          discount: [],
+          price: 0,
+          productsSale: [],
+          productWithDiscount: [],
+          isOpen1: false,
+          isOpen2: false,
+          isOpen3: false,
+          isOpen4: false,
+          selectedBrand: [],
+          filteredBrandProducts: [],
           localStorage: [],
           quantity:1,
           saveQuantity:0,
+          localStorageQuantity:0,
 
 
         }
@@ -38,17 +39,37 @@ let app = createApp({
             },
         },
 
-    mounted() {
-        this.filterByBrand();
-    },
+    methods : {
+        agregarAlCarrito(product) {
+            let storageCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-    computed: {
-        uniqueBrand() {
-            return [...new Set(this.products.map(product => product.brand))];
+
+          let carrito = this.checket(product)
+           if(!carrito){
+            storageCarrito.push({productId: product.id, quantity: this.quantity});
+            this.saveQuantity = this.quantity+1
+
+                console.log(product);
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Item added to cart",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+            }
+
+
+
+            localStorage.setItem("carrito", JSON.stringify(storageCarrito))
+            this.localStorage = storageCarrito
+
+
         },
-    },
-
-    methods: {
+        checket(product){
+            let storageCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
+            return storageCarrito.some(item => item === product.id)
+        },
         loadData() {
             axios.get("/api/products")
             .then(response => {
@@ -119,7 +140,7 @@ let app = createApp({
             const MOUSE = document.getElementById("MOUSE")
             const MOTHERBOARD = document.getElementById("MOTHERBOARD")
             const HEADPHONES = document.getElementById("HEADPHONES")
-            const ACCESSORIES = document.getElementById("ACCESSORIES")
+            const ACCESSORIES = document.getElementById("Accesories")
 
             if (event.target === ALL) {
                 this.loadData()
@@ -136,7 +157,7 @@ let app = createApp({
             } else if (event.target === HEADPHONES) {
                 this.productByCategory("HEADPHONES")
             } else if (event.target === ACCESSORIES) {
-                this.productByCategory("ACCESSORIES")
+                this.productByCategory("Accesories")
             }
         },
         filterByBrand() {

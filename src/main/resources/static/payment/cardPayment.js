@@ -8,15 +8,19 @@ let app = createApp({
             cvv: 0,
             amount:0,
             description:"",
-            e:""
+            e:"",
+            cart:JSON.parse(localStorage.getItem('carrito')) || [],
             
         }
     },
     created(){
-       
+      const urlParams = new URLSearchParams(window.location.search);
+      const totalCarrito = urlParams.get('total');
+      this.amount = parseFloat(totalCarrito) || 0;
     },
 
     methods : {
+      traerAmount(){},
         cardPayment(){
             Swal.fire({
                 title: "Are you sure?",
@@ -35,7 +39,7 @@ let app = createApp({
                         "description" : this.description
                     }
                     console.log(body)
-                    axios.post("https://thebalooninc.onrender.com/api/cards/payments", body)
+                    axios.post("http://localhost:8081/api/cards/payments", body)
                     .then(result => {Swal.fire({
                             title: "Successful payment!",
                             text: "",
@@ -43,14 +47,27 @@ let app = createApp({
                             confirmButtonColor: "#E6A51D",
                           }).then((result) => {
                             console.log(result)
+                              const cart = {
+                                items: this.cart,
+                                comment: this.comment,
+                                discount: this.discount
+                              }
+                              axios.post("/api/checkout",cart)
+                              .then(response => {
+                                console.log(response)
+                              })
+                              .catch(error => console.log(error))
+                            
+                          
                           })
                         })
-                    .catch(error => {Swal.fire({
+                    .catch(error => {
+                      /*Swal.fire({
                         icon: "error",
                         title: "Oops...",
-                        text: this.e = error.response.data,
+                        text: this.e = error,
                         confirmButtonColor: "#E6A51D"
-                      });
+                      });*/
                     console.log(error)
                     })
                 }
