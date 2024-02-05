@@ -146,24 +146,21 @@
         <main class="w-full flex flex-col justify-center items-center flex-grow w-full py-20 lg:pt-8 lg:pb-16 md:py-28">
             <section class="w-full flex flex-col justify-center h-full items-center">
                 <template v-if="itemsFiltrados.length > 0" v-for="producto in itemsFiltrados">
-                  <div
-                    class="flex flex-col gap-2  bg-white shadow-xl rounded-lg my-2 w-[80%] justify-around md:flex-row md:w-[90%]">
-                    <div  class="bg-[#595F87] rounded-t-lg py-2 w-full md:w-[1%] md:rounded-full md:rounded-r-lg"></div>
-                   
+                  <div class="flex flex-col gap-2  bg-slate-400/20 shadow-xl rounded-lg my-2 w-[80%] py-2 justify-around md:flex-row md:w-[90%]">
                     <div class="w-full ">
                       <article class="flex flex-col text-center items-center gap-4  md:flex-row  justify-between mb-2 md:flex-row md:items-center md:justify-center md:mx-2">
                         <picture class="flex">
                           <img :src="producto.image_url+'.png'" :alt="producto.name" class="w-[150px] h-[100px] flex object-contain md:m-0">
                         </picture>
                         <div class="flex justify-around flex-col gap-2 align-center  md:flex-row md:justify-center ">
-                          <h3 class="text-center font-bold md:w-full">{{producto.name}}</h3>
+                          <h3 class="text-center font-bold md:w-full font-['Montserrat'] text-white text-xl">{{producto.name}}</h3>
                           <div class="flex gap-2 justify-center px-2 items-center md:w-2/4">
                             
-                            <div class="w-1/6 flex items-center justify-center">
+                            <div class="w-10 flex items-center justify-center">
                               <button class="flex items-center justify-center"><img src="../Images/minus.png" alt="minus_article" class="object-cover"
                                   @click="removerDelCarro(producto,'restar')"></button>
                             </div>
-                             <div  class="flex items-center justify-center border border-gray-400 rounded-full  w-3/6 py-2 text-center align-middle font-bold">
+                             <div  class="flex items-center justify-center border border-gray-400 rounded-full w-3/6 py-2 text-center text-white align-middle font-bold">
                               <p  v-if="producto.cantidadEnCarrito >= producto.disponibles">LIMIT REACHED({{producto.cantidadEnCarrito}}) </p>
                               <p v-else>{{producto.cantidadEnCarrito}}</p>
                             </div>
@@ -173,23 +170,22 @@
                             </div>
                           </div>
                         </div>
-                        <strong class="">Total: {{totalPorproducto(producto)}}</strong>
+                        <strong class="text-white font-['Montserrat']">Total: {{totalPorproducto(producto)}}</strong>
                       </article>
                     </div>
                   </div>
                 </template>
                 <template v-else>
-                  <div class="flex justify-center align-center text-white">
-                    <strong>The cart is empty</strong>
+                  <div class="flex justify-center align-center text-white font-['Poppins']">
+                    <strong>No items added yet</strong>
                   </div>
                 </template>
-                <div v-if="itemsFiltrados.length > 0" class="flex flex-col gap-2  bg-white shadow-xl rounded-lg my-2 w-[80%] md:w-[90%] justify-around">
-                  <div class="bg-[#595F87] rounded-t-lg py-2"></div>
-                  <div class="flex justify-around md:text-2xl md:py-2">
+                <div v-if="itemsFiltrados.length > 0" class="flex flex-col md:flex-row md:place-content-between px-10 gap-2  bg-slate-400/20 shadow-xl rounded-lg my-2 w-[80%] md:w-[90%] h-36 md:h-28">
+                  <div class="flex flex-col md:flex-row justify-around gap-5 md:justify-center md:text-2xl items-center text-white font-['Montserrat']">
                     <strong>TOTAL TO PAY: </strong>
                     <strong>{{totalCarrito}}</strong>
                   </div>
-                  <button class="w-45 mb-2 mr-2 p-2 self-end bg-[#595F87] rounded-lg animate-pulse shadow-lg shadow-[#22215D] font-['Signika'] text-white text-lg" @click="redirigir"> Checkout</button>
+                  <button class="w-45 p-2 h-12  bg-[#595F87] self-center rounded-lg animate-pulse shadow-lg shadow-[#22215D] font-['Montserrat'] text-white text-lg" @click="redirigir"> Checkout</button>
                 </div>
             </section>
           

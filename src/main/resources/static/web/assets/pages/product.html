@@ -238,10 +238,10 @@
                                 <p v-if="product.discount <= 0" class="text-start w-full font-['Poppins'] self-start text-white">{{product.price.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
                                 <p v-if="product.discount > 0" class="text-start w-full font-['Poppins'] self-start text-white line-through">{{product.price.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
                                 <p v-if="product.discount > 0" class="text-start w-full font-['Poppins'] self-start text-[#FF1200]">{{product.discount.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</p>
-                                <div class="flex w-full gap-1  place-self-start">
+                                <div class="flex w-full gap-1  place-self-start gap-3">
                                     <p v-if="product.stock <= 5" class="text-start w-full font-['Poppins'] self-start text-[#FFD04D] animate-pulse">Last {{product.stock}} units!</p>
                                     <button class="w-2/3 py-2 self-start bg-[#595F87] rounded-sm font-['Signika'] text-white text-lg text-center" @click.prevent="agregarAlCarrito(product)">ADD TO CART</button>
-                                    <input class="w-1/3 font-['Signika'] text-lg rounded-full text-center" type="number" min="1" placeholder="1" v-model="product.quantities" />
+                                    <input class="w-16 font-['Signika'] text-lg rounded-full text-center" type="number" min="1" placeholder="1" v-model="product.quantities" />
                                 </div>
                               </article>
                             </template>
@@ -303,11 +303,8 @@
                 <div class="flex flex-col items-center pt-4 lg:mt-8 lg:pt-0 w-full lg:w-[20%]">
                     <p class="text-slate-200 font-['Montserrat'] font-semibold text-xl text-center">Secure payments</p>
                     <div class="flex flex-row flex-wrap gap-4">
-                        <img class="w-12 object-contain" src="../images/american-express.png" alt="american-express">
                         <img class="w-12 object-contain" src="../images/icons8-tarjeta-visa-48.png" alt="visa">
                         <img class="w-12 object-contain" src="../images/logo mastercard.png" alt="mastercard">
-                        <img class="w-10 object-contain"
-                            src="../images/2487595_club_diners_finance_international_method_icon.png" alt="dinersclub">
                     </div>
                 </div>
                 <div

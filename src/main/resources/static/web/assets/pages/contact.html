@@ -91,7 +91,7 @@
             </div>
             <nav class="hidden lg:flex self-center gap-5">
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="../../../index.html">Home</a>
-                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="./pages/product.html">Products</a>
+                <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="./product.html">Products</a>
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="./aboutus.html">About Us</a>
                 <a class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="#">Contact</a>
                 <a v-show="isLoggedIn" class="font-['Poppins'] text-white text-lg hover:text-slate-400" href="./profile.html">My Account</a>
@@ -144,24 +144,27 @@
             <a href="./cart.html" class="lg:hidden w-full flex justify-end py-2 lg:py-0 lg:pr-5">
                 <img class="lg:w-14 z-10 w-12 bg-slate-400 p-2 rounded-l-xl lg:rounded-full cursor-pointer fixed top-36 left-50" src="../images/carrito tuneado.png" alt="cart">
             </a>
-
-            <div class="flex flex-col w-full mb-16 md:mb-6 gap-4 justify-center items-center">
-                <h2 class="text-5xl flex text-white montserrat font-bold">Contact</h2>
-                <p class="text-2xl flex text-white montserrat" >Here to help</p>
-            </div>
-           
-            <form class="flex py-3 sm:w-8/12 md:py-5 w-11/12 lg:w-6/12 rounded-xl justify-center items-center gap-4 flex-col bg-slate-400/20 shadow-lg shadow-slate-800" action="">
-                <label for="name" class="text-xl font-bold flex flex-col text-center text-white montserrat">Name:</label>
-                <input name="name" class="font-normal rounded-xl text-center border border-black shadow-lg px-2 w-9/12" placeholder="Your name" type="text">
+        <div class="flex flex-col w-full justify-center items-center">
+        
+            <form class="flex bg-slate-400/20 py-3 sm:w-8/12 md:py-5 w-11/12 lg:w-96 rounded-xl justify-center gap-7 items-center flex-col" action="">
+                <div class="w-11/12 lg:w-96 flex flex-col items-center">
+                    <h2 class="text-5xl flex text-white font-['Montserrat'] font-bold">Contact</h2>
+                    <p class="text-xl flex text-white montserrat" >Here to get support</p>
+                </div>
+                <div class="flex flex-col w-full items-center gap-3">
+                    <label for="name" class="text-xl flex flex-col text-center text-white font-['Poppins']">Name:</label>
+                    <input name="name" class="font-normal rounded-xl text-center border border-black shadow-lg py-2 w-64" placeholder="Name" type="text">
+                    
+                    <label for="email" class="text-xl flex flex-col text-center text-white font-['Poppins']">Email:</label>
+                    <input name="email" class= "font-normal rounded-xl text-center border border-black shadow-lg py-2 w-64" placeholder="Email" type="mail:to">
+                    
+                    <label for="question" class="text-xl flex flex-col text-center text-white font-['Poppins']">Leave your question:</label>
+                    <textarea name="question" class="font-normal rounded-xl text-center border border-black shadow-lg py-2 w-64" placeholder="Say something"  cols="30" rows="5"></textarea>
                 
-                <label for="email" class="text-xl font-bold flex flex-col text-center text-white montserrat ">Email:</label>
-                <input name="email" class= "font-normal rounded-xl text-center border-black border shadow-lg px-2 w-9/12" placeholder="Your email" type="mail:to">
-                
-                <label for="question" class="text-xl font-bold flex flex-col text-center text-white montserrat ">Leave your inquiry:</label>
-                <textarea name="question" class="font-normal rounded-xl text-center border border-black shadow-lg w-9/12" placeholder="Type in your inquiry"  cols="30" rows="5"></textarea>
-             
-                <button  class="w-44 bg-[#22215D] m-6 md:m-0 p-2 rounded-2xl items-center font-['Poppins'] text-white text-2xl animate-pulse shadow-lg shadow-[#22215D]" v-on:click="mostrarModal">Send</button>
+                    <button  class="w-44 bg-[#22215D] m-6 md:m-0 p-2 rounded-2xl items-center font-['Poppins'] text-white text-2xl animate-pulse shadow-lg shadow-[#22215D]" v-on:click="mostrarModal">Send</button>
+                </div>
             </form>
+        </div>
         </main>
         <footer>
             <div class="flex flex-col w-full p-4 bg-slate-400/20">
