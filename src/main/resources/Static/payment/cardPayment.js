@@ -51,7 +51,7 @@ let app = createApp({
                       "description" : this.description
                   }
                     console.log(body)
-                    axios.post("http://localhost:8081/api/cards/payments", body)
+                    axios.post("https://opythabank.onrender.com/api/cards/payments", body)
                     .then(result => {Swal.fire({
                             title: "Successful payment!",
                             text: "",
