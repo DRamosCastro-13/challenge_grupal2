@@ -14,7 +14,9 @@ let app = createApp({
         }
     },
     created(){
-       
+      const urlParams = new URLSearchParams(window.location.search);
+      const totalCarrito = urlParams.get('total');
+      this.amount = parseFloat(totalCarrito) || 0;
     },
 
     methods : {
