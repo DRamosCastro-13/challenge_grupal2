@@ -18,18 +18,21 @@ let app = createApp({
           selectedBrand: [],
           filteredBrandProducts: [],
           localStorage: [],
-          quantity:1,
+          quantities:1,
           saveQuantity:0,
           localStorageQuantity:0,
           search: "",
           lowStockProduct: [],
           cartItemCount: 0,
-          loadingData: true
+          loadingData: true,
+          isLoggedIn: false,
+          showDropdown: false,
+          error: '',
         }
     },
     created(){
-        this.loadData()
-  
+        this.loadData();
+        this.checkLogin()
        
     },
 
@@ -45,24 +48,72 @@ let app = createApp({
     },
 
     methods : {
-        agregarAlCarrito(product) {
-            let storageCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
-
-            
-          let carrito = this.checket(product)
-           if(!carrito){
-            storageCarrito.push({productId: product.id, quantity: this.quantity});
-            this.saveQuantity = this.quantity+1
+        checkLogin() {
+            axios.get('/api/clients/current')
+              .then(response => {
+                if (response.data.role == "CLIENT" || response.data.role == "ADMIN") {
+                  this.isLoggedIn = true;
+                }
+                else {
+                  this.isLoggedIn = false;
+                }
+              })
+              .catch(error => {
+                console.error("Error loading user data, please login", error);
+              });
+          },
+          logout() {
+            axios.post("/api/logout")
+                .then(response => {
+                    window.location.href = "/index.html";
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+          },
+          toggleDropdown() {
+            this.showDropdown = !this.showDropdown;
+          },
+          agregarAlCarrito(product) {
+            this.checkLogin();
+            if (!this.isLoggedIn) {
                
-                console.log(product);
-            }
+                Swal.fire({
+                    icon: "error",
+                    title: "Please log in or register to add products to the cart",
+                    text: "Redirecting you to the login page",
+                  });
 
-                
-            
-            localStorage.setItem("carrito", JSON.stringify(storageCarrito))
-            this.localStorage = storageCarrito
+                  setTimeout(() => {
+                    window.location.href = "../pages/register.html";
+                }, 4000);
+            }else{
+            let storageCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
+            let existingProductIndex = storageCarrito.findIndex(item => item.productId === product.id);
+            let quantity = parseInt(product.quantities) || 1;
     
 
+            if (existingProductIndex !== -1) {
+                // Si el producto ya está en el carrito, actualiza su cantidad
+                storageCarrito[existingProductIndex].quantity += quantity;
+                this.saveQuantity = storageCarrito[existingProductIndex].quantity;
+            } else {
+                // Si el producto no está en el carrito, agrégalo con la cantidad especificada
+                storageCarrito.push({ productId: product.id, quantity: quantity });
+                this.saveQuantity = quantity;
+            }
+        
+            localStorage.setItem("carrito", JSON.stringify(storageCarrito));
+            this.localStorage = storageCarrito;
+        
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Item added to cart",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            }            
         },
         checket(product){
             let storageCarrito = JSON.parse(localStorage.getItem("carrito")) || [];
